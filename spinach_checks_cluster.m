@@ -4,8 +4,6 @@ datapath = path_fix();
 
 addpath('spinach_examples/liquids')
 addpath('spinach_examples/solids')
-addpath('generator_data/liquids')
-addpath('generator_data/solids')
 
 %%%%%%% LIQUIDS
 

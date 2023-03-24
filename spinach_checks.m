@@ -2,13 +2,11 @@ clear;
 
 addpath('spinach_examples/liquids')
 addpath('spinach_examples/solids')
-addpath('generator_data/liquids')
-addpath('generator_data/solids')
 
 %%%%%%% LIQUIDS
 
-[spin_system, parameters, H, R, K] = build_hcch_tocsy_gb1();
-save('../data/generator_data/liquids/generators_hcch_tocsy_gb1.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
+% [spin_system, parameters, H, R, K] = build_hcch_tocsy_gb1();
+% save('../data/generator_data/liquids/generators_hcch_tocsy_gb1.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
 
 % [spin_system, parameters, H, R, K] = build_noesy_methanol();
 % save('../data/generator_data/liquids/generators_noesy_methanol.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
@@ -22,8 +20,8 @@ save('../data/generator_data/liquids/generators_hcch_tocsy_gb1.mat', 'H', 'R', '
 % [spin_system, parameters, H, R, K] = build_noesy_ubiquitin();
 % save('../data/generator_data/liquids/generators_noesy_ubiquitin.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
 
-% [spin_system, parameters, H, R, K] = build_noesyhsqc_ubiquitin_deut();
-% save('../data/generator_data/liquids/generators_noesyhsqc_ubiquitin_deut.mat', 'H', 'R', 'K', 'spin_system', 'parameters','-v7.3')
+[spin_system, parameters, H, R, K] = build_noesyhsqc_ubiquitin_deut();
+save('../data/generator_data/liquids/generators_noesyhsqc_ubiquitin_deut.mat', 'H', 'R', 'K', 'spin_system', 'parameters','-v7.3')
 
 %%%%%%% SOLIDS
 
