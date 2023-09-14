@@ -1,7 +1,7 @@
 clear;
 
-addpath('spinach_examples/liquids')
-addpath('spinach_examples/solids')
+addpath('spinach_examples/liquids/')
+addpath('spinach_examples/solids/')
 
 %%%%%%% LIQUIDS
 
@@ -15,7 +15,7 @@ addpath('spinach_examples/solids')
 % save('../data/generator_data/liquids/generators_noesy_strychnine.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
 
 % [spin_system, parameters, H, R, K] = build_noesy_sucrose();
-% save('../data/generator_data/liquids/generators_noesy_sucrose.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
+% save('../data/generator_data/liquids/generators_noesy_sucrose1.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
 
 % [spin_system, parameters, H, R, K] = build_noesy_ubiquitin();
 % save('../data/generator_data/liquids/generators_noesy_ubiquitin.mat', 'H', 'R', 'K', 'spin_system', 'parameters')
