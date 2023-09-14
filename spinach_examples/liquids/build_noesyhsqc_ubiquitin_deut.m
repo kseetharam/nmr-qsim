@@ -62,7 +62,10 @@ parameters.sweep=[10750 3000 10750];
 parameters.axis_units='ppm';
 
 % Simulation
-[H, R, K]=generator_liquid(spin_system,@noesyhsqc,parameters,'nmr');
+% [H, R, K]=generator_liquid(spin_system,@noesyhsqc,parameters,'nmr');
+H = [0];
+R = [0];
+K = [0];
 
 end
 
