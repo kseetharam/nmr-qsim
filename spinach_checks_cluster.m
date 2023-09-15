@@ -1,17 +1,15 @@
 clear;
 
 datapath = path_fix();
-% addpath('spinach_examples/liquids/')
-% addpath('spinach_examples/solids/')
-addpath('/n/holyscratch01/jaffe_lab/Everyone/kis/nmr-qsim/spinach_examples/liquids/')
-addpath('/n/holyscratch01/jaffe_lab/Everyone/kis/nmr-qsim/spinach_examples/solids/')
+% addpath(genpath('spinach_examples/liquids/'))
+% addpath(genpath('spinach_examples/solids/'))
+addpath(genpath('/n/holyscratch01/jaffe_lab/Everyone/kis/nmr-qsim/spinach_examples/liquids/'))
+addpath(genpath('/n/holyscratch01/jaffe_lab/Everyone/kis/nmr-qsim/spinach_examples/solids/'))
 
 
-% datapath = '../data/generator_data/liquids/';
-% % addpath('spinach_examples/liquids/')
-% % addpath('spinach_examples/solids/')
-% addpath('/Users/kis/KIS Dropbox/Kushal Seetharam/NMR QSim/Code/nmr-qsim/spinach_examples/liquids/')
-% addpath('/Users/kis/KIS Dropbox/Kushal Seetharam/NMR QSim/Code/nmr-qsim/spinach_examples/solids/')
+% datapath = '/Users/kis/KIS Dropbox/Kushal Seetharam/NMR QSim/Code/data/generator_data/liquids/';
+% addpath(genpath('/Users/kis/KIS Dropbox/Kushal Seetharam/NMR QSim/Code/nmr-qsim/spinach_examples/liquids/'))
+% addpath(genpath('/Users/kis/KIS Dropbox/Kushal Seetharam/NMR QSim/Code/nmr-qsim/spinach_examples/solids/'))
 
 %%%%%%% LIQUIDS
 
