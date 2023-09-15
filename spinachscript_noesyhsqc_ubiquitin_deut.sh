@@ -5,7 +5,7 @@
 #SBATCH --gres=gpu:2
 #SBATCH --gpu-freq=high
 #SBATCH --mem=498000
-#SBATCH -t 6-23:59
+#SBATCH -t 2-23:59
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=kis@mit.edu 
 #SBATCH --open-mode=append
