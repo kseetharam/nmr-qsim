@@ -9,7 +9,7 @@
 % i.kuprov@soton.ac.uk
 % andras_boeszoermenyi@hms.harvard.edu
 
-function [spin_system, parameters, H, R, K] = noesyhsqc_ubiquitin_deut()
+function [spin_system, parameters, H, R, K] = build_noesyhsqc_ubiquitin_deut()
 
 % Protein data import
 options.pdb_mol=1;
