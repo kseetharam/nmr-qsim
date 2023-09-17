@@ -1,9 +1,11 @@
 #!/bin/bash
 #SBATCH -J spinach_checks
-#SBATCH -p ultramem
-#SBATCH -n 64
-#SBATCH --mem=2000000
-#SBATCH -t 3-00:00
+#SBATCH -p gpu
+#SBATCH -n 32
+#SBATCH --gres=gpu:2
+#SBATCH --gpu-freq=high
+#SBATCH --mem=498000
+#SBATCH -t 2-23:59
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=kis@mit.edu 
 #SBATCH --open-mode=append
