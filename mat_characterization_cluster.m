@@ -1,9 +1,12 @@
+clear;
 
-addpath('spinach_examples/liquids/')
-addpath('spinach_examples/solids/')
+datapath = path_fix();
+addpath(genpath('/n/holyscratch01/jaffe_lab/Everyone/kis/nmr-qsim/spinach_examples/liquids/'))
+addpath(genpath('/n/holyscratch01/jaffe_lab/Everyone/kis/nmr-qsim/spinach_examples/solids/'))
+load(strcat(datapath,'generators_noesyhsqc_ubiquitin_deut.mat'))
 
-% H = H1; R = R1;
-% H = H2; R = R2;
+% datapath = '/Users/kis/KIS Dropbox/Kushal Seetharam/NMR QSim/Code/data/';
+% load(strcat(datapath,'generator_data/liquids/generators_noesyhsqc_ubiquitin_deut.mat'))
 
 M = size(H,1);  % linear dimension of reduced basis (H and R are square matrices)
 
@@ -13,33 +16,9 @@ R = inflate(R);
 H_density = num2str(100*nnz(H)/numel(H));  % percentage of non-zero elements
 R_density = num2str(100*nnz(R)/numel(R));  % percentage of non-zero elements
 
-%% Compute eigenvalues
-
-% datapath = '../data/generator_data/liquids';
-% 
-% % % Full matrix
-% % lambda_H = eig(full(H));
-% % lambda_R = eig(full(R));
-% % lambda_L = eig(full(H+R));
-% % save(strcat(datapath,'/eigenvalues_noesy_strychnine.mat'), 'lambda_H', 'lambda_R', 'lambda_L', '-v7.3')
-% 
-% M = 1
-% % Sparse matrix
-% lambda_H = eigs(H,M);
-% lambda_R = eigs(R,M);
-% lambda_L = eigs(H+R,M);
-% % save(strcat(datapath,'/eigenvalues_sparse_noesy_ubiquitin.mat'), 'lambda_H', 'lambda_R', 'lambda_L', '-v7.3')
-
-%%
-
-% figure(1)
-% hold on
-% plot(lambda_H,'k')
-% plot(lambda_R,'r')
-% plot(lambda_L,'g')
-% legend()
-
 %% Compute sparsity
+
+parpool('local', str2num(getenv('SLURM_CPUS_PER_TASK')))
 
 tic
 
@@ -65,9 +44,5 @@ disp(R_row_sparsity)
 disp('R_col_sparsity')
 disp(R_col_sparsity)
 
-%% Visualize
-
-% figure(1)
-% spy(H)
-% figure(2)
-% spy(R)
+delete(gcp);
+exit;
