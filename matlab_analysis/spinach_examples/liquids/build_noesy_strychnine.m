@@ -1,16 +1,15 @@
-% NOESY spectrum of sucrose (magnetic parameters computed with DFT).
+% NOESY spectrum of strychnine.
 %
 % Calculation time: minutes
 %
 % i.kuprov@soton.ac.uk
 % luke.edwards@ucl.ac.uk
 
-function [spin_system, parameters, H, R, K] = noesy_sucrose()
+function [spin_system, parameters, H, R, K] = build_noesy_strychnine()
 
-% Spin system properties (vacuum DFT calculation)
-options.min_j=1.0;
-[sys,inter]=g2spinach(gparse('sucrose.log'),...
-                                     {{'H','1H'}},31.8,options);
+% Spin system properties
+[sys,inter]=strychnine({'1H'});
+
 % Magnet field
 sys.magnet=5.9;
 
@@ -38,8 +37,8 @@ spin_system=basis(spin_system,bas);
 
 % Sequence parameters
 parameters.tmix=0.5;
-parameters.offset=800;
-parameters.sweep=[1700 1700];
+parameters.offset=1200;
+parameters.sweep=[2500 2500];
 parameters.npoints=[512 512];
 parameters.zerofill=[2048 2048];
 parameters.spins={'1H'};

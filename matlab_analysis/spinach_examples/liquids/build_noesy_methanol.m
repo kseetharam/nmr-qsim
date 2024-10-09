@@ -7,7 +7,7 @@
 % tim.claridge@chem.ox.ac.uk
 % i.kuprov@soton.ac.uk
 
-function [spin_system, parameters, H, R, K] = noesy_methanol()
+function [spin_system, parameters, H, R, K] = build_noesy_methanol()
 
 % Spin system properties (vacuum DFT calculation)
 [sys,inter]=g2spinach(gparse('methanol.log'),...
