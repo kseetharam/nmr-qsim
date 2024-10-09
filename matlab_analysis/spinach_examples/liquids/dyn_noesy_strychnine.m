@@ -5,7 +5,7 @@
 % i.kuprov@soton.ac.uk
 % luke.edwards@ucl.ac.uk
 
-function [spin_system, parameters, H, R, K] = noesy_strychnine()
+function [spin_system, parameters, H, R, K, rhot, rho0, obs_p, obs_z] = dyn_noesy_strychnine()
 
 % Spin system properties
 [sys,inter]=strychnine({'1H'});
@@ -37,6 +37,7 @@ spin_system=basis(spin_system,bas);
 
 % Sequence parameters
 parameters.tmix=0.5;
+parameters.npoints_mix = 100;
 parameters.offset=1200;
 parameters.sweep=[2500 2500];
 parameters.npoints=[512 512];
@@ -46,7 +47,7 @@ parameters.axis_units='ppm';
 parameters.needs={'rho_eq'};
 
 % Simulation
-[H, R, K]=generator_liquid(spin_system,@noesy,parameters,'nmr');
+[rhot, rho0, obs_p, obs_z, H, R, K]=dyn_liquid(spin_system,@noesy_trajectory,parameters,'nmr');
 
 end
 
