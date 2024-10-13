@@ -149,5 +149,5 @@ p.fid = fid;
 p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
 p.R = R;
 
-save DFG.mat p
+% save DFG.mat p
 
