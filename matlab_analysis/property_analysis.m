@@ -3,7 +3,7 @@ clear;
 
 addpath('spinach_examples/liquids/')
 addpath('spinach_examples/solids/')
-datapath = '../data/generator_data/liquids';
+datapath = '../../data/generator_data/liquids';
 
 %% Choose molecule
 
@@ -23,7 +23,7 @@ H = inflate(H);
 R = inflate(R);
 % L = H+1i*R; % Spinach convention (assuming the propagater e^{-1i*L})
 L = -1i*H+R;
-Lr = (L+L')/2;
+% Lr = (L+L')/2;
 
 stab_rank_L = (norm(L,'fro')/normest(L))^2; stab_rank_H = (norm(H,'fro')/normest(H))^2; stab_rank_R = (norm(R,'fro')/normest(R))^2;
 % stab_rank_L = (norm(L,'fro')/norm(full(L)))^2; stab_rank_H = (norm(H,'fro')/norm(full(H)))^2; stab_rank_R = (norm(R,'fro')/norm(full(R)))^2;
@@ -33,11 +33,20 @@ stab_rank_L = (norm(L,'fro')/normest(L))^2; stab_rank_H = (norm(H,'fro')/normest
 % [V_H,lambda_H] = eig(full(-1i*H));
 % [V_R,lambda_R] = eig(full(R));
 % [V_L,lambda_L] = eig(full(L));
-% [V_Lr,lambda_Lr] = eig(full(Lr));
+% % [V_Lr,lambda_Lr] = eig(full(Lr));
 % 
 % iVH = imag(V_H);
 % iVR = imag(V_R); isreal(V_R)
 % iVL = imag(V_L);
+
+%% Fixed point & gap analysis
+
+% [d, ind] = sort(real(diag(lambda_L)));
+% lambda_L_s = lambda_L(ind,ind);
+% V_L_s = V_L(:,ind);
+% l0 = lambda_L_s(end,end);
+% V0 = V_L_s(:,end);
+% V0(abs(V0)<1e-8) = 0;
 
 %% Compute metrics
 
@@ -53,14 +62,15 @@ stab_rank_L = (norm(L,'fro')/normest(L))^2; stab_rank_H = (norm(H,'fro')/normest
 
 % figure(1)
 % hold on
-% plot(real(lambda_H),imag(lambda_H),'gx')
-% plot(real(lambda_R),imag(lambda_R),'rx')
-% plot(real(lambda_L),imag(lambda_L),'kx')
-% plot(real(lambda_Lr),imag(lambda_Lr),'bx')
+% h1 = plot(real(lambda_H),imag(lambda_H),'gx');
+% h2 = plot(real(lambda_R),imag(lambda_R),'rx');
+% h3 = plot(real(lambda_L),imag(lambda_L),'kx');
+% % h4 = plot(real(lambda_Lr),imag(lambda_Lr),'bx')
 % xlabel('Real part')
 % ylabel('Imaginary part')
 % title('Eigenvalues')
-% legend('-iH','R','L','Lr')
+% legend([h1(1),h2(1),h3(1)],'-iH','R','L')
+% % axis([-0.05 0 -100 100])
 
 %% Visualize
 

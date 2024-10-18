@@ -43,7 +43,7 @@ def T2_min1(i):
 def T2_0(i):
     return np.sqrt(2.0/3.0)*(Sz(i)*Sz(i)-0.25*(S_plus(i)*S_minus(i)+S_minus(i)*S_plus(i)))
 
-##symbbolic functions...
+##symbolic functions...
 def T1_0_symb(i):
     coeff=1.0
     Str = 'Sz'+str(i)
