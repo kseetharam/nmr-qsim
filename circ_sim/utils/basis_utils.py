@@ -43,6 +43,23 @@ def T2_min1(i):
 def T2_0(i):
     return np.sqrt(2.0/3.0)*(Sz(i)*Sz(i)-0.25*(S_plus(i)*S_minus(i)+S_minus(i)*S_plus(i)))
 
+##symbbolic functions...
+def T1_0_symb(i):
+    coeff=1.0
+    Str = 'Sz'+str(i)
+    return coeff,Str
+
+def T1_1_symb(i):
+    coeff = -1.0/np.sqrt(2)
+    Str = 'S+'+str(i)
+    return coeff, Str
+
+def T1_min1_symb(i):
+    coeff = 1.0/np.sqrt(2)
+    Str = 'S-'+str(i)
+    return coeff, Str
+
+
 def read_spinach_info(text):
     lines = text.splitlines()
 
@@ -74,8 +91,60 @@ def build_list_ISTs(data):
         basis.append(ISTOp)
 
     return basis
-    
-#TODO: we get zeros for the 2-rank tensors. we need to undertand what is going on there... It turns out that for the 2 spin system this does not matter...
+
+def build_symbolic_list_ISTs(data):
+    """
+    From data extracted from text, build the list of the ISTs 
+    """
+    nspins = (len(data[0])-1)//2
+    sym_basis = []
+    prefactors = []
+
+    for element in data:
+        coeff_ISTOp = 1
+        init_str =''
+        for i in range(nspins):
+            #print(i)
+            coeff,Op = build_symb_IST(element[1+2*i],element[2+2*i],i)
+            #print("Operator is: ", Op)
+            if Op==None:
+                print("We obtain no element for element:", i)
+                print(element)
+            coeff_ISTOp=coeff_ISTOp*coeff
+            init_str+=' '+Op
+        sym_basis.append(init_str)
+        prefactors.append(coeff_ISTOp)
+
+    return prefactors,sym_basis
+
+
+
+def build_symb_IST(l,m,i):
+    """
+    Build the (l,m) IST for the i-th spin. It turns out that for dipolar interactions, we need to consider l=0,1,2
+    """
+    if l==0 and m==0:
+        return 1, ' '#QubitOperator([])
+    elif l==1 and m==0:
+        return T1_0_symb(i)
+    elif l==1 and m==-1:
+        return T1_min1_symb(i)
+    elif l==1 and m==1:
+        return T1_1_symb(i)
+    """
+    elif l==2 and m==0:
+        return T2_0(i)
+    elif l==2 and m==-2:
+        return T2_min2(i)
+    elif l==2 and m==-1:
+        return T2_min1(i)
+    elif l==2 and m==1:
+        return T2_1(i)
+    elif l==2 and m==2:
+        return T2_2(i)    
+    """
+
+
 
 def buildIST(l,m,i):
     """
