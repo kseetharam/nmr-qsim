@@ -56,7 +56,8 @@ bas.sym_spins={[2 3 4]};
 inter.relaxation={'redfield'};
 inter.equilibrium='zero';
 inter.temperature=310;
-inter.rlx_keep='secular';
+% inter.rlx_keep='secular';
+inter.rlx_keep='kite';
 inter.tau_c={0.05e-9};
 
 % inter.equilibrium='dibari';
@@ -173,8 +174,11 @@ parameters.rho0=state(spin_system,'Lz','1H','chem');
 
 
 % Apodization
-fid.cos=apodization(fid.cos,'sqcosbell-2d');
-fid.sin=apodization(fid.sin,'sqcosbell-2d');
+% fid.cos=apodization(fid.cos,'sqcosbell-2d');
+% fid.sin=apodization(fid.sin,'sqcosbell-2d');
+fid.cos=apodisation(spin_system,fid.cos,{{'sqcos'},{'sqcos'}});
+fid.sin=apodisation(spin_system,fid.sin,{{'sqcos'},{'sqcos'}});
+
 
 % F2 Fourier transform
 f1_cos=real(fftshift(fft(fid.cos,parameters.zerofill(2),1),1));
@@ -216,4 +220,4 @@ p.fid = fid;
 % p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
 p.R = R;
 
-save NOESYdata_ALA_withGradients.mat p
+save ALA_NOESY_withGradients_kite.mat p
