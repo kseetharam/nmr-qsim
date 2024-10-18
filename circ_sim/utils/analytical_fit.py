@@ -171,6 +171,187 @@ def K0_MatRep(freqs,tc,coords,Nspins,gamma,basis):
 
     return -Rel_Mat
 
+def Get_K2RatesAndOps(freqs,tc,coords,Nspins,gamma):
+
+    List_Jump_Ops = []
+    List_rates = []
+
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+            
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+
+                    damp_rate = GammaRates(freqs[k]+freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    List_Jump_Ops.append([S_plus(i)*S_plus(j),S_minus(k)*S_minus(l)])
+                    List_rates.append(damp_rate)
+
+                    List_Jump_Ops.append([S_minus(k)*S_minus(l),S_plus(i)*S_plus(j)])
+                    List_rates.append(damp_rate)
+
+                    List_Jump_Ops.append([S_plus(k)*S_plus(l),S_minus(i)*S_minus(j)])
+                    List_rates.append(damp_rate)
+
+                    List_Jump_Ops.append([S_minus(i)*S_minus(j),S_plus(k)*S_plus(l)])
+                    List_rates.append(damp_rate)
+
+
+    
+    return List_rates, List_Jump_Ops
+
+def Get_K1RatesAndOps(freqs,tc,coords,Nspins,gamma):
+    """
+    Function that computes the matrix representation of relaxation for the K1+k-1 contributions to the equations of motion
+    """
+    List_Jump_Ops = []
+    List_rates = []
+
+    
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+            
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+                    
+                    damp_rate_l = GammaRates(freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_k = GammaRates(freqs[k],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    List_Jump_Ops.append([Sz(i)*S_plus(j),Sz(k)*S_minus(l)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([Sz(k)*S_plus(l),Sz(i)*S_minus(j)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([Sz(k)*S_minus(l),Sz(i)*S_plus(j)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([Sz(i)*S_minus(j),Sz(k)*S_plus(l)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([S_plus(i)*Sz(j),Sz(k)*S_minus(l)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([Sz(k)*S_plus(l),S_minus(i)*Sz(j)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([Sz(k)*S_minus(l),S_plus(i)*Sz(j)])
+                    List_rates.append(damp_rate_l)
+
+                    List_Jump_Ops.append([S_minus(i)*Sz(j),Sz(k)*S_plus(l)])
+                    List_rates.append(damp_rate_l)
+
+
+                    List_Jump_Ops.append([S_plus(i)*Sz(j),S_minus(k)*Sz(l)])
+                    List_rates.append(damp_rate_k)
+
+                    List_Jump_Ops.append([S_plus(k)*Sz(l),S_minus(i)*Sz(j)])
+                    List_rates.append(damp_rate_k)
+
+                    List_Jump_Ops.append([S_minus(k)*Sz(l),S_plus(i)*Sz(j)])
+                    List_rates.append(damp_rate_k)
+
+                    List_Jump_Ops.append([S_minus(i)*Sz(j),S_plus(k)*Sz(l)])
+                    List_rates.append(damp_rate_k)
+
+                    List_Jump_Ops.append([Sz(i)*S_plus(j),S_minus(k)*Sz(l)])
+                    List_rates.append(damp_rate_k)
+
+                    List_Jump_Ops.append([S_plus(k)*Sz(l),Sz(i)*S_minus(j)])
+                    List_rates.append(damp_rate_k)
+
+                    List_Jump_Ops.append([S_minus(k)*Sz(l),Sz(i)*S_plus(j)])
+                    List_rates.append(damp_rate_k)
+                    
+                    List_Jump_Ops.append([Sz(i)*S_minus(j),S_plus(k)*Sz(l)])
+                    List_rates.append(damp_rate_k)
+
+                    #dum_k = MatRep(basis,S_plus(i)*Sz(j),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),S_minus(i)*Sz(j))
+                    #dum_k += MatRep(basis,Sz(i)*S_plus(j),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),Sz(i)*S_minus(j))
+                    #dum_k+=np.conjugate(np.transpose(dum_k))
+
+                    #Rel_Mat += damp_rate_l*dum_l+damp_rate_k*dum_k
+                    
+    return List_rates, List_Jump_Ops
+
+def Get_K0RatesAndOps(freqs,tc,coords,Nspins,gamma):
+    """
+    Function that computes the matrix representation of relaxation for the K0 contributions to the equations of motion
+    """
+
+    List_Jump_Ops = []
+    List_rates = []
+    
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+            
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+
+                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    List_Jump_Ops.append([Sz(i)*Sz(j),Sz(k)*Sz(l)])
+                    List_rates.append((8.0/3.0)*damp_rate_0)
+                    List_Jump_Ops.append([Sz(k)*Sz(l),Sz(i)*Sz(j)])
+                    List_rates.append((8.0/3.0)*damp_rate_0)
+
+                    List_Jump_Ops.append([S_plus(i)*S_minus(j),Sz(k)*Sz(l)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_0)
+                    List_Jump_Ops.append([Sz(k)*Sz(l),S_minus(i)*S_plus(j)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_0)
+
+                    List_Jump_Ops.append([Sz(k)*Sz(l),S_plus(i)*S_minus(j)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_0)
+                    List_Jump_Ops.append([S_minus(i)*S_plus(j),Sz(k)*Sz(l)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_0)
+
+                    List_Jump_Ops.append([Sz(i)*Sz(j),S_minus(k)*S_plus(l)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_diff)
+                    List_Jump_Ops.append([S_plus(k)*S_minus(l),Sz(i)*Sz(j)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_diff)
+
+                    List_Jump_Ops.append([S_minus(k)*S_plus(l),Sz(i)*Sz(j)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_diff)
+                    List_Jump_Ops.append([Sz(i)*Sz(j),S_plus(k)*S_minus(l)])
+                    List_rates.append(-(2.0/3.0)*damp_rate_diff)
+
+                    List_Jump_Ops.append([S_plus(i)*S_minus(j),S_minus(k)*S_plus(l)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+                    List_Jump_Ops.append([S_plus(k)*S_minus(l),S_minus(i)*S_plus(j)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+
+                    List_Jump_Ops.append([S_minus(k)*S_plus(l),S_plus(i)*S_minus(j)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+                    List_Jump_Ops.append([S_minus(i)*S_plus(j),S_plus(k)*S_minus(l)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+
+                    List_Jump_Ops.append([S_minus(i)*S_plus(j),S_minus(k)*S_plus(l)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+                    List_Jump_Ops.append([S_plus(k)*S_minus(l),S_plus(i)*S_minus(j)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+
+                    List_Jump_Ops.append([S_minus(k)*S_plus(l),S_minus(i)*S_plus(j)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+                    List_Jump_Ops.append([S_plus(i)*S_minus(j),S_plus(k)*S_minus(l)])
+                    List_rates.append((1.0/6.0)*damp_rate_diff)
+
+
+                    #dum_0 = -(8.0/3.0)*MatRep(basis,Sz(i)*Sz(j),Sz(k)*Sz(l))
+                    #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j)))
+                    #dum_0 += np.conjugate(np.transpose(dum_0))
+
+                    #dum_diff = (2.0/3.0)*(MatRep(basis,Sz(i)*Sz(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),Sz(i)*Sz(j)))
+                    #dum_diff+= -(1.0/6.0)*(MatRep(basis,S_plus(i)*S_minus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_minus(i)*S_plus(j)))
+                    #dum_diff+=-(1.0/6.0)*(MatRep(basis,S_minus(i)*S_plus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_plus(i)*S_minus(j)))
+                    #dum_diff+=np.conjugate(np.transpose(dum_diff))
+
+                    #Rel_Mat+=damp_rate_0*dum_0+damp_rate_diff*dum_diff
+
+    return List_rates,List_Jump_Ops
+
+
+
 def GetRelManySpins(freqs,coords,tc,gamma,basis):
     """
     Returns: a matrix representation of the Relaxation super-operator for many spins
