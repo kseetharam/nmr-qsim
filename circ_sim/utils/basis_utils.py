@@ -16,6 +16,12 @@ def S_minus(i):
 def Sz(i):
     return 0.5*QubitOperator('Z'+str(i))
 
+def Sx(i):
+    return 0.5*QubitOperator('X'+str(i))
+
+def Sy(i):
+    return 0.5*QubitOperator('Y'+str(i))
+
 def T1_0(i):
     return Sz(i)
 
