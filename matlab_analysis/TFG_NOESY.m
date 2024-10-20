@@ -23,7 +23,8 @@ bas.approximation='none';
 inter.relaxation={'redfield'};
 inter.equilibrium='dibari';
 inter.temperature=310;
-inter.rlx_keep='secular';
+% inter.rlx_keep='secular';
+inter.rlx_keep='kite';
 inter.tau_c={0.951e-9};
 
 spin_system=create(sys,inter);
@@ -126,8 +127,10 @@ fid_test.sin = fid_temp(:,:,2) - fid_temp(:,:,4);
 
 
 % Apodization
-fid.cos=apodization(fid.cos,'sqcosbell-2d');
-fid.sin=apodization(fid.sin,'sqcosbell-2d');
+% fid.cos=apodization(fid.cos,'sqcosbell-2d');
+% fid.sin=apodization(fid.sin,'sqcosbell-2d');
+fid.cos=apodisation(spin_system,fid.cos,{{'sqcos'},{'sqcos'}});
+fid.sin=apodisation(spin_system,fid.sin,{{'sqcos'},{'sqcos'}});
 
 % F2 Fourier transform
 f1_cos=real(fftshift(fft(fid.cos,parameters.zerofill(2),1),1));
@@ -147,6 +150,7 @@ plot_2d(spin_system,-real(spectrum),parameters,...
 
 
 %% save parameters
+
 dt=1./parameters.sweep;
 time_grid1 = 0:dt(1):(parameters.npoints(1)-1)*dt(1); % t1 evolution
 time_grid2 = 0:dt(2):(parameters.npoints(2)-1)*dt(2); % final detection
@@ -161,5 +165,5 @@ p.fid = fid;
 p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
 p.R = R;
 
-save TFG.mat p
+save TFG_kite.mat p
 
