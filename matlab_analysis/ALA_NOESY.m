@@ -85,9 +85,9 @@ parameters.rho0=state(spin_system,'Lz','1H','chem');
 % [fid]=liquid(spin_system,@noesy,parameters,'nmr');
 
 
-% %% Perform matrix exponentiation checks 
-% % (note: using @liquid1 for H, R, K and @noesy1 which does not have magnetic field gradients)
-% 
+%% Perform matrix exponentiation checks 
+% (note: using @liquid1 for H, R, K and @noesy1 which does not have magnetic field gradients)
+
 % dt=1./parameters.sweep;
 % Lx=operator(spin_system,'Lx',parameters.spins{1});
 % Ly=operator(spin_system,'Ly',parameters.spins{1});
@@ -160,19 +160,6 @@ parameters.rho0=state(spin_system,'Lz','1H','chem');
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 % Apodization
 % fid.cos=apodization(fid.cos,'sqcosbell-2d');
 % fid.sin=apodization(fid.sin,'sqcosbell-2d');
@@ -195,29 +182,20 @@ figure(); scale_figure([1.5 2.0]);
 plot_2d(spin_system,-real(spectrum),parameters,...
         20,[0.02 0.2 0.02 0.2],2,256,6,'both');
 
+%% save parameters
 
-
-
-
-
-
-
-
-
-
-
-dt=1./parameters.sweep;
-time_grid1 = 0:dt(1):(parameters.npoints(1)-1)*dt(1); % t1 evolution
-time_grid2 = 0:dt(2):(parameters.npoints(2)-1)*dt(2); % final detection
-
-
-p = parameters;
-p.time_grid1 = time_grid1;
-p.time_grid2 = time_grid2;
-p.H = H;
-p.R = R;
-p.fid = fid;
-% p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
-p.R = R;
-
+% dt=1./parameters.sweep;
+% time_grid1 = 0:dt(1):(parameters.npoints(1)-1)*dt(1); % t1 evolution
+% time_grid2 = 0:dt(2):(parameters.npoints(2)-1)*dt(2); % final detection
+% 
+% 
+% p = parameters;
+% p.time_grid1 = time_grid1;
+% p.time_grid2 = time_grid2;
+% p.H = H;
+% p.R = R;
+% p.fid = fid;
+% % p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
+% p.R = R;
+% 
 % save ALA_NOESY_withGradients_kite.mat p
