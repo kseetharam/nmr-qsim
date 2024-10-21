@@ -18,7 +18,8 @@ inter.relaxation={'redfield'};
 inter.equilibrium='zero';
 % inter.equilibrium='dibari';
 inter.temperature=310;
-inter.rlx_keep='secular';
+%inter.rlx_keep='secular';
+inter.rlx_keep='kite';
 inter.tau_c={0.5255e-9};
 
 spin_system=create(sys,inter);
@@ -59,7 +60,11 @@ U90x = expm(-1i*Lx*pi/2);
 rho_initial = U90x*parameters.rho0;
 
 % t1 evolutionl
-L_net=H+1i*R+1i*K;
+%loading relaxation matrix constructed with ZZ jump operators only
+load('../circ_sim/DFG_ZZRel.mat')
+
+%L_net=H+1i*R+1i*K;
+L_net = H+1i*ZZRel+1i*K;
 L_dt1 = expm(-1i*L_net*dt(1));
 rho_stack = zeros(16,parameters.npoints(1));
 rho_stack(:,1) = rho_initial;
@@ -116,8 +121,12 @@ fid_test.sin = fid_temp(:,:,2) - fid_temp(:,:,4);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Apodization
-fid.cos=apodization(fid.cos,'sqcosbell-2d');
-fid.sin=apodization(fid.sin,'sqcosbell-2d');
+%fid.cos=apodization(fid.cos,'sqcosbell-2d');
+%fid.sin=apodization(fid.sin,'sqcosbell-2d');
+%use the fid signal generated with modified propagator to get the NOESY
+%spectrum
+fid.cos=apodization(fid_test.cos,'sqcosbell-2d');
+fid.sin=apodization(fid_test.sin,'sqcosbell-2d');
 
 % F2 Fourier transform
 f1_cos=real(fftshift(fft(fid.cos,parameters.zerofill(2),1),1));
