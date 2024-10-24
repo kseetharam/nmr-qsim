@@ -171,69 +171,6 @@ def K0_MatRep(freqs,tc,coords,Nspins,gamma,basis):
 
     return -Rel_Mat
 
-def Kite_relMat(freqs,tc,coords,Nspins,gamma,basis):
-    "In construction toi verify yhe Kite form of relaxation matrix"
-
-
-    K2 = K2_MatRep(freqs,tc,coords,Nspins,gamma,basis)
-
-    Zz_cont = ZZ_RelChanMatRep(freqs,tc,coords,Nspins,gamma,basis)
-
-    return 0.25*K2+Zz_cont
-
-
-
-def ZZ_RelChanMatRep(freqs,tc,coords,Nspins,gamma,basis):
-    """
-    Compute the Linbladian relaxation channels with Jump operators that consist of products of Z operators only 
-    """
-    def MatRep(w,An,Am):
-        return MatRepLib(w,An,Am,n_qubits=Nspins)
-    
-    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
-
-    for i in range(Nspins):
-        for j in range(i+1,Nspins):
-            
-            for k in range(Nspins):
-                for l in range(k+1,Nspins):
-                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
-                    #damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
-
-                    dum_0 = -(8.0/3.0)*MatRep(basis,Sz(i)*Sz(j),Sz(k)*Sz(l))
-                    #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j)))
-                    
-                    dum_0 += np.conjugate(np.transpose(dum_0))
-
-                    #dum_diff= -(1.0/6.0)*(MatRep(basis,S_plus(i)*S_minus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_minus(i)*S_plus(j)))
-                    #dum_diff+=np.conjugate(np.transpose(dum_diff))
-                    Rel_Mat+=damp_rate_0*dum_0#+damp_rate_diff*dum_diff
-
-    return -0.25*Rel_Mat
-
-def ZZ_relChanMatRep_Parallel(tc,coords,Nspins,gamma,basis,num_workers):
-    def MatRep(w,An,Am):
-        return MatRepLibParallel(w,An,Am,n_qubits=Nspins,num_workers=num_workers)
-    
-    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
-
-    for i in range(Nspins):
-        for j in range(i+1,Nspins):
-            
-            for k in range(Nspins):
-                for l in range(k+1,Nspins):
-                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
-                    #damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
-
-                    dum_0 = -(8.0/3.0)*MatRep(basis,Sz(i)*Sz(j),Sz(k)*Sz(l))
-                    #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j)))
-                    #dum_0 += np.conjugate(np.transpose(dum_0))
-                    Rel_Mat+=damp_rate_0*dum_0
-
-    #print("Testing using the correct ")
-    return -0.25*Rel_Mat
-
-
 
 
 def Get_K2RatesAndOps(freqs,tc,coords,Nspins,gamma,get_strs=True):
@@ -672,3 +609,438 @@ def GetRelManySpinsParallel(freqs,coords,tc,gamma,basis,num_workers=None):
     #return K2 
 
 
+def Loc_K2_MatRep(freqs,tc,coords,Nspins,gamma,basis):
+    """
+    Function to compute the matrix representation of the K2+K-2 Linbladian contributions to the equations of motion
+    """
+    def MatRep(w,An,Am):
+        return MatRepLib(w,An,Am,n_qubits=Nspins)
+    
+    #Construction of the matrix representation of linbladians...
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+    
+    #for i in range(Nspins):
+    #    for j in range(i+1,Nspins):
+            
+    for k in range(Nspins):
+        for l in range(k+1,Nspins):
+
+            damp_rate = GammaRates(freqs[k]+freqs[l],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+            
+            dum=MatRep(basis,S_plus(k)*S_plus(l),S_plus(k)*S_plus(l))+MatRep(basis,S_minus(k)*S_minus(l),S_minus(k)*S_minus(l))
+            dum+=np.conjugate(np.transpose(dum))
+
+            Rel_Mat+=damp_rate*dum          
+                    
+    return 0.25*Rel_Mat
+
+
+def Loc_K1_MatRep(freqs,tc,coords,Nspins,gamma,basis):
+    """
+    Compute the self-relxation channels coming from the K=1 type terms, for the 2 spin system, we obtain a Kite-type relxation matrix
+    """
+    def MatRep(w,An,Am):
+        return MatRepLib(w,An,Am,n_qubits=Nspins)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    #for i in range(Nspins):
+    #    for j in range(i+1,Nspins):
+            
+    for k in range(Nspins):
+        for l in range(k+1,Nspins):
+            damp_rate_l = GammaRates(freqs[l],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+            damp_rate_k = GammaRates(freqs[k],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+
+            dum_l = MatRep(basis,Sz(k)*S_plus(l),Sz(k)*S_plus(l))+MatRep(basis,Sz(k)*S_minus(l),Sz(k)*S_minus(l))
+            #dum_l+= MatRep(basis,S_plus(i)*Sz(j),Sz(k)*S_plus(l))+MatRep(basis,Sz(k)*S_minus(l),S_minus(i)*Sz(j))
+            dum_l+=np.conjugate(np.transpose(dum_l))
+
+            dum_k = MatRep(basis,S_plus(k)*Sz(l),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),S_minus(k)*Sz(l))
+            #dum_k += MatRep(basis,Sz(i)*S_plus(j),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),Sz(i)*S_minus(j))
+            dum_k+=np.conjugate(np.transpose(dum_k))
+
+            Rel_Mat += damp_rate_l*dum_l+damp_rate_k*dum_k
+
+    return 0.25*Rel_Mat
+
+def Loc_K0_MatRep(freqs,tc,coords,Nspins,gamma,basis):
+     
+    def MatRep(w,An,Am):
+        return MatRepLib(w,An,Am,n_qubits=Nspins)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    #for i in range(Nspins):
+    #    for j in range(i+1,Nspins):
+            
+    for k in range(Nspins):
+        for l in range(k+1,Nspins):
+            damp_rate_0 = GammaRates(0,tc,coords[k],coords[l],coords[k],coords[l],gamma)
+            damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+
+            dum_0 = -(8.0/3.0)*MatRep(basis,Sz(k)*Sz(l),Sz(k)*Sz(l))
+            #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j))) adding this removes the kite structure
+            
+            dum_0 += np.conjugate(np.transpose(dum_0))
+
+            dum_diff= -(1.0/6.0)*(MatRep(basis,S_plus(k)*S_minus(l),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_minus(k)*S_plus(l)))
+            #dum_diff+=-(1.0/6.0)*(MatRep(basis,S_minus(i)*S_plus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_plus(i)*S_minus(j))) #adding this removes the kite structure
+            dum_diff+=np.conjugate(np.transpose(dum_diff))
+
+
+            Rel_Mat+=damp_rate_0*dum_0+damp_rate_diff*dum_diff
+
+    return -0.25*Rel_Mat
+
+
+def KiteRelMatrixMany(freqs,tc,coords,Nspins,gamma,basis):
+
+    K2 = Loc_K2_MatRep(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K2 type contributions")
+    K1 = Loc_K1_MatRep(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K1 type contributions")
+    K0 = Loc_K0_MatRep(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K0 type contributions")
+    
+
+    return K2+K1+K0
+
+def ApproxKiteMany(freqs,tc,coords,Nspins,gamma,basis):
+
+    K1 = Loc_K1_MatRep(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K1 type contributions")
+
+    K0 = Loc_K0_MatRep(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K0 type contributions")
+    
+
+    return K1+K0
+
+
+## Parallel version of previous functions...
+def Loc_K2_MatRepParallel(freqs,tc,coords,Nspins,gamma,basis,num_workers=None):
+    """
+    Function to compute the matrix representation of the K2+K-2 Linbladian contributions to the equations of motion
+    """
+    def MatRep(w,An,Am):
+        return MatRepLibParallel(w,An,Am,n_qubits=Nspins,num_workers=num_workers)
+    
+    #Construction of the matrix representation of linbladians...
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+    
+    #for i in range(Nspins):
+    #    for j in range(i+1,Nspins):
+            
+    for k in range(Nspins):
+        for l in range(k+1,Nspins):
+
+            damp_rate = GammaRates(freqs[k]+freqs[l],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+            
+            dum=MatRep(basis,S_plus(k)*S_plus(l),S_plus(k)*S_plus(l))+MatRep(basis,S_minus(k)*S_minus(l),S_minus(k)*S_minus(l))
+            dum+=np.conjugate(np.transpose(dum))
+
+            Rel_Mat+=damp_rate*dum          
+                    
+    return 0.25*Rel_Mat
+
+
+def Loc_K1_MatRepParallel(freqs,tc,coords,Nspins,gamma,basis,num_workers=None):
+    """
+    Compute the self-relxation channels coming from the K=1 type terms, for the 2 spin system, we obtain a Kite-type relxation matrix
+    """
+    def MatRep(w,An,Am):
+        return MatRepLibParallel(w,An,Am,n_qubits=Nspins,num_workers=num_workers)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    #for i in range(Nspins):
+    #    for j in range(i+1,Nspins):
+            
+    for k in range(Nspins):
+        for l in range(k+1,Nspins):
+            damp_rate_l = GammaRates(freqs[l],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+            damp_rate_k = GammaRates(freqs[k],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+
+            dum_l = MatRep(basis,Sz(k)*S_plus(l),Sz(k)*S_plus(l))+MatRep(basis,Sz(k)*S_minus(l),Sz(k)*S_minus(l))
+            #dum_l+= MatRep(basis,S_plus(i)*Sz(j),Sz(k)*S_plus(l))+MatRep(basis,Sz(k)*S_minus(l),S_minus(i)*Sz(j))
+            dum_l+=np.conjugate(np.transpose(dum_l))
+
+            dum_k = MatRep(basis,S_plus(k)*Sz(l),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),S_minus(k)*Sz(l))
+            #dum_k += MatRep(basis,Sz(i)*S_plus(j),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),Sz(i)*S_minus(j))
+            dum_k+=np.conjugate(np.transpose(dum_k))
+
+            Rel_Mat += damp_rate_l*dum_l+damp_rate_k*dum_k
+
+    return 0.25*Rel_Mat
+
+def Loc_K0_MatRepParallel(freqs,tc,coords,Nspins,gamma,basis,num_workers=None):
+     
+    def MatRep(w,An,Am):
+        return MatRepLibParallel(w,An,Am,n_qubits=Nspins,num_workers=num_workers)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    #for i in range(Nspins):
+    #    for j in range(i+1,Nspins):
+            
+    for k in range(Nspins):
+        for l in range(k+1,Nspins):
+            damp_rate_0 = GammaRates(0,tc,coords[k],coords[l],coords[k],coords[l],gamma)
+            damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[k],coords[l],coords[k],coords[l],gamma)
+
+            dum_0 = -(8.0/3.0)*MatRep(basis,Sz(k)*Sz(l),Sz(k)*Sz(l))
+            #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j))) adding this removes the kite structure
+            
+            dum_0 += np.conjugate(np.transpose(dum_0))
+
+            dum_diff= -(1.0/6.0)*(MatRep(basis,S_plus(k)*S_minus(l),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_minus(k)*S_plus(l)))
+            #dum_diff+=-(1.0/6.0)*(MatRep(basis,S_minus(i)*S_plus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_plus(i)*S_minus(j))) #adding this removes the kite structure
+            dum_diff+=np.conjugate(np.transpose(dum_diff))
+
+
+            Rel_Mat+=damp_rate_0*dum_0+damp_rate_diff*dum_diff
+
+    return -0.25*Rel_Mat
+
+
+def KiteRelMatrixManyParallel(freqs,tc,coords,Nspins,gamma,basis,num_workers=None):
+
+    K2 = Loc_K2_MatRepParallel(freqs,tc,coords,Nspins,gamma,basis,num_workers=num_workers)
+    print("Finished computing the K2 type contributions")
+    K1 = Loc_K1_MatRepParallel(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K1 type contributions")
+    K0 = Loc_K0_MatRepParallel(freqs,tc,coords,Nspins,gamma,basis)
+    print("Finished computing the K0 type contributions")
+    
+
+    return K2+K1+K0
+
+
+
+def get_chemical_shifts(gamma,B0,zeeman_scalars):
+    """ 
+    Returns: list of chemical shifts
+    Args: 
+    gamma: the gyromagnetic ratio of the nuclei, assumed to be the same for all
+    B0: streng of the magnetic field
+    zeeman_scalars: array that contain the isotropic chemical shifts, in ppm
+    """
+    w0 = -gamma*B0
+
+    list_chem = []
+
+    for i in range(len(zeeman_scalars)):
+        list_chem.append(w0*zeeman_scalars[i]/1e6)
+
+    return list_chem
+
+def str_S_plus(i):
+    return 'S'+str(i)+'+'
+
+def str_S_minus(i):
+    return 'S'+str(i)+'-'
+
+def str_Sz(i):
+    return 'S'+str(i)+'z'
+
+
+def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
+    """
+    Returns: 1) list of strings for pairs of jump operators that define a relaxation channel 2) its associated damping rate and 3) its oscillatory rate in the rotating frame of the the zeroth-order
+    Hamiltonian
+    Args:
+    freqs: is the list of the complete isotropic Zeeman frequencies for the spins
+    tc: correlation time for the classical rotational bath (in seconds)
+    coords: list that contains the cartesian coordinates of the spins (in meters)
+    Nspins: number of spins 
+    gamma: gyromagnetic ratio for spins (assuming an homonuclear scenario)
+    chemical shifts: list of chemical shifts for the spins
+    """
+
+    list_jumps = []
+    list_damp_rates = []
+    list_dets = []
+
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+                    delt_i = chemical_shifts[i]
+                    delt_j = chemical_shifts[j]
+                    delt_k =  chemical_shifts[k]
+                    delt_l = chemical_shifts[l]
+
+                    damp_rate_sum = GammaRates(freqs[k]+freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_k = GammaRates(freqs[k],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_l = GammaRates(freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    list_jumps.append([str_S_plus(i)+str_S_plus(j),str_S_minus(k)+str_S_minus(l)])
+                    list_jumps.append([str_S_minus(k)+str_S_minus(l),str_S_plus(i)+str_S_plus(j)])
+                    list_jumps.append([str_Sz(i)+str_S_plus(j),str_Sz(k)+str_S_minus(l)])
+
+                    list_jumps.append([str_Sz(k)+str_S_minus(l), str_Sz(i)+str_S_plus(j)])
+                    list_jumps.append([str_S_plus(i)+str_Sz(j), str_Sz(k)+str_S_minus(l)])
+                    list_jumps.append([str_Sz(k)+str_S_minus(l), str_S_plus(i)+str_Sz(j)])
+                    list_jumps.append([str_S_plus(i)+str_Sz(j), str_S_minus(k)+str_Sz(l)])
+                    list_jumps.append([str_S_minus(k)+str_Sz(l), str_S_plus(i)+str_Sz(j)])
+                    list_jumps.append([str_Sz(i)+str_S_plus(j), str_S_minus(k)+str_Sz(l)])
+                    list_jumps.append([str_S_minus(k)+str_Sz(l), str_Sz(i)+str_S_plus(j)])
+                    list_jumps.append([str_Sz(i)+str_Sz(j), str_Sz(k)+str_Sz(l)])
+                    list_jumps.append([str_S_plus(i)+str_S_minus(j), str_Sz(k)+str_Sz(l)])
+                    list_jumps.append([str_Sz(k)+str_Sz(l), str_S_plus(i)+str_S_minus(j)])
+                    list_jumps.append([str_Sz(i)+str_Sz(j), str_S_minus(k)+str_S_plus(l)])
+                    list_jumps.append([str_S_minus(k)+str_S_plus(l), str_Sz(i)+str_Sz(j)])
+                    list_jumps.append([str_S_plus(i)+str_S_minus(j), str_S_minus(k)+str_S_plus(l)])
+                    list_jumps.append([str_S_minus(k)+str_S_plus(l), str_S_plus(i)+str_S_minus(j)])
+                    list_jumps.append([str_S_minus(i)+str_S_plus(j), str_S_minus(k)+str_S_plus(l)])
+                    list_jumps.append([str_S_minus(k)+str_S_plus(l), str_S_minus(i)+str_S_plus(j)])
+                    ###list of damping rates...
+                    list_damp_rates.append(0.25*damp_rate_sum)
+                    list_damp_rates.append(0.25*damp_rate_sum)
+                    list_damp_rates.append(0.25*damp_rate_l)
+                    list_damp_rates.append(0.25*damp_rate_l)
+                    list_damp_rates.append(0.25*damp_rate_l)
+                    list_damp_rates.append(0.25*damp_rate_l)
+                    list_damp_rates.append(0.25*damp_rate_k)
+                    list_damp_rates.append(0.25*damp_rate_k)
+                    list_damp_rates.append(0.25*damp_rate_k)
+                    list_damp_rates.append(0.25*damp_rate_k)
+                    list_damp_rates.append((2.0/3.0)*damp_rate_0)
+                    list_damp_rates.append((1.0/6.0)*damp_rate_0)
+                    list_damp_rates.append((1.0/6.0)*damp_rate_0)
+                    list_damp_rates.append((1.0/6.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/6.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    #list of detunings...
+                    list_dets.append(np.abs(delt_i+delt_j-delt_k-delt_l))
+                    list_dets.append(np.abs(delt_i+delt_j-delt_k-delt_l))
+                    list_dets.append(np.abs(delt_j-delt_l))
+                    list_dets.append(np.abs(delt_j-delt_l))
+                    list_dets.append(np.abs(delt_i-delt_l))
+                    list_dets.append(np.abs(delt_i-delt_l))
+                    list_dets.append(np.abs(delt_i-delt_k))
+                    list_dets.append(np.abs(delt_i-delt_k))
+                    list_dets.append(np.abs(delt_j-delt_k))
+                    list_dets.append(np.abs(delt_j-delt_k))
+                    list_dets.append(0)
+                    list_dets.append(np.abs(delt_i-delt_j))
+                    list_dets.append(np.abs(delt_i-delt_j))
+                    list_dets.append(np.abs(delt_l-delt_k))
+                    list_dets.append(np.abs(delt_l-delt_k))
+                    list_dets.append(np.abs(delt_i+delt_l-delt_j-delt_k))
+                    list_dets.append(np.abs(delt_i+delt_l-delt_j-delt_k))
+                    list_dets.append(np.abs(delt_j+delt_l-delt_i-delt_k))
+                    list_dets.append(np.abs(delt_j+delt_l-delt_i-delt_k))
+
+    return list_jumps, list_damp_rates, list_dets
+
+
+
+
+
+
+###       #DEPRECATED  ##############################################################################
+def Kite_relMat(freqs,tc,coords,Nspins,gamma,basis):
+    "In construction toi verify yhe Kite form of relaxation matrix"
+
+
+    K2 = K2_MatRep(freqs,tc,coords,Nspins,gamma,basis)
+
+    K1 = SelfRelaxK1MatRep(freqs,tc,coords,Nspins,gamma,basis)
+    Zz_cont = ZZ_RelChanMatRep(freqs,tc,coords,Nspins,gamma,basis)
+
+    return 0.25*K2+0.25*K1+Zz_cont
+
+
+
+def ZZ_RelChanMatRep(freqs,tc,coords,Nspins,gamma,basis):
+    """
+    Compute the Linbladian relaxation channels with Jump operators that consist of products of Z operators only 
+    """
+    def MatRep(w,An,Am):
+        return MatRepLib(w,An,Am,n_qubits=Nspins)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+            
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    dum_0 = -(8.0/3.0)*MatRep(basis,Sz(i)*Sz(j),Sz(k)*Sz(l))
+                    #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j))) adding this removes the kite structure
+                    
+                    dum_0 += np.conjugate(np.transpose(dum_0))
+
+                    dum_diff= -(1.0/6.0)*(MatRep(basis,S_plus(i)*S_minus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_minus(i)*S_plus(j)))
+                    #dum_diff+=-(1.0/6.0)*(MatRep(basis,S_minus(i)*S_plus(j),S_plus(k)*S_minus(l))+MatRep(basis,S_minus(k)*S_plus(l),S_plus(i)*S_minus(j))) #adding this removes the kite structure
+                    dum_diff+=np.conjugate(np.transpose(dum_diff))
+
+
+                    Rel_Mat+=damp_rate_0*dum_0+damp_rate_diff*dum_diff
+
+    return -0.25*Rel_Mat
+
+def SelfRelaxK1MatRep(freqs,tc,coords,Nspins,gamma,basis):
+    """
+    Compute the self-relxation channels coming from the K=1 type terms, for the 2 spin system, we obtain a Kite-type relxation matrix
+    """
+    def MatRep(w,An,Am):
+        return MatRepLib(w,An,Am,n_qubits=Nspins)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+            
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+                    damp_rate_l = GammaRates(freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_k = GammaRates(freqs[k],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    dum_l = MatRep(basis,Sz(i)*S_plus(j),Sz(k)*S_plus(l))+MatRep(basis,Sz(k)*S_minus(l),Sz(i)*S_minus(j))
+                    #dum_l+= MatRep(basis,S_plus(i)*Sz(j),Sz(k)*S_plus(l))+MatRep(basis,Sz(k)*S_minus(l),S_minus(i)*Sz(j))
+                    dum_l+=np.conjugate(np.transpose(dum_l))
+
+                    dum_k = MatRep(basis,S_plus(i)*Sz(j),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),S_minus(i)*Sz(j))
+                    #dum_k += MatRep(basis,Sz(i)*S_plus(j),S_plus(k)*Sz(l))+MatRep(basis,S_minus(k)*Sz(l),Sz(i)*S_minus(j))
+                    dum_k+=np.conjugate(np.transpose(dum_k))
+
+                    Rel_Mat += damp_rate_l*dum_l+damp_rate_k*dum_k
+
+    return Rel_Mat
+    
+    
+    
+
+def ZZ_relChanMatRep_Parallel(tc,coords,Nspins,gamma,basis,num_workers):
+    def MatRep(w,An,Am):
+        return MatRepLibParallel(w,An,Am,n_qubits=Nspins,num_workers=num_workers)
+    
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+            
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    #damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    dum_0 = -(8.0/3.0)*MatRep(basis,Sz(i)*Sz(j),Sz(k)*Sz(l))
+                    #dum_0 += (2.0/3.0)*(MatRep(basis,S_plus(i)*S_minus(j),Sz(k)*Sz(l))+MatRep(basis,Sz(k)*Sz(l),S_minus(i)*S_plus(j)))
+                    #dum_0 += np.conjugate(np.transpose(dum_0))
+                    Rel_Mat+=damp_rate_0*dum_0
+
+    #print("Testing using the correct ")
+    return -0.25*Rel_Mat

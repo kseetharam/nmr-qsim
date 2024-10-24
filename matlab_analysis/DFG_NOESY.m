@@ -18,8 +18,8 @@ inter.relaxation={'redfield'};
 inter.equilibrium='zero';
 % inter.equilibrium='dibari';
 inter.temperature=310;
-%inter.rlx_keep='secular';
-inter.rlx_keep='kite';
+inter.rlx_keep='secular';
+%inter.rlx_keep='kite';
 inter.tau_c={0.5255e-9};
 
 spin_system=create(sys,inter);
