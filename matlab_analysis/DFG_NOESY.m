@@ -18,8 +18,13 @@ inter.relaxation={'redfield'};
 inter.equilibrium='zero';
 % inter.equilibrium='dibari';
 inter.temperature=310;
+<<<<<<< HEAD
 inter.rlx_keep='secular';
 %inter.rlx_keep='kite';
+=======
+%inter.rlx_keep='secular';
+inter.rlx_keep='kite';
+>>>>>>> 5e6a746 (Modification of some MATLAB files for production of NOESY spectra)
 inter.tau_c={0.5255e-9};
 
 spin_system=create(sys,inter);
