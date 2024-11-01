@@ -97,10 +97,11 @@ U90x = expm(-1i*Lx*pi/2);
 rho_initial = U90x*parameters.rho0;
 dim = length(parameters.rho0);
 
-load('../circ_sim/ALA_ZZRel.mat')
+load('../circ_sim/R_ala_approx.mat')
 
 % t1 evolutionl
 L_net=H+1i*R+1i*K;
+%L_net = H +1i*R_ala_App+1i*K;
 
 %Using relaxation matrix generated with ZZ jump operators only...
 %L_net=H+1i*ZZRel+1i*K;
@@ -198,6 +199,10 @@ p.time_grid2 = time_grid2;
 p.H = H;
 p.R = R;
 p.fid = fid;
+p.rho0 = parameters.rho0;
+p.coil = coil;
+p.Lx = Lx;
+p.Ly = Ly;
 % p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
 p.R = R;
 

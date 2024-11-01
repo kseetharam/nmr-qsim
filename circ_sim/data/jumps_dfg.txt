@@ -1,0 +1,18 @@
+\begin{longtable}{|c|c|c|}
+\caption{Jump operators and their associated damping rates forDFGTFG} \\
+\hline
+\textbf{$L_j$} & \textbf{$\kappa_j$} & \textbf{Value (Hz)} \\
+\hline
+\endhead
+$J_{+}\left(S_{0+}S_{1+},S_{0+}S_{1+}\right),J_{+}\left(S_{0-}S_{1-},S_{0-}S_{1-}\right)$ & $\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{0}+\omega_{1})$ & 0.115\\\hline
+$J_{-}\left(S_{0+}S_{1+},S_{0+}S_{1+}\right),J_{-}\left(S_{0-}S_{1-},S_{0-}S_{1-}\right)$ & $-\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{0}+\omega_{1})$ & -0.114\\\hline
+$J_{+}\left(S_{0z}S_{1+},S_{0z}S_{1+}\right),J_{+}\left(S_{0z}S_{1-},S_{0z}S_{1-}\right)$ & $\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{1})$ & 0.323\\\hline
+$J_{-}\left(S_{0z}S_{1+},S_{0z}S_{1+}\right),J_{-}\left(S_{0z}S_{1-},S_{0z}S_{1-}\right)$ & $-\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{1})$ & -0.322\\\hline
+$J_{-}\left(S_{0+}S_{1z},S_{0z}S_{1+}\right),J_{-}\left(S_{0z}S_{1-},S_{0-}S_{1z}\right)$ & $-\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{1})$ & -0.322\\\hline
+$J_{+}\left(S_{0+}S_{1z},S_{0+}S_{1z}\right),J_{+}\left(S_{0-}S_{1z},S_{0-}S_{1z}\right)$ & $\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{0})$ & 0.323\\\hline
+$J_{-}\left(S_{0z}S_{1+},S_{0+}S_{1z}\right),J_{-}\left(S_{0-}S_{1z},S_{0z}S_{1+}\right)$ & $-\frac{1}{4}\Gamma^{(0,1,0,1)}(\omega_{0})$ & -0.322\\\hline
+$J_{+}\left(S_{0z}S_{1z},S_{0z}S_{1z}\right)$ & $\frac{2}{3}\Gamma^{(0,1,0,1)}(0)$ & 2.191\\\hline
+$J_{-}\left(S_{0z}S_{1z},S_{0z}S_{1z}\right)$ & $-\frac{2}{3}\Gamma^{(0,1,0,1)}(0)$ & -2.19\\\hline
+$J_{-}\left(S_{0+}S_{1+},S_{0+}S_{1-}\right),J_{-}\left(S_{0-}S_{1+},S_{0-}S_{1+}\right)$ & $-\frac{1}{24}\Gamma^{(0,1,0,1)}(\omega_{0}-\omega_{1})$ & -0.136\\\hline
+$J_{+}\left(S_{0-}S_{1+},S_{0+}S_{1-}\right),J_{+}\left(S_{0-}S_{1+},S_{0+}S_{1-}\right)$ & $\frac{1}{24}\Gamma^{(0,1,0,1)}(\omega_{0}-\omega_{1})$ & 0.137\\\hline
+\end{longtable}

@@ -8,7 +8,7 @@ import sys
 import openfermion as of
 import pickle
 
-from analytical_fit import  KiteRelMatrixManyParallel
+from analytical_fit import  Get_Det_And_Rates, get_chemical_shifts, RelMat_from_ops_and_rates_Eff_parallel
 from basis_utils import read_spinach_info, build_list_ISTs, NormalizeBasis
 
 #loading reference matrix...
@@ -17,6 +17,10 @@ loadMat = spio.loadmat('./data/ALA_NOESY_withGradients_kite.mat',squeeze_me=True
 R_refALAKite= loadMat['p']['R'].item()
 R_refALAKite=R_refALAKite.toarray()
 H_refALAKite = loadMat['p']['H'].item()
+
+loadMat = spio.loadmat('./data/NOESYdata_ALA_withGradients.mat',squeeze_me=True)
+R_secular = loadMat['p']['R'].item()
+R_secular = R_secular.toarray()
 
 
 
@@ -286,6 +290,7 @@ Normbasis_ala = NormalizeBasis(basis_ala,n_qubits=4,checkOrth=False)
 
 tc = 0.05e-9 # in seconds
 gammaH = 2.6752e8
+B0 =14.1
 
 w1 = -600344544.5579
 w2 = -600343524.536
@@ -307,15 +312,65 @@ coords = coords*1e-10
 Nspins = 4
 
 #R_kiteALA_dev = Kite_relMat(2*np.pi*freqs,tc,coords,Nspins,gammaH,Sub_norm_basis)
-R_kite_dev = KiteRelMatrixManyParallel(2*np.pi*freqs,tc,coords,Nspins,gammaH,Normbasis_ala,num_workers=20)
+#R_kite_dev = KiteRelMatrixManyParallel(2*np.pi*freqs,tc,coords,Nspins,gammaH,Normbasis_ala,num_workers=20)
 
-Dict = {'KiteMat':R_kite_dev}
-with open('./data/ALA_Analytical_Kite.pk', 'wb') as handle:
-    pickle.dump(Dict, handle)
+#isotropic chemical shifts in ppm taken from the chemical shift tensors introduced in Spinach
+zeeman_scalar_1 = 3.4938
+zeeman_scalar_2 = 1.7947
+zeeman_scalar_3 = 1.7947
+zeeman_scalar_4 = 1.7947
+
+zeeman_scalars = [zeeman_scalar_1,zeeman_scalar_2,zeeman_scalar_3,zeeman_scalar_4]
+
+chem_shifts = get_chemical_shifts(gammaH,B0,zeeman_scalars)
+
+list_jumps, list_damp_rates, list_dets=Get_Det_And_Rates(2*np.pi*freqs,tc,coords,Nspins,gammaH,chem_shifts)
+
+filt_jump_ops = []
+filt_damp_rates = []
+for i in range(len(list_dets)):
+    if np.abs(list_dets[i])<1e-6:
+        filt_jump_ops.append(list_jumps[i])
+        filt_damp_rates.append(list_damp_rates[i])
+
+
+
+#print("This is the list of the jump operators associated to the relaxation channels: ")
+#print(add_jump_ops)
+
+#We employ an efficient calculation of the relaxation matrix...
+#1) collect indices of non-vanishing entries of matrix...
+thresh=1e-6
+nonzero_idxs = []
+for i in range(len(Normbasis_ala)):
+    for j in range(len(Normbasis_ala)):
+        if np.abs(R_secular[i,j])>1e-6: 
+            nonzero_idxs.append([i,j])
+
+
+if __name__ == '__main__':
+
+    print("Starting calculation of secular matrix from list of ops and rates")
+    R_sec =  RelMat_from_ops_and_rates_Eff_parallel(list_jumps,list_damp_rates,Normbasis_ala,Nspins,nonzero_idxs,num_workers=20)
+
+    print("Diference between the analytically generated secular relaxation matrix and reference is: ",np.linalg.norm(R_sec-R_secular))
+
+    Dict = {'Mat':R_sec}
+    with open('./data/ALA_Rsec_fromlist.pk', 'wb') as handle:
+        pickle.dump(Dict, handle)
+
+    print("Starting calculation of approximated matrix from list of filtered ops and rates")
+    R_approx = RelMat_from_ops_and_rates_Eff_parallel(filt_jump_ops,filt_damp_rates,Normbasis_ala,Nspins,nonzero_idxs,num_workers=20)
+
+    print("Diference between the analytically generated truncated matrix and reference is: ",np.linalg.norm(R_approx-R_secular))
+
+    Dict = {'AddMat':R_approx}
+    with open('./data/ALA_Rapprox_fromlist.pk', 'wb') as handle:
+        pickle.dump(Dict, handle)
 
 
 
 #comparing with reference matrix...
 
-print("Diference between the analytically generated Kite amtrix and reference is: ",np.linalg.norm(R_kite_dev-R_refALAKite))
+#print("Diference between the analytically generated Kite amtrix and reference is: ",np.linalg.norm(R_kite_dev-R_refALAKite))
 

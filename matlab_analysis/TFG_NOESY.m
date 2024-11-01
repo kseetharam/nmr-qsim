@@ -66,8 +66,12 @@ coil=state(spin_system,'L+',parameters.spins{1},'cheap');
 U90x = expm(-1i*Lx*pi/2);
 rho_initial = U90x*parameters.rho0;
 
+load('../circ_sim/R_TFG_Approx_Jumps_high_thresh.mat')
+
+
 % t1 evolutionl
 L_net=H+1i*R+1i*K;
+%L_net=H+1i*R_TFG_App+1i*K;
 L_dt1 = expm(-1i*L_net*dt(1));
 rho_stack = zeros(256,parameters.npoints(1));
 rho_stack(:,1) = rho_initial;
@@ -126,8 +130,8 @@ fid_test.sin = fid_temp(:,:,2) - fid_temp(:,:,4);
 
 
 % Apodization
-fid.cos=apodization(fid.cos,'sqcosbell-2d');
-fid.sin=apodization(fid.sin,'sqcosbell-2d');
+fid.cos=apodization(fid_test.cos,'sqcosbell-2d');
+fid.sin=apodization(fid_test.sin,'sqcosbell-2d');
 
 % F2 Fourier transform
 f1_cos=real(fftshift(fft(fid.cos,parameters.zerofill(2),1),1));
@@ -155,6 +159,10 @@ time_grid2 = 0:dt(2):(parameters.npoints(2)-1)*dt(2); % final detection
 p = parameters;
 p.time_grid1 = time_grid1;
 p.time_grid2 = time_grid2;
+p.rho0 = parameters.rho0;
+p.coil = coil;
+p.Lx = Lx;
+p.Ly = Ly;
 p.H = H;
 p.R = R;
 p.fid = fid;

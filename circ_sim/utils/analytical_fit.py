@@ -5,8 +5,38 @@ import pickle
 
 from basis_utils import MatRepLib, InnProd, Linb_Channel
 from basis_utils import Sz,S_plus,S_minus
+from openfermion import hermitian_conjugated
 
 from concurrent.futures import ProcessPoolExecutor
+
+
+
+def convert_operator_string(operator_str):
+    # Mapping symbols to functions
+    operators_map = {'+': S_plus, '-': S_minus, 'z': Sz}
+    output = []
+
+    # Parse the input string in pairs of [index][operator]
+    i = 0
+    while i < len(operator_str):
+        if operator_str[i] == 'S':  # Check for the 'S' character
+            index = int(operator_str[i+1])  # Extract index (digit after 'S')
+            op_symbol = operator_str[i+2]   # Extract operator symbol
+            func = operators_map[op_symbol]  # Find the corresponding function
+            
+            # Append the result of the function call as a string
+            output.append(func(index))
+            i += 3  # Move to the next operator pair
+        else:
+            i += 1
+    op = 1
+
+    for i in range(len(output)):
+        op=output[i]*op
+    # Join all function calls with a multiplication symbol
+    return op#' * '.join(output)
+
+
 
 
 def Dip_tensor(coord1,coord2):
@@ -844,6 +874,45 @@ def str_S_minus(i):
 def str_Sz(i):
     return 'S'+str(i)+'z'
 
+#For latex support...
+def lat_S_plus(i):
+    return r'S_{'+str(i)+'+}'
+
+def lat_S_minus(i):
+    return r'S_{'+str(i)+'-}'
+
+def lat_Sz(i):
+    return r'S_{'+str(i)+'z}'
+
+def J_plus(str_op1,str_op2):
+    #print("Entering J_plus")
+    string = 'J_{+}\left('+str_op1+','+str_op2+'\\right)'
+
+    return string
+
+def J_minus(str_op1,str_op2):
+    string = 'J_{-}\left('+str_op1+','+str_op2+'\\right)'
+
+    return string
+
+def sym_omega(i):
+    string = r'\omega_{'+str(i)+'}'
+    return string
+
+def SymGamma(i,j,k,l,freq):
+
+    string = r'\Gamma^{('+str(i)+','+str(j)+','+str(k)+','+str(l)+')}'+'('+freq+')'
+    return string
+
+def one_fourth():
+    return r'\frac{1}{4}'
+def two_thirds():
+    return r'\frac{2}{3}'
+def one_sixth():
+    return r'\frac{1}{6}'
+def one_24():
+    return r'\frac{1}{24}'
+
 
 def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
     """
@@ -899,25 +968,25 @@ def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
                     list_jumps.append([str_S_minus(i)+str_S_plus(j), str_S_minus(k)+str_S_plus(l)])
                     list_jumps.append([str_S_minus(k)+str_S_plus(l), str_S_minus(i)+str_S_plus(j)])
                     ###list of damping rates...
-                    list_damp_rates.append(0.25*damp_rate_sum)
-                    list_damp_rates.append(0.25*damp_rate_sum)
-                    list_damp_rates.append(0.25*damp_rate_l)
-                    list_damp_rates.append(0.25*damp_rate_l)
-                    list_damp_rates.append(0.25*damp_rate_l)
-                    list_damp_rates.append(0.25*damp_rate_l)
-                    list_damp_rates.append(0.25*damp_rate_k)
-                    list_damp_rates.append(0.25*damp_rate_k)
-                    list_damp_rates.append(0.25*damp_rate_k)
-                    list_damp_rates.append(0.25*damp_rate_k)
-                    list_damp_rates.append((2.0/3.0)*damp_rate_0)
-                    list_damp_rates.append((1.0/6.0)*damp_rate_0)
-                    list_damp_rates.append((1.0/6.0)*damp_rate_0)
+                    list_damp_rates.append(damp_rate_sum)
+                    list_damp_rates.append(damp_rate_sum)
+                    list_damp_rates.append(damp_rate_l)
+                    list_damp_rates.append(damp_rate_l)
+                    list_damp_rates.append(damp_rate_l)
+                    list_damp_rates.append(damp_rate_l)
+                    list_damp_rates.append(damp_rate_k)
+                    list_damp_rates.append(damp_rate_k)
+                    list_damp_rates.append(damp_rate_k)
+                    list_damp_rates.append(damp_rate_k)
+                    list_damp_rates.append((8.0/3.0)*damp_rate_0)
+                    list_damp_rates.append(-(2.0/3.0)*damp_rate_0) #TODO: verify signs...
+                    list_damp_rates.append(-(2.0/3.0)*damp_rate_0)
+                    list_damp_rates.append(-(2.0/3.0)*damp_rate_diff)
+                    list_damp_rates.append(-(2.0/3.0)*damp_rate_diff)
                     list_damp_rates.append((1.0/6.0)*damp_rate_diff)
                     list_damp_rates.append((1.0/6.0)*damp_rate_diff)
-                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
-                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
-                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
-                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/6.0)*damp_rate_diff)
+                    list_damp_rates.append((1.0/6.0)*damp_rate_diff)
                     #list of detunings...
                     list_dets.append(np.abs(delt_i+delt_j-delt_k-delt_l))
                     list_dets.append(np.abs(delt_i+delt_j-delt_k-delt_l))
@@ -941,6 +1010,296 @@ def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
 
     return list_jumps, list_damp_rates, list_dets
 
+#####For the purposes of generating text in latex format that can be easily compiled, we adapt the previous fucntion accordingly...
+def Get_Det_And_Rates_latex(freqs,tc,coords,Nspins,gamma,chemical_shifts):
+    """
+    Returns: 1) list of strings for pairs of jump operators that define a relaxation channel 2) its associated damping rate and 3) its oscillatory rate in the rotating frame of the the zeroth-order
+    Hamiltonian
+    Args:
+    freqs: is the list of the complete isotropic Zeeman frequencies for the spins
+    tc: correlation time for the classical rotational bath (in seconds)
+    coords: list that contains the cartesian coordinates of the spins (in meters)
+    Nspins: number of spins 
+    gamma: gyromagnetic ratio for spins (assuming an homonuclear scenario)
+    chemical shifts: list of chemical shifts for the spins
+    """
+
+    list_jumps = []
+    list_damp_rates = []
+    list_symb_rates = []
+    list_dets = []
+
+    for i in range(Nspins):
+        for j in range(i+1,Nspins):
+
+            for k in range(Nspins):
+                for l in range(k+1,Nspins):
+                    delt_i = chemical_shifts[i]
+                    delt_j = chemical_shifts[j]
+                    delt_k =  chemical_shifts[k]
+                    delt_l = chemical_shifts[l]
+
+                    damp_rate_sum = GammaRates(freqs[k]+freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_k = GammaRates(freqs[k],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_l = GammaRates(freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+
+                    #list_jumps.append([str_S_plus(i)+str_S_plus(j),str_S_minus(k)+str_S_minus(l)])
+                    #Grouping canonical linbladian channels
+                    list_jumps.append(J_plus(lat_S_plus(i)+lat_S_plus(j),lat_S_plus(k)+lat_S_plus(l)) \
+                                      +','+J_plus(lat_S_minus(k)+lat_S_minus(l),lat_S_minus(i)+lat_S_minus(j)))
+                    
+                    list_symb_rates.append(one_fourth()+SymGamma(i,j,k,l,sym_omega(k)+'+'+sym_omega(l)))
+                    list_damp_rates.append(0.25*damp_rate_sum)
+                    list_dets.append(np.abs(delt_i+delt_j-delt_k-delt_l))
+                    ##
+                    list_jumps.append(J_minus(lat_S_plus(i)+lat_S_plus(j),lat_S_plus(k)+lat_S_plus(l)) \
+                                      +','+J_minus(lat_S_minus(k)+lat_S_minus(l),lat_S_minus(i)+lat_S_minus(j)))
+                    
+                    list_symb_rates.append('-'+one_fourth()+SymGamma(i,j,k,l,sym_omega(k)+'+'+sym_omega(l)))
+                    list_damp_rates.append(-0.25*damp_rate_sum)
+                    list_dets.append(np.abs(delt_i+delt_j-delt_k-delt_l))
+                    ##
+                    list_jumps.append(J_plus(lat_Sz(i)+lat_S_plus(j),lat_Sz(k)+lat_S_plus(l)) \
+                                      +','+J_plus(lat_Sz(k)+lat_S_minus(l),lat_Sz(i)+lat_S_minus(j)))
+                    
+                    list_symb_rates.append(one_fourth()+SymGamma(i,j,k,l,sym_omega(l)))
+                    list_damp_rates.append(0.25*damp_rate_l)
+                    list_dets.append(np.abs(delt_j-delt_l))
+                    ##
+                    list_jumps.append(J_minus(lat_Sz(i)+lat_S_plus(j),lat_Sz(k)+lat_S_plus(l)) \
+                                      +','+J_minus(lat_Sz(k)+lat_S_minus(l),lat_Sz(i)+lat_S_minus(j)))
+                    list_symb_rates.append('-'+one_fourth()+SymGamma(i,j,k,l,sym_omega(l)))
+                    list_damp_rates.append(-0.25*damp_rate_l)
+                    list_dets.append(np.abs(delt_j-delt_l))
+                    ##
+                    list_jumps.append(J_plus(lat_S_plus(i)+lat_Sz(j),lat_Sz(k)+lat_S_plus(l)) \
+                                      +','+J_plus(lat_Sz(k)+lat_S_minus(l),lat_S_minus(i)+lat_Sz(j)))
+                    list_symb_rates.append(one_fourth()+SymGamma(i,j,k,l,sym_omega(l)))
+                    list_damp_rates.append(0.25*damp_rate_l)
+                    ##
+                    list_jumps.append(J_minus(lat_S_plus(i)+lat_Sz(j),lat_Sz(k)+lat_S_plus(l)) \
+                                      +','+J_minus(lat_Sz(k)+lat_S_minus(l),lat_S_minus(i)+lat_Sz(j)))
+                    list_symb_rates.append('-'+one_fourth()+SymGamma(i,j,k,l,sym_omega(l)))
+                    list_damp_rates.append(-0.25*damp_rate_l)
+                    list_dets.append(np.abs(delt_i-delt_l))
+                    ##Starting k terms..
+                    list_jumps.append(J_plus(lat_S_plus(i)+lat_Sz(j),lat_S_plus(k)+lat_Sz(l)) \
+                                      +','+J_plus(lat_S_minus(k)+lat_Sz(l),lat_S_minus(i)+lat_Sz(j)))
+                    list_symb_rates.append(one_fourth()+SymGamma(i,j,k,l,sym_omega(k)))
+                    list_damp_rates.append(0.25*damp_rate_k)
+                    list_dets.append(np.abs(delt_i-delt_k))
+                    ##
+                    list_jumps.append(J_minus(lat_S_plus(i)+lat_Sz(j),lat_S_plus(k)+lat_Sz(l)) \
+                                      +','+J_minus(lat_S_minus(k)+lat_Sz(l),lat_S_minus(i)+lat_Sz(j)))
+                    list_symb_rates.append('-'+one_fourth()+SymGamma(i,j,k,l,sym_omega(k)))
+                    list_damp_rates.append(-0.25*damp_rate_k)
+                    list_dets.append(np.abs(delt_i-delt_k))
+                    #second k terms..
+                    list_jumps.append(J_plus(lat_Sz(i)+lat_S_plus(j),lat_S_plus(k)+lat_Sz(l)) \
+                                      +','+J_plus(lat_S_minus(k)+lat_Sz(l),lat_Sz(i)+lat_S_plus(j)))
+                    list_symb_rates.append(one_fourth()+SymGamma(i,j,k,l,sym_omega(k)))
+                    list_damp_rates.append(0.25*damp_rate_k)
+                    list_dets.append(np.abs(delt_j-delt_k))
+                    ##
+                    list_jumps.append(J_minus(lat_Sz(i)+lat_S_plus(j),lat_S_plus(k)+lat_Sz(l)) \
+                                      +','+J_minus(lat_S_minus(k)+lat_Sz(l),lat_Sz(i)+lat_S_plus(j)))
+                    list_symb_rates.append('-'+one_fourth()+SymGamma(i,j,k,l,sym_omega(k)))
+                    list_damp_rates.append(-0.25*damp_rate_k)
+                    list_dets.append(np.abs(delt_j-delt_k))
+
+                    #The K0 terms...
+                    list_jumps.append(J_plus(lat_Sz(i)+lat_Sz(j),lat_Sz(k)+lat_Sz(l)))
+                    list_symb_rates.append(two_thirds()+SymGamma(i,j,k,l,'0'))
+                    list_damp_rates.append((2.0/3.0)*damp_rate_0)
+                    list_dets.append(0)
+                    ##
+                    list_jumps.append(J_minus(lat_Sz(i)+lat_Sz(j),lat_Sz(k)+lat_Sz(l)))
+                    list_symb_rates.append('-'+two_thirds()+SymGamma(i,j,k,l,'0'))
+                    list_damp_rates.append(-(2.0/3.0)*damp_rate_0)
+                    list_dets.append(0)
+                    ##
+                    list_jumps.append(J_plus(lat_S_plus(i)+lat_S_minus(j),lat_Sz(k)+lat_Sz(l)) \
+                                      +','+J_plus(lat_Sz(k)+lat_Sz(l),lat_S_minus(i)+lat_S_plus(j)))
+                    list_symb_rates.append('-'+one_sixth()+SymGamma(i,j,k,l,'0'))
+                    list_damp_rates.append(-(1.0/6.0)*damp_rate_0)
+                    list_dets.append(0)
+                    ##
+                    list_jumps.append(J_minus(lat_S_plus(i)+lat_S_minus(j),lat_Sz(k)+lat_Sz(l)) \
+                                      +','+J_minus(lat_Sz(k)+lat_Sz(l),lat_S_minus(i)+lat_S_plus(j)))
+                    list_symb_rates.append(one_sixth()+SymGamma(i,j,k,l,'0'))
+                    list_damp_rates.append((1.0/6.0)*damp_rate_0)
+                    list_dets.append(delt_i-delt_j)
+                    #first diff damp
+                    list_jumps.append(J_plus(lat_Sz(i)+lat_Sz(j),lat_S_plus(k)+lat_S_minus(l)) \
+                                      +','+J_plus(lat_S_minus(k)+lat_S_plus(l),lat_Sz(i)+lat_Sz(j)))
+                    list_symb_rates.append('-'+one_sixth()+SymGamma(i,j,k,l,sym_omega(k)+'-'+sym_omega(l)))
+                    list_damp_rates.append(-(1.0/6.0)*damp_rate_diff)
+                    list_dets.append(delt_i-delt_j)
+                    ##
+                    list_jumps.append(J_minus(lat_Sz(i)+lat_Sz(j),lat_S_plus(k)+lat_S_minus(l)) \
+                                      +','+J_minus(lat_S_minus(k)+lat_S_plus(l),lat_Sz(i)+lat_Sz(j)))
+                    list_symb_rates.append(one_sixth()+SymGamma(i,j,k,l,sym_omega(k)+'-'+sym_omega(l)))
+                    list_damp_rates.append((1.0/6.0)*damp_rate_diff)
+                    list_dets.append(delt_k-delt_l)
+                    #second diff damp
+                    list_jumps.append(J_plus(lat_S_plus(i)+lat_S_plus(j),lat_S_plus(k)+lat_S_minus(l)) \
+                                      +','+J_plus(lat_S_minus(k)+lat_S_plus(l),lat_S_minus(i)+lat_S_plus(j)))
+                    list_symb_rates.append(one_24()+SymGamma(i,j,k,l,sym_omega(k)+'-'+sym_omega(l)))
+                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    list_dets.append(delt_i+delt_k-delt_l-delt_j)
+                    ##
+                    list_jumps.append(J_minus(lat_S_plus(i)+lat_S_plus(j),lat_S_plus(k)+lat_S_minus(l)) \
+                                      +','+J_minus(lat_S_minus(k)+lat_S_plus(l),lat_S_minus(i)+lat_S_plus(j)))
+                    list_symb_rates.append('-'+one_24()+SymGamma(i,j,k,l,sym_omega(k)+'-'+sym_omega(l)))
+                    list_damp_rates.append(-(1.0/24.0)*damp_rate_diff)
+                    list_dets.append(delt_i+delt_k-delt_l-delt_j)
+                    ##last terms...
+                    list_jumps.append(J_plus(lat_S_minus(i)+lat_S_plus(j),lat_S_plus(k)+lat_S_minus(l)) \
+                                      +','+J_plus(lat_S_minus(k)+lat_S_plus(l),lat_S_plus(i)+lat_S_minus(j)))
+
+                    list_symb_rates.append(one_24()+SymGamma(i,j,k,l,sym_omega(k)+'-'+sym_omega(l)))
+                    list_damp_rates.append((1.0/24.0)*damp_rate_diff)
+                    list_dets.append(delt_j+delt_k-delt_l-delt_i)
+                    ##
+                    list_jumps.append(J_minus(lat_S_minus(i)+lat_S_plus(j),lat_S_plus(k)+lat_S_minus(l)) \
+                                      +','+J_minus(lat_S_minus(k)+lat_S_plus(l),lat_S_plus(i)+lat_S_minus(j)))
+
+                    list_symb_rates.append('-'+one_24()+SymGamma(i,j,k,l,sym_omega(k)+'-'+sym_omega(l)))
+                    list_damp_rates.append(-(1.0/24.0)*damp_rate_diff)
+                    list_dets.append(delt_j+delt_k-delt_l-delt_i)
+
+
+    return list_jumps, list_symb_rates, list_damp_rates, list_dets
+
+
+
+
+
+def RelMat_from_ops_and_rates(jump_ops,rates,basis,Nspins):
+    """ 
+    Returns the relaxation matrix out of a list of jump operators and its corresponding rates. 
+    """
+    if len(jump_ops)!=len(rates):
+        print("Number of jump operators must match number of damping rates")
+        exit()
+
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+    for i in range(len(rates)):
+        JOp1 = convert_operator_string(jump_ops[i][0])
+        JOp2 = hermitian_conjugated(convert_operator_string(jump_ops[i][1]))
+
+        Rel_chan = rates[i]*MatRepLib(basis,JOp1,JOp2,n_qubits=Nspins)
+        Rel_chan+= Rel_chan.conjugate().T
+
+        Rel_Mat+=Rel_chan
+
+
+    return Rel_Mat
+
+###Parallel version of previous function....
+def RelMat_from_ops_and_rates_parallel(jump_ops,rates,basis,Nspins,num_workers=None):
+    """ 
+    Returns the relaxation matrix out of a list of jump operators and its corresponding rates. 
+    """
+    def MatRep(w,An,Am):
+        return MatRepLibParallel(w,An,Am,n_qubits=Nspins,num_workers=num_workers)
+
+
+    if len(jump_ops)!=len(rates):
+        print("Number of jump operators must match number of damping rates")
+        exit()
+
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+    for i in range(len(rates)):
+        JOp1 = convert_operator_string(jump_ops[i][0])
+        JOp2 = hermitian_conjugated(convert_operator_string(jump_ops[i][1]))
+
+        Rel_chan = rates[i]*MatRep(basis,JOp1,JOp2)
+        Rel_chan+= Rel_chan.conjugate().T
+
+        Rel_Mat+=Rel_chan
+
+
+    return Rel_Mat
+
+
+#Fur the purposes of rapid computation and debugging...
+def MatRepLib_Eff(basis,An,Am,non_van_idxs,n_qubits=2):
+    """
+     
+    """
+
+    Nbasis = len(basis)
+    MatRep = np.zeros([Nbasis,Nbasis],dtype=complex)
+
+    for idxs in non_van_idxs:
+        i = idxs[0]
+        j = idxs[1]
+        
+        MatRep[i,j] = InnProd(basis[i],Linb_Channel(An,Am,basis[j]),n_qubits=n_qubits)
+    
+    return MatRep
+
+
+def RelMat_from_ops_and_rates_Eff(jump_ops,rates,basis,Nspins,non_van_idxs):
+    """ 
+    Returns the relaxation matrix out of a list of jump operators and its corresponding rates. 
+    """
+    if len(jump_ops)!=len(rates):
+        print("Number of jump operators must match number of damping rates")
+        exit()
+
+    Rel_Mat = np.zeros([len(basis),len(basis)],dtype=complex)
+    for i in range(len(rates)):
+        JOp1 = convert_operator_string(jump_ops[i][0])
+        JOp2 = hermitian_conjugated(convert_operator_string(jump_ops[i][1]))
+
+        Rel_chan = rates[i]*MatRepLib_Eff(basis,JOp1,JOp2,non_van_idxs,n_qubits=Nspins)
+        Rel_chan+= Rel_chan.conjugate().T
+
+        Rel_Mat+=Rel_chan
+
+
+    return Rel_Mat
+
+#Parallel version of previous function...
+
+def compute_rel_chan(rate, jump_op, basis, non_van_idxs, Nspins):
+    JOp1 = convert_operator_string(jump_op[0])
+    JOp2 = hermitian_conjugated(convert_operator_string(jump_op[1]))
+
+    Rel_chan = rate * MatRepLib_Eff(basis, JOp1, JOp2, non_van_idxs, n_qubits=Nspins)
+    Rel_chan += Rel_chan.conjugate().T
+    return Rel_chan
+
+def RelMat_from_ops_and_rates_Eff_parallel(jump_ops, rates, basis, Nspins, non_van_idxs, num_workers=None):
+    """ 
+    Returns the relaxation matrix from a list of jump operators and its corresponding rates.
+    """
+    if len(jump_ops) != len(rates):
+        print("Number of jump operators must match number of damping rates")
+        exit()
+
+    Rel_Mat = np.zeros([len(basis), len(basis)], dtype=complex)
+
+    # Parallelize the computation of each relaxation channel with a specified number of workers.
+    with ProcessPoolExecutor(max_workers=num_workers) as executor:
+        results = executor.map(
+            compute_rel_chan,
+            rates,
+            jump_ops,
+            [basis] * len(rates),
+            [non_van_idxs] * len(rates),
+            [Nspins] * len(rates)
+        )
+        
+    # Sum up the results to form the relaxation matrix.
+    for Rel_chan in results:
+        Rel_Mat += Rel_chan
+
+    return Rel_Mat
 
 
 

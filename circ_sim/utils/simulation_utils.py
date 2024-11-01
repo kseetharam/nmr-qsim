@@ -280,7 +280,154 @@ def Gen_Prop_PauliBasis(Ham_qub,JumpOps,basis):
 
     return H,R
 
+#####generation of NOESY spectra...
+def sqcosbell_2d_apod(fid_2d):
+    fid_2d[0,:] = fid_2d[0,:]/2
+    fid_2d[:,0] = fid_2d[:,0]/2
+    x = np.linspace(0,np.pi/2,fid_2d.shape[0])
+    y = np.linspace(0,np.pi/2,fid_2d.shape[1])
+
+    decay_col = np.square(np.cos(x))
+    decay_row = np.square(np.cos(y))
+
+    return fid_2d*np.outer(decay_col,decay_row)
+
+def GenFIDsignals(Ham,R,Tpts1,Tpts2,rho0,coil,tmix,dt1,dt2,Lx,Ly):
+    #Dim = Ham.shape[0]
+    Lnet = Ham+1j*R 
+    L_dt1 = expm(-1j*Lnet*dt1)
+    L_dt2 = expm(-1j*Lnet*dt2)
+    pulse_mix = expm(-1j*Lnet*tmix)
 
 
+    pulse_90x = expm(-1j*Lx*np.pi/2)
+    pulse_90y = expm(-1j*Ly*np.pi/2)
+    pulse_90mx = expm(1j*Lx*np.pi/2)
+    pulse_90my = expm(1j*Ly*np.pi/2)
+
+
+    #FID_1 = np.zeros([Tpts2,Tpts1],dtype=complex)
+    #FID_2 = np.zeros([Tpts2,Tpts1],dtype=complex)
+    #FID_3 = np.zeros([Tpts2,Tpts1],dtype=complex)
+    #FID_4 = np.zeros([Tpts2,Tpts1],dtype=complex)
+
+    #First 90x pulse:
+    rho_t = np.copy(rho0)
+    rho_t = np.dot(pulse_90x,rho_t)
+
+    rho_stack = []
+    rho_stack.append(rho_t)
+
+    rho_temp = np.copy(rho_t)
+    for i in range(1,Tpts1):
+        rho_temp = np.dot(L_dt1,rho_temp)
+        rho_stack.append(rho_temp)
+
+
+    rho_stack1_1 = []
+    rho_stack1_2 = []
+    rho_stack1_3 = []
+    rho_stack1_4 = []
+
+    for i in range(Tpts1):
+        rho_stack1_1.append(pulse_90y@pulse_mix@pulse_90x@rho_stack[i])
+        rho_stack1_2.append(pulse_90y@pulse_mix@pulse_90y@rho_stack[i])
+        rho_stack1_3.append(pulse_90y@pulse_mix@pulse_90mx@rho_stack[i])
+        rho_stack1_4.append(pulse_90y@pulse_mix@pulse_90my@rho_stack[i])
+
+
+    fid_temp_1 = np.zeros([Tpts2,Tpts1],dtype=complex)
+    fid_temp_2 = np.zeros([Tpts2,Tpts1],dtype=complex)
+    fid_temp_3 = np.zeros([Tpts2,Tpts1],dtype=complex)
+    fid_temp_4 = np.zeros([Tpts2,Tpts1],dtype=complex)
+
+    for i in range(Tpts1):
+        rho1 = rho_stack1_1[i]
+        rho2 = rho_stack1_2[i]
+        rho3 = rho_stack1_3[i]
+        rho4 = rho_stack1_4[i]
+
+        for j in range(Tpts2):
+            fid_temp_1[j,i] = np.dot(coil,rho1)
+            rho1 = L_dt2@rho1
+
+            fid_temp_2[j,i] = np.dot(coil,rho2)
+            rho2 = L_dt2@rho2
+
+            fid_temp_3[j,i] = np.dot(coil,rho3)
+            rho3 = L_dt2@rho3
+
+            fid_temp_4[j,i] = np.dot(coil,rho4)
+            rho4 = L_dt2@rho4
+    
+    return fid_temp_1, fid_temp_2, fid_temp_3, fid_temp_4
+
+
+
+
+def GenNOESYSpectrum(Ham,R,Tpts1,Tpts2,rho0,coil,tmix,dt1,dt2,zerofill1,zerofill2,Lx,Ly,returnFID=True):
+
+    fid_temp_1, fid_temp_2, fid_temp_3, fid_temp_4 = GenFIDsignals(Ham,R,Tpts1,Tpts2,rho0,coil,tmix,dt1,dt2,Lx,Ly)
+    
+    fid_test_cos = fid_temp_1 - fid_temp_3
+    fid_test_sin = fid_temp_2 - fid_temp_4
+
+    fid_cos = sqcosbell_2d_apod(fid_test_cos)
+    fid_sin = sqcosbell_2d_apod(fid_test_sin)
+
+    f1_cos = np.real(np.fft.fftshift(np.fft.fft2(fid_cos,[zerofill2],[0]),[0]))
+    f1_sin = np.real(np.fft.fftshift(np.fft.fft2(fid_sin,[zerofill2],[0]),[0]))
+
+
+    f1_states = f1_cos-1j*f1_sin
+
+    spectrum = np.fft.fftshift(np.fft.fft2(f1_states,[zerofill1],[1]),[1])
+    if returnFID:
+        ###NOTE: return the FID witouth post-processing
+        return spectrum, fid_test_cos-1j*fid_test_sin
+    else:
+        return spectrum
+
+###Analysis and comparison of spectra...
+def NormalizeSpectrum(Spectrum,Tpts1,Tpts2,dt1,dt2):
+    Pos_spec= np.abs(np.real(Spectrum))
+
+    Int_spec = 0.0 
+
+    deltw1 = 2*np.pi/(Tpts1*dt1)
+    deltw2 = 2*np.pi/(Tpts2*dt2)
+
+    for i in range(Pos_spec.shape[0]):
+        for j in range(Pos_spec.shape[1]):
+            Int_spec+=Pos_spec[i,j]
+
+    Int_spec = Int_spec*deltw1*deltw2
+
+    Norm_spec = Pos_spec/Int_spec
+    return Norm_spec
+
+def Hellinger_2D(Spec1,Spec2,Tpts1,Tpts2,dt1,dt2):
+    """
+    Compute the Hellinger distance between Spec1 and Spec2 spectra 
+    """
+
+    ####Normalize the spectra...
+
+    NSpec1 = NormalizeSpectrum(Spec1,Tpts1,Tpts2,dt1,dt2)
+    NSpec2 = NormalizeSpectrum(Spec2,Tpts1,Tpts2,dt1,dt2)
+
+
+    Nx = Spec1.shape[0]
+    Ny = Spec1.shape[1]
+    
+    deltw1 = 2*np.pi/(Tpts1*dt1)
+    deltw2 = 2*np.pi/(Tpts2*dt2)
+
+    diff = 0.0
+    for i in range(Nx):
+        for j in range(Ny):
+            diff+=(np.sqrt(NSpec1[i,j])-np.sqrt(NSpec2[i,j]))**2
+    
+    return diff*deltw1*deltw2
 
 

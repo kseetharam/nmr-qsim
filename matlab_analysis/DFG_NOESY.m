@@ -18,13 +18,13 @@ inter.relaxation={'redfield'};
 inter.equilibrium='zero';
 % inter.equilibrium='dibari';
 inter.temperature=310;
-<<<<<<< HEAD
+%<<<<<<< HEAD
 inter.rlx_keep='secular';
 %inter.rlx_keep='kite';
-=======
+%=======
 %inter.rlx_keep='secular';
-inter.rlx_keep='kite';
->>>>>>> 5e6a746 (Modification of some MATLAB files for production of NOESY spectra)
+%inter.rlx_keep='kite';
+%>>>>>>> 5e6a746 (Modification of some MATLAB files for production of NOESY spectra)
 inter.tau_c={0.5255e-9};
 
 spin_system=create(sys,inter);
@@ -68,8 +68,8 @@ rho_initial = U90x*parameters.rho0;
 %loading relaxation matrix constructed with ZZ jump operators only
 load('../circ_sim/DFG_ZZRel.mat')
 
-%L_net=H+1i*R+1i*K;
-L_net = H+1i*ZZRel+1i*K;
+L_net=H+1i*R+1i*K;
+%L_net = H+1i*ZZRel+1i*K;
 L_dt1 = expm(-1i*L_net*dt(1));
 rho_stack = zeros(16,parameters.npoints(1));
 rho_stack(:,1) = rho_initial;
@@ -163,5 +163,5 @@ p.fid = fid;
 p.fid_test = fid_test; % the fid's obtained via explicit matrix exponentiation
 p.R = R;
 
-save DFG.mat p
+save DFG_secular.mat p
 
