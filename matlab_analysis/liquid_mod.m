@@ -64,7 +64,7 @@
 %
 % <https://spindynamics.org/wiki/index.php?title=liquid.m>
 
-function [answer,H,R]=liquid_mod(spin_system,pulse_sequence,parameters,assumptions)
+function [answer,H,R,rho0]=liquid_mod(spin_system,pulse_sequence,parameters,assumptions)
 
 % Show the banner
 banner(spin_system,'sequence_banner'); 
@@ -110,6 +110,7 @@ if ismember('rho_eq',parameters.needs)
     report(spin_system,'building the thermal equilibrium state...');
     H0=hamiltonian(assume(spin_system,'labframe'),'left');
     parameters.rho0=equilibrium(spin_system,H0); clear('H0');
+    rho0 = parameters.rho0;
 end
 
 % Process channel offsets
