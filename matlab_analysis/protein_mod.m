@@ -60,7 +60,7 @@
 %
 % <https://spindynamics.org/wiki/index.php?title=protein.m>
 
-function [sys,inter,aux]=protein(pdb_file,bmrb_file,options)
+function [sys,inter,aux]=protein_mod(pdb_file,bmrb_file,options)
 
 % Set defaults
 if ~isfield(options,'deuterate'), options.deuterate={}; end
