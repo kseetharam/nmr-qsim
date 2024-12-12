@@ -13,10 +13,11 @@ function methyl_noesy_gb1_mod()
 options.pdb_mol=1;
 options.select='all';
 options.noshift='delete';
-% options.deuterate={'non-Me','ALA'};
-% [sys,inter]=protein_mod('2N9K.pdb','2N9K.bmrb',options);
 options.deuterate={'non-Me'};
-[sys,inter]=protein_mod('5JXV.pdb','5JXV.bmrb',options);
+% options.deuterate={'non-Me','ALA'};
+% options.deuterate={'non-Me','ALA','MET'};
+[sys,inter]=protein_mod('2N9K.pdb','2N9K.bmrb',options);
+% [sys,inter]=protein_mod('5JXV.pdb','5JXV.bmrb',options);
 
 
 % Magnet field
