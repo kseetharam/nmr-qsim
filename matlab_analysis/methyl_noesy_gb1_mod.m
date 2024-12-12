@@ -48,8 +48,8 @@ spin_system=create(sys,inter);
 spin_system=kill_spin(spin_system,strcmp('13C',spin_system.comp.isotopes));
 spin_system=kill_spin(spin_system,strcmp('15N',spin_system.comp.isotopes));
 
-% % Kill deuterons
-% spin_system=kill_spin(spin_system,strcmp('2H',spin_system.comp.isotopes));
+% Kill deuterons
+spin_system=kill_spin(spin_system,strcmp('2H',spin_system.comp.isotopes));
 
 % Build the basis
 spin_system=basis(spin_system,bas);
