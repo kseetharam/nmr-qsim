@@ -13,7 +13,7 @@ function methyl_noesy_gb1_mod()
 options.pdb_mol=1;
 options.select='all';
 options.noshift='delete';
-options.deuterate={'non-Me'};
+options.deuterate='non-Me';
 % options.deuterate={'non-Me','ALA'};
 % options.deuterate={'non-Me','ALA','MET'};
 [sys,inter]=protein_mod('2N9K.pdb','2N9K.bmrb',options);
@@ -49,7 +49,7 @@ spin_system=create(sys,inter);
 spin_system=kill_spin(spin_system,strcmp('13C',spin_system.comp.isotopes));
 spin_system=kill_spin(spin_system,strcmp('15N',spin_system.comp.isotopes));
 
-% Kill deuterons
+% % Kill deuterons
 spin_system=kill_spin(spin_system,strcmp('2H',spin_system.comp.isotopes));
 
 % Build the basis
