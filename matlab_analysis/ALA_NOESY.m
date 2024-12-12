@@ -30,7 +30,7 @@ for i = 1:4
     end
 end
 inter.coupling.scalar = coupling;
-JM = (coupling{2,3} + coupling{2,4} + coupling{3,4})/3;
+JM = (coupling{2,3} + coupling{2,4} + coupling{3,4})/3
 JMH = (coupling{1,2} + coupling{1,3} + coupling{1,4})/3;
 [inter.coupling.scalar{1,2:4}] = deal(JMH);
 inter.coupling.scalar{2,3} = JM;
