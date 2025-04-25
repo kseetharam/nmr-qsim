@@ -7,8 +7,8 @@
 %
 % i.kuprov@soton.ac.uk
 
-function methyl_noesy_gb1_mod()
-
+%function methyl_noesy_gb1_mod()
+%diary('output.txt');
 % Protein data import
 options.pdb_mol=1;
 options.select='all';
@@ -45,8 +45,11 @@ sys.enable={'prop_cache','op_cache','greedy'};
 % Create the spin system structure
 spin_system=create(sys,inter);
 
+
+
+
 % Kill carbons and nitrogens (protein assumed unlabelled)
-spin_system=kill_spin(spin_system,strcmp('13C',spin_system.comp.isotopes));
+%spin_system=kill_spin(spin_system,strcmp('13C',spin_system.comp.isotopes));
 spin_system=kill_spin(spin_system,strcmp('15N',spin_system.comp.isotopes));
 
 % % Kill deuterons
@@ -58,17 +61,21 @@ spin_system=basis(spin_system,bas);
 save gb1.mat spin_system
 
 % Sequence parameters
+parameters.J=140; %by taking a look to the output of the extraction-parameters subroutine and checking couplings for ALA residues
 parameters.tmix=200e-3;
-parameters.offset=750;
+parameters.offset=[750 0];
 parameters.sweep=[3000 3000];
 parameters.npoints=[512 512];
 parameters.zerofill=[2048 2048];
-parameters.spins={'1H'};
+parameters.spins={'1H','13C'};
 parameters.axis_units='ppm';
+parameters.decouple_f1={};
+parameters.decouple_f2={};
 parameters.rho0=state(spin_system,'Lz','1H','cheap');
 
 % Simulation
-fid=liquid(spin_system,@noesy,parameters,'nmr');
+%fid=liquid(spin_system,@noesy,parameters,'nmr');
+fid=liquid(spin_system,@hmqc,parameters,'nmr');
 
 % Apodisation
 fid.cos=apodisation(spin_system,fid.cos,{{'sqcos'},{'sqcos'}});
@@ -89,5 +96,6 @@ figure(); scale_figure([1.5 2.0]);
 plot_2d(spin_system,-real(spectrum),parameters,...
         20,[0.00125 0.0125 0.00125 0.0125],2,256,6,'positive');
 
-end
+
+%end
 

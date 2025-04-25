@@ -1,0 +1,879 @@
+data_5694
+
+#######################
+#  Entry information  #
+#######################
+
+
+save_entry_information
+  _Entry.Sf_category                   entry_information
+  _Entry.Sf_framecode                  entry_information
+  _Entry.ID                            5694
+  _Entry.Title                         
+;
+10-residue folded peptide designed by segment statistics
+;
+  _Entry.Type                          macromolecule
+  _Entry.Version_type                  original
+  _Entry.Submission_date               2003-02-13
+  _Entry.Accession_date                2003-02-17
+  _Entry.Last_release_date             2004-09-14
+  _Entry.Original_release_date         2004-09-14
+  _Entry.Origination                   author
+  _Entry.NMR_STAR_version              3.1.1.61
+  _Entry.Original_NMR_STAR_version     2.1
+  _Entry.Experimental_method           NMR
+  _Entry.Experimental_method_subtype   .
+  _Entry.Details                       .
+  _Entry.BMRB_internal_directory_name  .
+
+  loop_
+    _Entry_author.Ordinal
+    _Entry_author.Given_name
+    _Entry_author.Family_name
+    _Entry_author.First_initial
+    _Entry_author.Middle_initials
+    _Entry_author.Family_title
+    _Entry_author.Entry_ID
+
+    1    Shinya      Honda       .   .   .   5694    
+    2    Kazuhiko    Yamasaki    .   .   .   5694    
+  stop_
+
+  loop_
+    _Data_set.Type
+    _Data_set.Count
+    _Data_set.Entry_ID
+
+    assigned_chemical_shifts    1    5694    
+    coupling_constants          1    5694    
+  stop_
+
+  loop_
+    _Datum.Type
+    _Datum.Count
+    _Datum.Entry_ID
+
+    '1H chemical shifts'  57    5694    
+    'coupling constants'  16    5694    
+  stop_
+
+  loop_
+    _Release.Release_number
+    _Release.Format_type
+    _Release.Format_version
+    _Release.Date
+    _Release.Submission_date
+    _Release.Type
+    _Release.Author
+    _Release.Detail
+    _Release.Entry_ID
+
+    1    .   .   2004-09-14    2003-02-13    original    author    .   5694    
+  stop_
+
+  loop_
+    _Related_entries.Database_name
+    _Related_entries.Database_accession_code
+    _Related_entries.Relationship
+    _Related_entries.Entry_ID
+
+    PDB    1UAO    'BMRB Entry Tracking System'  5694    
+  stop_
+
+save_
+
+###############
+#  Citations  #
+###############
+
+
+save_entry_citation
+  _Citation.Sf_category                 citations
+  _Citation.Sf_framecode                entry_citation
+  _Citation.Entry_ID                    5694
+  _Citation.ID                          1
+  _Citation.Class                       'entry citation'
+  _Citation.CAS_abstract_code           .
+  _Citation.MEDLINE_UI_code             .
+  _Citation.DOI                         .
+  _Citation.PubMed_ID                   15296744
+  _Citation.Full_citation               .
+  _Citation.Title                       '10-residue folded peptide designed by segment statistics'
+  _Citation.Status                      published
+  _Citation.Type                        journal
+  _Citation.Journal_abbrev              'Structure (Camb)'
+  _Citation.Journal_name_full           .
+  _Citation.Journal_volume              12
+  _Citation.Journal_issue               8
+  _Citation.Journal_ASTM                .
+  _Citation.Journal_ISSN                .
+  _Citation.Journal_CSD                 .
+  _Citation.Book_title                  .
+  _Citation.Book_chapter_title          .
+  _Citation.Book_volume                 .
+  _Citation.Book_series                 .
+  _Citation.Book_publisher              .
+  _Citation.Book_publisher_city         .
+  _Citation.Book_ISBN                   .
+  _Citation.Conference_title            .
+  _Citation.Conference_site             .
+  _Citation.Conference_state_province   .
+  _Citation.Conference_country          .
+  _Citation.Conference_start_date       .
+  _Citation.Conference_end_date         .
+  _Citation.Conference_abstract_number  .
+  _Citation.Thesis_institution          .
+  _Citation.Thesis_institution_city     .
+  _Citation.Thesis_institution_country  .
+  _Citation.WWW_URL                     .
+  _Citation.Page_first                  1507
+  _Citation.Page_last                   1518
+  _Citation.Year                        2004
+  _Citation.Details                     .
+
+  loop_
+    _Citation_author.Ordinal
+    _Citation_author.Given_name
+    _Citation_author.Family_name
+    _Citation_author.First_initial
+    _Citation_author.Middle_initials
+    _Citation_author.Family_title
+    _Citation_author.Entry_ID
+    _Citation_author.Citation_ID
+
+    1    Shinya      Honda       .   .   .   5694    1    
+    2    Kazuhiko    Yamasaki    .   .   .   5694    1    
+    3    Yoshito     Sawada      .   .   .   5694    1    
+    4    Hisayuki    Morii       .   .   .   5694    1    
+  stop_
+
+save_
+
+#############################################
+#  Molecular system (assembly) description  #
+#############################################
+
+
+save_system_chignolin
+  _Assembly.Sf_category                      assembly
+  _Assembly.Sf_framecode                     system_chignolin
+  _Assembly.Entry_ID                         5694
+  _Assembly.ID                               1
+  _Assembly.Name                             chignolin
+  _Assembly.BMRB_code                        .
+  _Assembly.Number_of_components             .
+  _Assembly.Organic_ligands                  .
+  _Assembly.Metal_ions                       .
+  _Assembly.Non_standard_bonds               .
+  _Assembly.Ambiguous_conformational_states  .
+  _Assembly.Ambiguous_chem_comp_sites        .
+  _Assembly.Molecules_in_chemical_exchange   .
+  _Assembly.Paramagnetic                     no
+  _Assembly.Thiol_state                      'not present'
+  _Assembly.Molecular_mass                   .
+  _Assembly.Enzyme_commission_number         .
+  _Assembly.Details                          .
+  _Assembly.DB_query_date                    .
+  _Assembly.DB_query_revised_last_date       .
+
+  loop_
+    _Assembly_type.Type
+    _Assembly_type.Entry_ID
+    _Assembly_type.Assembly_ID
+
+    monomer    5694    1    
+  stop_
+
+  loop_
+    _Entity_assembly.ID
+    _Entity_assembly.Entity_assembly_name
+    _Entity_assembly.Entity_ID
+    _Entity_assembly.Entity_label
+    _Entity_assembly.Asym_ID
+    _Entity_assembly.PDB_chain_ID
+    _Entity_assembly.Experimental_data_reported
+    _Entity_assembly.Physical_state
+    _Entity_assembly.Conformational_isomer
+    _Entity_assembly.Chemical_exchange_state
+    _Entity_assembly.Magnetic_equivalence_group_code
+    _Entity_assembly.Role
+    _Entity_assembly.Details
+    _Entity_assembly.Entry_ID
+    _Entity_assembly.Assembly_ID
+
+    1    chignolin    1    $chignolin   .   .   .   native    .   .   .   .   .   5694    1    
+  stop_
+
+  loop_
+    _Assembly_common_name.Name
+    _Assembly_common_name.Type
+    _Assembly_common_name.Entry_ID
+    _Assembly_common_name.Assembly_ID
+
+    chignolin    abbreviation    5694    1    
+    chignolin    system          5694    1    
+  stop_
+
+save_
+
+    ####################################
+    #  Biological polymers and ligands #
+    ####################################
+
+
+save_chignolin
+  _Entity.Sf_category                      entity
+  _Entity.Sf_framecode                     chignolin
+  _Entity.Entry_ID                         5694
+  _Entity.ID                               1
+  _Entity.BMRB_code                        .
+  _Entity.Name                             chignolin
+  _Entity.Type                             polymer
+  _Entity.Polymer_common_type              .
+  _Entity.Polymer_type                     polypeptide(L)
+  _Entity.Polymer_type_details             .
+  _Entity.Polymer_strand_ID                .
+  _Entity.Polymer_seq_one_letter_code_can  .
+  _Entity.Polymer_seq_one_letter_code      GYDPETGTWG
+  _Entity.Target_identifier                .
+  _Entity.Polymer_author_defined_seq       .
+  _Entity.Polymer_author_seq_details       .
+  _Entity.Ambiguous_conformational_states  .
+  _Entity.Ambiguous_chem_comp_sites        .
+  _Entity.Nstd_monomer                     .
+  _Entity.Nstd_chirality                   .
+  _Entity.Nstd_linkage                     .
+  _Entity.Nonpolymer_comp_ID               .
+  _Entity.Nonpolymer_comp_label            .
+  _Entity.Number_of_monomers               10
+  _Entity.Number_of_nonpolymer_components  .
+  _Entity.Paramagnetic                     .
+  _Entity.Thiol_state                      'not present'
+  _Entity.Src_method                       .
+  _Entity.Parent_entity_ID                 .
+  _Entity.Fragment                         .
+  _Entity.Mutation                         .
+  _Entity.EC_number                        .
+  _Entity.Calc_isoelectric_point           .
+  _Entity.Formula_weight                   1082
+  _Entity.Formula_weight_exptl             .
+  _Entity.Formula_weight_exptl_meth        .
+  _Entity.Details                          .
+  _Entity.DB_query_date                    2005-11-24
+  _Entity.DB_query_revised_last_date       2004-09-28
+
+  loop_
+    _Entity_common_name.Name
+    _Entity_common_name.Type
+    _Entity_common_name.Entry_ID
+    _Entity_common_name.Entity_ID
+
+    chignolin    abbreviation    5694    1    
+    chignolin    common          5694    1    
+  stop_
+
+  loop_
+    _Entity_comp_index.ID
+    _Entity_comp_index.Auth_seq_ID
+    _Entity_comp_index.Comp_ID
+    _Entity_comp_index.Comp_label
+    _Entity_comp_index.Entry_ID
+    _Entity_comp_index.Entity_ID
+
+    1     .   GLY    .   5694    1    
+    2     .   TYR    .   5694    1    
+    3     .   ASP    .   5694    1    
+    4     .   PRO    .   5694    1    
+    5     .   GLU    .   5694    1    
+    6     .   THR    .   5694    1    
+    7     .   GLY    .   5694    1    
+    8     .   THR    .   5694    1    
+    9     .   TRP    .   5694    1    
+    10    .   GLY    .   5694    1    
+  stop_
+
+  loop_
+    _Entity_poly_seq.Hetero
+    _Entity_poly_seq.Mon_ID
+    _Entity_poly_seq.Num
+    _Entity_poly_seq.Comp_index_ID
+    _Entity_poly_seq.Entry_ID
+    _Entity_poly_seq.Entity_ID
+
+    .   GLY    1     1     5694    1    
+    .   TYR    2     2     5694    1    
+    .   ASP    3     3     5694    1    
+    .   PRO    4     4     5694    1    
+    .   GLU    5     5     5694    1    
+    .   THR    6     6     5694    1    
+    .   GLY    7     7     5694    1    
+    .   THR    8     8     5694    1    
+    .   TRP    9     9     5694    1    
+    .   GLY    10    10    5694    1    
+  stop_
+
+save_
+
+    ####################
+    #  Natural source  #
+    ####################
+
+
+save_natural_source
+  _Entity_natural_src_list.Sf_category   natural_source
+  _Entity_natural_src_list.Sf_framecode  natural_source
+  _Entity_natural_src_list.Entry_ID      5694
+  _Entity_natural_src_list.ID            1
+
+  loop_
+    _Entity_natural_src.ID
+    _Entity_natural_src.Entity_ID
+    _Entity_natural_src.Entity_label
+    _Entity_natural_src.Entity_chimera_segment_ID
+    _Entity_natural_src.NCBI_taxonomy_ID
+    _Entity_natural_src.Type
+    _Entity_natural_src.Common
+    _Entity_natural_src.Organism_name_scientific
+    _Entity_natural_src.Organism_name_common
+    _Entity_natural_src.Organism_acronym
+    _Entity_natural_src.ICTVdb_decimal_code
+    _Entity_natural_src.Superkingdom
+    _Entity_natural_src.Kingdom
+    _Entity_natural_src.Genus
+    _Entity_natural_src.Species
+    _Entity_natural_src.Strain
+    _Entity_natural_src.Variant
+    _Entity_natural_src.Subvariant
+    _Entity_natural_src.Organ
+    _Entity_natural_src.Tissue
+    _Entity_natural_src.Tissue_fraction
+    _Entity_natural_src.Cell_line
+    _Entity_natural_src.Cell_type
+    _Entity_natural_src.ATCC_number
+    _Entity_natural_src.Organelle
+    _Entity_natural_src.Cellular_location
+    _Entity_natural_src.Fragment
+    _Entity_natural_src.Fraction
+    _Entity_natural_src.Secretion
+    _Entity_natural_src.Plasmid
+    _Entity_natural_src.Plasmid_details
+    _Entity_natural_src.Gene_mnemonic
+    _Entity_natural_src.Dev_stage
+    _Entity_natural_src.Details
+    _Entity_natural_src.Citation_ID
+    _Entity_natural_src.Citation_label
+    _Entity_natural_src.Entry_ID
+    _Entity_natural_src.Entity_natural_src_list_ID
+
+    1    1    $chignolin   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   'Designed peptide having artificial sequence.'  .   .   5694    1    
+  stop_
+
+save_
+
+    #########################
+    #  Experimental source  #
+    #########################
+
+
+save_experimental_source
+  _Entity_experimental_src_list.Sf_category   experimental_source
+  _Entity_experimental_src_list.Sf_framecode  experimental_source
+  _Entity_experimental_src_list.Entry_ID      5694
+  _Entity_experimental_src_list.ID            1
+
+  loop_
+    _Entity_experimental_src.ID
+    _Entity_experimental_src.Entity_ID
+    _Entity_experimental_src.Entity_label
+    _Entity_experimental_src.Entity_chimera_segment_ID
+    _Entity_experimental_src.Production_method
+    _Entity_experimental_src.Host_org_scientific_name
+    _Entity_experimental_src.Host_org_name_common
+    _Entity_experimental_src.Host_org_details
+    _Entity_experimental_src.Host_org_NCBI_taxonomy_ID
+    _Entity_experimental_src.Host_org_genus
+    _Entity_experimental_src.Host_org_species
+    _Entity_experimental_src.Host_org_strain
+    _Entity_experimental_src.Host_org_variant
+    _Entity_experimental_src.Host_org_subvariant
+    _Entity_experimental_src.Host_org_organ
+    _Entity_experimental_src.Host_org_tissue
+    _Entity_experimental_src.Host_org_tissue_fraction
+    _Entity_experimental_src.Host_org_cell_line
+    _Entity_experimental_src.Host_org_cell_type
+    _Entity_experimental_src.Host_org_cellular_location
+    _Entity_experimental_src.Host_org_organelle
+    _Entity_experimental_src.Host_org_gene
+    _Entity_experimental_src.Host_org_culture_collection
+    _Entity_experimental_src.Host_org_ATCC_number
+    _Entity_experimental_src.Vector_type
+    _Entity_experimental_src.PDBview_host_org_vector_name
+    _Entity_experimental_src.PDBview_plasmid_name
+    _Entity_experimental_src.Vector_name
+    _Entity_experimental_src.Vector_details
+    _Entity_experimental_src.Vendor_name
+    _Entity_experimental_src.Host_org_dev_stage
+    _Entity_experimental_src.Details
+    _Entity_experimental_src.Citation_ID
+    _Entity_experimental_src.Citation_label
+    _Entity_experimental_src.Entry_ID
+    _Entity_experimental_src.Entity_experimental_src_list_ID
+
+    1    1    $chignolin   .   'chemical synthesis'  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   5694    1    
+  stop_
+
+save_
+
+#####################################
+#  Sample contents and methodology  #
+#####################################
+	 
+    ########################
+    #  Sample description  #
+    ########################
+
+
+save_sample_1
+  _Sample.Sf_category                     sample
+  _Sample.Sf_framecode                    sample_1
+  _Sample.Entry_ID                        5694
+  _Sample.ID                              1
+  _Sample.Type                            solution
+  _Sample.Sub_type                        .
+  _Sample.Details                         .
+  _Sample.Aggregate_sample_number         .
+  _Sample.Solvent_system                  .
+  _Sample.Preparation_date                .
+  _Sample.Preparation_expiration_date     .
+  _Sample.Polycrystallization_protocol    .
+  _Sample.Single_crystal_protocol         .
+  _Sample.Crystal_grow_apparatus          .
+  _Sample.Crystal_grow_atmosphere         .
+  _Sample.Crystal_grow_details            .
+  _Sample.Crystal_grow_method             .
+  _Sample.Crystal_grow_method_cit_ID      .
+  _Sample.Crystal_grow_pH                 .
+  _Sample.Crystal_grow_pH_range           .
+  _Sample.Crystal_grow_pressure           .
+  _Sample.Crystal_grow_pressure_esd       .
+  _Sample.Crystal_grow_seeding            .
+  _Sample.Crystal_grow_seeding_cit_ID     .
+  _Sample.Crystal_grow_temp               .
+  _Sample.Crystal_grow_temp_details       .
+  _Sample.Crystal_grow_temp_esd           .
+  _Sample.Crystal_grow_time               .
+  _Sample.Oriented_sample_prep_protocol   .
+  _Sample.Lyophilization_cryo_protectant  .
+  _Sample.Storage_protocol                .
+
+  loop_
+    _Sample_component.ID
+    _Sample_component.Mol_common_name
+    _Sample_component.Isotopic_labeling
+    _Sample_component.Assembly_ID
+    _Sample_component.Assembly_label
+    _Sample_component.Entity_ID
+    _Sample_component.Entity_label
+    _Sample_component.Product_ID
+    _Sample_component.Type
+    _Sample_component.Concentration_val
+    _Sample_component.Concentration_val_min
+    _Sample_component.Concentration_val_max
+    _Sample_component.Concentration_val_units
+    _Sample_component.Concentration_val_err
+    _Sample_component.Vendor
+    _Sample_component.Vendor_product_name
+    _Sample_component.Vendor_product_code
+    _Sample_component.Entry_ID
+    _Sample_component.Sample_ID
+
+    1    chignolin    .   .   .   1    $chignolin   .   .   2.0    .   .   mM    .   .   .   .   5694    1    
+  stop_
+
+save_
+
+#######################
+#  Sample conditions  #
+#######################
+
+
+save_ex-cond_1
+  _Sample_condition_list.Sf_category   sample_conditions
+  _Sample_condition_list.Sf_framecode  ex-cond_1
+  _Sample_condition_list.Entry_ID      5694
+  _Sample_condition_list.ID            1
+  _Sample_condition_list.Details       .
+
+  loop_
+    _Sample_condition_variable.Type
+    _Sample_condition_variable.Val
+    _Sample_condition_variable.Val_err
+    _Sample_condition_variable.Val_units
+    _Sample_condition_variable.Entry_ID
+    _Sample_condition_variable.Sample_condition_list_ID
+
+    pH             5.5    0.2    n/a    5694    1    
+    temperature    277    0.2    K      5694    1    
+  stop_
+
+save_
+
+#########################
+#  Experimental detail  #
+#########################
+
+    ##################################
+    #  NMR Spectrometer definitions  #
+    ##################################
+
+
+save_NMR_spectrometer
+  _NMR_spectrometer.Sf_category     NMR_spectrometer
+  _NMR_spectrometer.Sf_framecode    NMR_spectrometer
+  _NMR_spectrometer.Entry_ID        5694
+  _NMR_spectrometer.ID              1
+  _NMR_spectrometer.Details         .
+  _NMR_spectrometer.Manufacturer    Bruker
+  _NMR_spectrometer.Model           DMX
+  _NMR_spectrometer.Serial_number   .
+  _NMR_spectrometer.Field_strength  500
+
+save_
+
+save_spectrometer_list
+  _NMR_spectrometer_list.Sf_category   NMR_spectrometer_list
+  _NMR_spectrometer_list.Sf_framecode  spectrometer_list
+  _NMR_spectrometer_list.Entry_ID      5694
+  _NMR_spectrometer_list.ID            1
+
+  loop_
+    _NMR_spectrometer_view.ID
+    _NMR_spectrometer_view.Name
+    _NMR_spectrometer_view.Manufacturer
+    _NMR_spectrometer_view.Model
+    _NMR_spectrometer_view.Serial_number
+    _NMR_spectrometer_view.Field_strength
+    _NMR_spectrometer_view.Details
+    _NMR_spectrometer_view.Citation_ID
+    _NMR_spectrometer_view.Citation_label
+    _NMR_spectrometer_view.Entry_ID
+    _NMR_spectrometer_view.NMR_spectrometer_list_ID
+
+    1    NMR_spectrometer    Bruker    DMX    .   500    .   .   .   5694    1    
+  stop_
+
+save_
+
+    #############################
+    #  NMR applied experiments  #
+    #############################
+
+
+save_experiment_list
+  _Experiment_list.Sf_category   experiment_list
+  _Experiment_list.Sf_framecode  experiment_list
+  _Experiment_list.Entry_ID      5694
+  _Experiment_list.ID            1
+  _Experiment_list.Details       .
+
+save_
+
+####################
+#  NMR parameters  #
+####################
+
+    ##############################
+    #  Assigned chemical shifts  #
+    ##############################
+
+	################################
+	#  Chemical shift referencing  #
+	################################
+
+
+save_chemical_shift_reference
+  _Chem_shift_reference.Sf_category   chem_shift_reference
+  _Chem_shift_reference.Sf_framecode  chemical_shift_reference
+  _Chem_shift_reference.Entry_ID      5694
+  _Chem_shift_reference.ID            1
+  _Chem_shift_reference.Details       .
+
+  loop_
+    _Chem_shift_ref.Atom_type
+    _Chem_shift_ref.Atom_isotope_number
+    _Chem_shift_ref.Mol_common_name
+    _Chem_shift_ref.Atom_group
+    _Chem_shift_ref.Concentration_val
+    _Chem_shift_ref.Concentration_units
+    _Chem_shift_ref.Solvent
+    _Chem_shift_ref.Rank
+    _Chem_shift_ref.Chem_shift_units
+    _Chem_shift_ref.Chem_shift_val
+    _Chem_shift_ref.Ref_method
+    _Chem_shift_ref.Ref_type
+    _Chem_shift_ref.Indirect_shift_ratio
+    _Chem_shift_ref.External_ref_loc
+    _Chem_shift_ref.External_ref_sample_geometry
+    _Chem_shift_ref.External_ref_axis
+    _Chem_shift_ref.Indirect_shift_ratio_cit_ID
+    _Chem_shift_ref.Indirect_shift_ratio_cit_label
+    _Chem_shift_ref.Ref_correction_type
+    _Chem_shift_ref.Correction_val
+    _Chem_shift_ref.Correction_val_cit_ID
+    _Chem_shift_ref.Correction_val_cit_label
+    _Chem_shift_ref.Entry_ID
+    _Chem_shift_ref.Chem_shift_reference_ID
+
+    H    1    DSS    'methyl protons'  .   .   .   .   ppm    0.0    internal    direct    1.0    .   .   .   .   .   .   .   .   .   5694    1    
+  stop_
+
+save_
+
+     ###################################
+     #  Assigned chemical shift lists  #
+     ###################################
+
+###################################################################
+#       Chemical Shift Ambiguity Index Value Definitions          #
+#                                                                 #
+# The values other than 1 are used for those atoms with different #
+# chemical shifts that cannot be assigned to stereospecific atoms #
+# or to specific residues or chains.                              #
+#                                                                 #
+#   Index Value            Definition                             #
+#                                                                 #
+#      1             Unique (including isolated methyl protons,   #
+#                         geminal atoms, and geminal methyl       #
+#                         groups with identical chemical shifts)  #
+#                         (e.g. ILE HD11, HD12, HD13 protons)     #
+#      2             Ambiguity of geminal atoms or geminal methyl #
+#                         proton groups (e.g. ASP HB2 and HB3     #
+#                         protons, LEU CD1 and CD2 carbons, or    #
+#                         LEU HD11, HD12, HD13 and HD21, HD22,    #
+#                         HD23 methyl protons)                    #
+#      3             Aromatic atoms on opposite sides of          #
+#                         symmetrical rings (e.g. TYR HE1 and HE2 #
+#                         protons)                                #
+#      4             Intraresidue ambiguities (e.g. LYS HG and    #
+#                         HD protons or TRP HZ2 and HZ3 protons)  #
+#      5             Interresidue ambiguities (LYS 12 vs. LYS 27) #
+#      6             Intermolecular ambiguities (e.g. ASP 31 CA   #
+#                         in monomer 1 and ASP 31 CA in monomer 2 #
+#                         of an asymmetrical homodimer, duplex    #
+#                         DNA assignments, or other assignments   #
+#                         that may apply to atoms in one or more  #
+#                         molecule in the molecular assembly)     #
+#      9             Ambiguous, specific ambiguity not defined    #
+#                                                                 #
+###################################################################
+
+save_shift_set_1
+  _Assigned_chem_shift_list.Sf_category                  assigned_chemical_shifts
+  _Assigned_chem_shift_list.Sf_framecode                 shift_set_1
+  _Assigned_chem_shift_list.Entry_ID                     5694
+  _Assigned_chem_shift_list.ID                           1
+  _Assigned_chem_shift_list.Sample_condition_list_ID     1
+  _Assigned_chem_shift_list.Sample_condition_list_label  $ex-cond_1
+  _Assigned_chem_shift_list.Chem_shift_reference_ID      1
+  _Assigned_chem_shift_list.Chem_shift_reference_label   $chemical_shift_reference
+  _Assigned_chem_shift_list.Chem_shift_1H_err            .
+  _Assigned_chem_shift_list.Chem_shift_13C_err           .
+  _Assigned_chem_shift_list.Chem_shift_15N_err           .
+  _Assigned_chem_shift_list.Chem_shift_31P_err           .
+  _Assigned_chem_shift_list.Chem_shift_2H_err            .
+  _Assigned_chem_shift_list.Chem_shift_19F_err           .
+  _Assigned_chem_shift_list.Error_derivation_method      .
+  _Assigned_chem_shift_list.Details                      .
+  _Assigned_chem_shift_list.Text_data_format             .
+  _Assigned_chem_shift_list.Text_data                    .
+
+  loop_
+    _Chem_shift_experiment.Experiment_ID
+    _Chem_shift_experiment.Experiment_name
+    _Chem_shift_experiment.Sample_ID
+    _Chem_shift_experiment.Sample_label
+    _Chem_shift_experiment.Sample_state
+    _Chem_shift_experiment.Entry_ID
+    _Chem_shift_experiment.Assigned_chem_shift_list_ID
+
+    .   .   1    $sample_1   .   5694    1    
+  stop_
+
+  loop_
+    _Atom_chem_shift.ID
+    _Atom_chem_shift.Assembly_atom_ID
+    _Atom_chem_shift.Entity_assembly_ID
+    _Atom_chem_shift.Entity_ID
+    _Atom_chem_shift.Comp_index_ID
+    _Atom_chem_shift.Seq_ID
+    _Atom_chem_shift.Comp_ID
+    _Atom_chem_shift.Atom_ID
+    _Atom_chem_shift.Atom_type
+    _Atom_chem_shift.Atom_isotope_number
+    _Atom_chem_shift.Val
+    _Atom_chem_shift.Val_err
+    _Atom_chem_shift.Assign_fig_of_merit
+    _Atom_chem_shift.Ambiguity_code
+    _Atom_chem_shift.Occupancy
+    _Atom_chem_shift.Resonance_ID
+    _Atom_chem_shift.Auth_entity_assembly_ID
+    _Atom_chem_shift.Auth_asym_ID
+    _Atom_chem_shift.Auth_seq_ID
+    _Atom_chem_shift.Auth_comp_ID
+    _Atom_chem_shift.Auth_atom_ID
+    _Atom_chem_shift.Details
+    _Atom_chem_shift.Entry_ID
+    _Atom_chem_shift.Assigned_chem_shift_list_ID
+
+    1     .   1    1    1     1     GLY    HA2     H    1    3.80     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    2     .   1    1    1     1     GLY    HA3     H    1    3.80     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    3     .   1    1    2     2     TYR    H       H    1    8.81     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    4     .   1    1    2     2     TYR    HA      H    1    4.10     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    5     .   1    1    2     2     TYR    HB2     H    1    1.74     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    6     .   1    1    2     2     TYR    HB3     H    1    2.30     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    7     .   1    1    2     2     TYR    HD1     H    1    6.17     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    8     .   1    1    2     2     TYR    HD2     H    1    6.17     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    9     .   1    1    2     2     TYR    HE1     H    1    6.50     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    10    .   1    1    2     2     TYR    HE2     H    1    6.50     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    11    .   1    1    3     3     ASP    H       H    1    8.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    12    .   1    1    3     3     ASP    HA      H    1    4.89     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    13    .   1    1    3     3     ASP    HB2     H    1    2.44     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    14    .   1    1    3     3     ASP    HB3     H    1    2.83     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    15    .   1    1    4     4     PRO    HA      H    1    4.05     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    16    .   1    1    4     4     PRO    HB2     H    1    2.01     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    17    .   1    1    4     4     PRO    HB3     H    1    2.37     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    18    .   1    1    4     4     PRO    HG2     H    1    2.03     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    19    .   1    1    4     4     PRO    HG3     H    1    2.03     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    20    .   1    1    4     4     PRO    HD2     H    1    3.85     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    21    .   1    1    4     4     PRO    HD3     H    1    3.79     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    22    .   1    1    5     5     GLU    H       H    1    8.25     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    23    .   1    1    5     5     GLU    HA      H    1    4.14     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    24    .   1    1    5     5     GLU    HB2     H    1    2.11     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    25    .   1    1    5     5     GLU    HB3     H    1    2.11     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    26    .   1    1    5     5     GLU    HG2     H    1    2.20     0.02    .   2    .   .   .   .   .   .   .   .   5694    1    
+    27    .   1    1    5     5     GLU    HG3     H    1    2.31     0.02    .   2    .   .   .   .   .   .   .   .   5694    1    
+    28    .   1    1    6     6     THR    H       H    1    7.28     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    29    .   1    1    6     6     THR    HA      H    1    4.37     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    30    .   1    1    6     6     THR    HB      H    1    4.28     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    31    .   1    1    6     6     THR    HG1     H    1    5.88     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    32    .   1    1    6     6     THR    HG21    H    1    1.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    33    .   1    1    6     6     THR    HG22    H    1    1.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    34    .   1    1    6     6     THR    HG23    H    1    1.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    35    .   1    1    7     7     GLY    H       H    1    8.40     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    36    .   1    1    7     7     GLY    HA2     H    1    3.77     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    37    .   1    1    7     7     GLY    HA3     H    1    4.00     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    38    .   1    1    8     8     THR    H       H    1    7.35     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    39    .   1    1    8     8     THR    HA      H    1    4.62     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    40    .   1    1    8     8     THR    HB      H    1    4.17     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    41    .   1    1    8     8     THR    HG1     H    1    5.61     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    42    .   1    1    8     8     THR    HG21    H    1    1.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    43    .   1    1    8     8     THR    HG22    H    1    1.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    44    .   1    1    8     8     THR    HG23    H    1    1.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    45    .   1    1    9     9     TRP    H       H    1    8.94     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    46    .   1    1    9     9     TRP    HA      H    1    4.79     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    47    .   1    1    9     9     TRP    HB2     H    1    3.10     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    48    .   1    1    9     9     TRP    HB3     H    1    3.38     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    49    .   1    1    9     9     TRP    HD1     H    1    7.31     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    50    .   1    1    9     9     TRP    HE1     H    1    10.29    0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    51    .   1    1    9     9     TRP    HE3     H    1    7.54     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    52    .   1    1    9     9     TRP    HZ2     H    1    7.29     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    53    .   1    1    9     9     TRP    HZ3     H    1    7.14     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    54    .   1    1    9     9     TRP    HH2     H    1    7.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    55    .   1    1    10    10    GLY    H       H    1    8.15     0.02    .   1    .   .   .   .   .   .   .   .   5694    1    
+    56    .   1    1    10    10    GLY    HA2     H    1    3.73     0.02    .   2    .   .   .   .   .   .   .   .   5694    1    
+    57    .   1    1    10    10    GLY    HA3     H    1    3.94     0.02    .   2    .   .   .   .   .   .   .   .   5694    1    
+  stop_
+
+save_
+
+    ########################
+    #  Coupling constants  #
+    ########################
+
+
+save_coupling_constants_set_1
+  _Coupling_constant_list.Sf_category                  coupling_constants
+  _Coupling_constant_list.Sf_framecode                 coupling_constants_set_1
+  _Coupling_constant_list.Entry_ID                     5694
+  _Coupling_constant_list.ID                           1
+  _Coupling_constant_list.Sample_condition_list_ID     1
+  _Coupling_constant_list.Sample_condition_list_label  $ex-cond_1
+  _Coupling_constant_list.Spectrometer_frequency_1H    500
+  _Coupling_constant_list.Details                      .
+  _Coupling_constant_list.Text_data_format             .
+  _Coupling_constant_list.Text_data                    .
+
+  loop_
+    _Coupling_constant_experiment.Experiment_ID
+    _Coupling_constant_experiment.Experiment_name
+    _Coupling_constant_experiment.Sample_ID
+    _Coupling_constant_experiment.Sample_label
+    _Coupling_constant_experiment.Sample_state
+    _Coupling_constant_experiment.Entry_ID
+    _Coupling_constant_experiment.Coupling_constant_list_ID
+
+    .   .   1    $sample_1   .   5694    1    
+  stop_
+
+  loop_
+    _Coupling_constant.ID
+    _Coupling_constant.Code
+    _Coupling_constant.Assembly_atom_ID_1
+    _Coupling_constant.Entity_assembly_ID_1
+    _Coupling_constant.Entity_ID_1
+    _Coupling_constant.Comp_index_ID_1
+    _Coupling_constant.Seq_ID_1
+    _Coupling_constant.Comp_ID_1
+    _Coupling_constant.Atom_ID_1
+    _Coupling_constant.Atom_type_1
+    _Coupling_constant.Atom_isotope_number_1
+    _Coupling_constant.Ambiguity_code_1
+    _Coupling_constant.Assembly_atom_ID_2
+    _Coupling_constant.Entity_assembly_ID_2
+    _Coupling_constant.Entity_ID_2
+    _Coupling_constant.Comp_index_ID_2
+    _Coupling_constant.Seq_ID_2
+    _Coupling_constant.Comp_ID_2
+    _Coupling_constant.Atom_ID_2
+    _Coupling_constant.Atom_type_2
+    _Coupling_constant.Atom_isotope_number_2
+    _Coupling_constant.Ambiguity_code_2
+    _Coupling_constant.Val
+    _Coupling_constant.Val_min
+    _Coupling_constant.Val_max
+    _Coupling_constant.Val_err
+    _Coupling_constant.Resonance_ID_1
+    _Coupling_constant.Resonance_ID_2
+    _Coupling_constant.Auth_entity_assembly_ID_1
+    _Coupling_constant.Auth_seq_ID_1
+    _Coupling_constant.Auth_comp_ID_1
+    _Coupling_constant.Auth_atom_ID_1
+    _Coupling_constant.Auth_entity_assembly_ID_2
+    _Coupling_constant.Auth_seq_ID_2
+    _Coupling_constant.Auth_comp_ID_2
+    _Coupling_constant.Auth_atom_ID_2
+    _Coupling_constant.Details
+    _Coupling_constant.Entry_ID
+    _Coupling_constant.Coupling_constant_list_ID
+
+    1     3JHNHA    .   1    1    2    2    TYR    H     .   .   .   .   1    1    2    2    TYR    HA     .   .   .   6.0     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    2     3JHNHA    .   1    1    3    3    ASP    H     .   .   .   .   1    1    3    3    ASP    HA     .   .   .   8.4     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    3     3JHNHA    .   1    1    5    5    GLU    H     .   .   .   .   1    1    5    5    GLU    HA     .   .   .   5.8     .   .   2.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    4     3JHNHA    .   1    1    6    6    THR    H     .   .   .   .   1    1    6    6    THR    HA     .   .   .   8.7     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    5     3JHNHA    .   1    1    7    7    GLY    H     .   .   .   .   1    1    7    7    GLY    HA2    .   .   .   5.9     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    6     3JHNHA    .   1    1    7    7    GLY    H     .   .   .   .   1    1    7    7    GLY    HA3    .   .   .   8.6     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    7     3JHNHA    .   1    1    8    8    THR    H     .   .   .   .   1    1    8    8    THR    HA     .   .   .   8.9     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    8     3JHNHA    .   1    1    9    9    TRP    H     .   .   .   .   1    1    9    9    TRP    HA     .   .   .   8.5     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    9     3JHAHB    .   1    1    2    2    TYR    HA    .   .   .   .   1    1    2    2    TYR    HB2    .   .   .   5.9     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    10    3JHAHB    .   1    1    2    2    TYR    HA    .   .   .   .   1    1    2    2    TYR    HB3    .   .   .   8.9     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    11    3JHAHB    .   1    1    3    3    ASP    HA    .   .   .   .   1    1    3    3    ASP    HB2    .   .   .   6.0     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    12    3JHAHB    .   1    1    3    3    ASP    HA    .   .   .   .   1    1    3    3    ASP    HB3    .   .   .   8.9     .   .   2.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    13    3JHAHB    .   1    1    6    6    THR    HA    .   .   .   .   1    1    6    6    THR    HB     .   .   .   3.0     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    14    3JHAHB    .   1    1    8    8    THR    HA    .   .   .   .   1    1    8    8    THR    HB     .   .   .   3.1     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    15    3JHAHB    .   1    1    9    9    TRP    HA    .   .   .   .   1    1    9    9    TRP    HB2    .   .   .   10.4    .   .   2.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+    16    3JHAHB    .   1    1    9    9    TRP    HA    .   .   .   .   1    1    9    9    TRP    HB3    .   .   .   4.2     .   .   1.0    .   .   .   .   .   .   .   .   .   .   .   5694    1    
+  stop_
+
+save_
+
