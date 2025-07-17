@@ -1,0 +1,41 @@
+{
+  "cirq_type": "Circuit",
+  "moments": [
+    {
+      "cirq_type": "Moment",
+      "operations": [
+        {
+          "cirq_type": "GateOperation",
+          "gate": {
+            "cirq_type": "XPowGate",
+            "exponent": -6.705047165880058e-07,
+            "global_shift": -0.5
+          },
+          "qubits": [
+            {
+              "cirq_type": "NamedQubit",
+              "name": "q_1"
+            }
+          ]
+        },
+        {
+          "cirq_type": "GateOperation",
+          "gate": {
+            "cirq_type": "XPowGate",
+            "exponent": 9.425179599156332e-07,
+            "global_shift": -0.5
+          },
+          "qubits": [
+            {
+              "cirq_type": "NamedQubit",
+              "name": "q_2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "device": {
+    "cirq_type": "_UnconstrainedDevice"
+  }
+}
