@@ -138,7 +138,8 @@ def compile_group(qub_reg,qub_op: QubitOperator):
 
         sorted_pauli_str = ''.join(pauli_str[i] for i in sort_indices)
 
-        circuit.append(pauli_exponential(qub_reg, qargs[sort_indices],sorted_pauli_str, coeff))
+        circuit.append(pauli_exponential(qub_reg, qargs[sort_indices],sorted_pauli_str, 2*coeff)) #The factor of 2 is added to 
+                                                                                                    #counteract the division by 2 in the underlying compilation to R_{a} axes
         #print(f"{pauli_str if pauli_str else 'I'} : {coeff}")
         #print("qargs are:", qargs)
     
@@ -203,7 +204,7 @@ def get_dil_Ham(hamiltonian,deltaT,ListJumpOps):
 def generate_heisenberg_hamiltonian(h_list, coupling_graph):
     """
     Generate a Heisenberg Hamiltonian:
-        H = sum_i h_i Z_i + sum_{i,j} J_{ij} (X_i X_j + Y_i Y_j + Z_i Z_j)
+        H = sum_i h_i Sz_i + sum_{i,j} J_{ij} (Sx_i Sx_j + Sy_i Sy_j + Sz_i Sz_j)
 
     Parameters:
         h_list: list of local Z field coefficients, h_i
@@ -217,13 +218,14 @@ def generate_heisenberg_hamiltonian(h_list, coupling_graph):
     # Local Z field terms
     for i, h_i in enumerate(h_list):
         if h_i != 0:
-            ham += QubitOperator(f'Z{i}', h_i)
+            ham += h_i*Sz(i)
 
     # Interaction terms
     for i, j, Jij in coupling_graph:
-        for op in ['X', 'Y', 'Z']:
-            term = QubitOperator(f'{op}{i} {op}{j}', Jij )
-            ham += term
+        #for op in ['X', 'Y', 'Z']:
+            #term = QubitOperator(f'{op}{i} {op}{j}', Jij )
+        term = Jij * (Sx(i)*Sx(j)+Sy(i)*Sy(j)+Sz(i)*Sz(j))
+        ham += term
 
     return ham
 
@@ -236,7 +238,7 @@ def FirstOrderTrotterEvol(sys_qubit_reg,anc_qub_reg, dil_Ham,deltaT, n_steps=1, 
     dil_Ham: openfermion Qubit operator that encodes the dilated Hamiltonian
     deltaT: the target time step to simulate
     n_steps: number of Trotter steps
-    parallel: compile the Pauli exponentiation gadgets using paralell CNOT gates
+    parallel: compile the Pauli exponentiation gadgets using parallel CNOT gates
     """
     circuit = cirq.Circuit()
     #n_ancs = len(anc_qub_reg)
