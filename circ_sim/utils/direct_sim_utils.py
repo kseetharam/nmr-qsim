@@ -3,9 +3,10 @@ import cirq
 import openfermion as of
 import sys
 sys.path.append('./')
+from ham_comp_utils import get_dil_Ham,FirstOrderTrotterEvol
 from basis_utils import InnProd
-from qiskit import transpile, QuantumCircuit
-from qiskit.qasm2 import dumps
+#from qiskit import transpile, QuantumCircuit
+#from qiskit.qasm2 import dumps
 from cirq.contrib.qasm_import import circuit_from_qasm
 import scipy
 from openfermion import QubitOperator
@@ -15,6 +16,311 @@ from basis_utils import read_spinach_info, build_list_ISTs, NormalizeBasis, MatR
 import numpy as np
 from scipy.linalg import expm
 import copy
+#qutip functions for reference calculations...
+from qutip import basis
+from qutip import mesolve
+import numpy as np
+from qutip import tensor, qeye, sigmax, sigmay, sigmaz, Qobj
+from qutip import sigmaz, qeye, tensor
+import qutip
+
+import warnings
+
+
+###QuTip related functions....
+def qubitop_to_qutip(qubit_op, n_qubits):
+    pauli_map = {'X': sigmax(), 'Y': sigmay(), 'Z': sigmaz()}
+    H_qutip = 0
+
+    for term, coeff in qubit_op.terms.items():
+        ops = [qeye(2)] * n_qubits
+        for idx, op in term:
+            ops[idx] = pauli_map[op]
+        H_qutip += coeff * tensor(ops)
+
+    return H_qutip
+
+def to_qutip_qobj(rho: np.ndarray):
+    return qutip.Qobj(rho, dims=[[2]*int(np.log2(rho.shape[0]))]*2)
+
+
+def jump_sz_sz(q0, q1, n_qubits):
+    op_list = []
+    for i in range(n_qubits):
+        if i == q0 or i == q1:
+            op_list.append(sigmaz())
+        else:
+            op_list.append(qeye(2))
+    return 0.25 * tensor(op_list)
+
+
+def qutip_ref_sim(hamiltonian,psi0,deltaT=0.1,Nsteps=1,c_ops=[],e_ops=[]):
+    """ 
+    reference calculation for a single jump operator. TODO: generalize the indices the jump operator acts on.
+    """
+    n_qubits = of.count_qubits(hamiltonian)
+
+    H_qutip = qubitop_to_qutip(hamiltonian, n_qubits=n_qubits)
+
+    #psi0 = tensor([basis(2, 0) for _ in range(3)])
+
+    #psi0 = tensor([basis(2, 0), basis(2, 1), basis(2, 0)])  # Initial state |010>
+
+    rho0 = psi0.proj()
+
+    #L = np.sqrt(kappa)*jump_sz_sz(0, 1, n_qubits)
+    #jump_ops = [L]
+    times = np.linspace(0, Nsteps*deltaT, Nsteps) #+1 included to take into account 0
+
+    result_diss = mesolve(H_qutip, rho0, times, c_ops=c_ops, e_ops=e_ops)
+    result_clean = mesolve(H_qutip, rho0, times, c_ops=[], e_ops=e_ops)
+
+    #return result_diss.states[-1], result_clean.states[-1] #return the last state with and withot dissipation 
+
+    return result_diss, result_clean
+
+
+
+def enforce_positive_definiteness(rho, threshold=1e-5):
+    """
+    Enforces positive semi-definiteness of a Hermitian matrix by setting negative eigenvalues to zero.
+
+    Parameters:
+        rho (np.ndarray): The input Hermitian matrix.
+        threshold (float): Threshold for warning about large negative eigenvalues.
+
+    Returns:
+        np.ndarray: A corrected matrix with non-negative eigenvalues.
+    """
+    if not np.allclose(rho, rho.conj().T):
+        raise ValueError("Input matrix must be Hermitian.")
+
+    eigvals, eigvecs = np.linalg.eigh(rho)
+
+    # Check for large negative eigenvalues
+    min_eig = np.min(eigvals)
+    if min_eig < -threshold:
+        warnings.warn(f"Large negative eigenvalue detected: {min_eig:.3e}", RuntimeWarning)
+
+    # Clip negative eigenvalues to zero
+    eigvals_clipped = np.clip(eigvals, 0, None)
+
+    # Reconstruct the positive semi-definite matrix
+    rho_corrected = (eigvecs @ np.diag(eigvals_clipped) @ eigvecs.conj().T)
+
+    # Optional: renormalize trace if needed
+    rho_corrected /= np.trace(rho_corrected)
+
+    return rho_corrected
+
+
+
+
+def time_trace_renormdm(hamiltonian,ListJumpOps,obs,time,t_steps, init_state=None):
+    """
+    Sample expectation values of observable obs, starting from a wavefunction init_state for the composite system+ancilla qubit registers
+    Args:
+    hamiltonian, coherent hamiltonian, in openfermion format
+    ListJumpOps: list of jump operators \sqrt{\kappa_{i}}L_{i}
+    obs, target observable in sparse matrix form
+    time: total time of evolution
+    t_steps: number of steps to evolve
+    init_state: initial state vector to evolve, for composite system+ancilla registers
+    """
+
+    deltaT = time/t_steps
+    n_sysqubs = of.count_qubits(hamiltonian)
+    nancs = len(ListJumpOps)
+
+
+    if init_state is None:
+        init_state = np.zeros(2**(nancs+n_sysqubs))
+        init_state[0] = 1.0
+        #rho0 = np.outer(init_state, init_state.conj())
+
+
+    ####expanding space of target observable...
+    tar_obs = np.kron(obs.toarray(),np.eye(2**nancs))
+
+    dil_ham = get_dil_Ham(hamiltonian,deltaT,ListJumpOps)
+
+    sys_qubit_reg = cirq.LineQubit.range(n_sysqubs)
+    anc_qub_reg = cirq.LineQubit.range(n_sysqubs,n_sysqubs+nancs)
+
+    obs_trace = []
+    ###Initial density matrix....
+    rho = np.outer(init_state, init_state.conj())
+    obs_trace.append(np.trace(tar_obs@rho))
+
+    #Tortter circuit for a single time step...
+    Trot_circ = FirstOrderTrotterEvol(sys_qubit_reg,anc_qub_reg, dil_ham,deltaT, n_steps=1, parallel=True)
+
+    sim = cirq.DensityMatrixSimulator()
+    for i in range(1,t_steps):
+        #print("time step:",i)
+
+        try:
+            res = sim.simulate(Trot_circ, initial_state=rho)
+            rho = res.final_density_matrix
+
+            # Ensuring positive defintivenesss...
+
+            #rho = rho / np.trace(rho)
+            #hermitize:
+            rho = (rho+rho.T.conj())/2.0
+
+            rho = enforce_positive_definiteness(rho)
+
+
+            obs_trace.append(np.trace(tar_obs @ rho))
+
+        except Exception as e:
+            print(f"Error at time step {i}: {e}")
+            return rho
+
+
+
+    return obs_trace
+
+def total_magnetization_z(N):
+    """Return the total Sz operator (sum of S_z over all spins) for N spins."""
+    sz = 0.5 * sigmaz()  # S_z = (1/2) * sigma_z
+
+    op_list = []
+    for n in range(N):
+        ops = [qeye(2)] * N  # Identity on all sites
+        ops[n] = sz              # Replace with S_z at position n
+        op_n = tensor(ops)   # Tensor product
+        op_list.append(op_n)
+
+    return sum(op_list)
+
+def total_magnetization_x(N):
+    """Return the total Sz operator (sum of S_z over all spins) for N spins."""
+    sx = 0.5 * sigmax()  # S_z = (1/2) * sigma_z
+
+    op_list = []
+    for n in range(N):
+        ops = [qeye(2)] * N  # Identity on all sites
+        ops[n] = sx              # Replace with S_z at position n
+        op_n = tensor(ops)   # Tensor product
+        op_list.append(op_n)
+
+    return sum(op_list)
+
+def expectation_vale(obs,den_mat):
+    """
+    Calculate the expectation value of obs in the state defined by den_mat
+    Args:
+    obs: sparse operator form of the target observable
+    den_mat: density matrix 
+    """
+
+    return np.trace(obs.toarray()@den_mat)
+
+
+
+
+##################Functions to be refactored or deprecate########################
+
+def get_red_DM_from_circ(circuit,sys_qubit_reg,init_state=None):
+    """
+    Propagate the circuit and return the reduced density matrix after tracing out the ancilla qubits.
+    Args:
+    circuit: circuit to simulate
+    sys_qub_reg: list of qubits that correspond to the target simulated spins
+    """
+
+    nqubs = len(circuit.all_qubits())
+    sys_nqubs = len(sys_qubit_reg)
+    nancs = nqubs - sys_nqubs
+    
+    if init_state is None:
+        init_state = np.zeros(2**nqubs)
+        init_state[0] = 1.0
+        rho0 = np.outer(init_state, init_state.conj())
+    else:
+        #print("Init state is:",init_state)
+        
+        if init_state.full().ndim==1: ###It is assume we always input a Qobj initial state!!!
+            sys_rho = np.outer(init_state.full(),init_state.full().conj())
+        else:
+            sys_rho = init_state.full()
+        anc_psi = np.zeros(2**nancs)
+        anc_psi[0] = 1.0
+        anc_rho = np.outer(anc_psi,anc_psi.conj())
+
+        rho0 = np.kron(sys_rho,anc_rho)
+    #rho0 = np.outer(init_state, init_state.conj())
+
+    sim = cirq.DensityMatrixSimulator()
+    res = sim.simulate(circuit,initial_state=rho0)
+
+    dm = res.final_density_matrix
+    indices = [q.x for q in sys_qubit_reg]
+    #print("System qubit indices:", indices)
+
+    #qutip.ptrace(to_qutip_qobj(dm),[0,1])
+
+
+    return qutip.ptrace(to_qutip_qobj(dm),indices)
+
+
+
+
+
+def time_trace_of_obs_from_circs(hamiltonian,ListJumpOps,obs,time,t_steps, init_state,step_wise=True):
+    """
+    Sample expectation values of observable obs, starting from a wavefunction init_state 
+    Args:
+    hamiltonian, coherent hamiltonian, in openfermion format
+    ListJumpOps: list of jump operators \sqrt{\kappa_{i}}L_{i}
+    obs, target observable in sparse matrix form
+    time: total time of evolution
+    t_steps: number of steps to evolve
+    init_state: initial state vector to evolve, FOR THE SYSTEM QUBITS
+    """
+
+    deltaT = time/t_steps
+    n_sysqubs = of.count_qubits(hamiltonian)
+    nancs = len(ListJumpOps)
+
+    dil_ham = get_dil_Ham(hamiltonian,deltaT,ListJumpOps)
+
+    sys_qubit_reg = cirq.LineQubit.range(n_sysqubs)
+    anc_qub_reg = cirq.LineQubit.range(n_sysqubs,n_sysqubs+nancs)
+
+    obs_trace = []
+
+    for i in range(t_steps):
+
+        if i==0:
+            red_dm = np.outer(init_state, init_state.conj())
+
+            obs_trace.append(np.trace(obs.toarray()@red_dm))
+            red_dm = Qobj(red_dm)
+
+        
+            
+        else:
+
+            if step_wise:
+                Trot_circ = FirstOrderTrotterEvol(sys_qubit_reg,anc_qub_reg, dil_ham,deltaT, n_steps=1,key='m', parallel=True)
+                red_dm = get_red_DM_from_circ(Trot_circ,sys_qubit_reg,init_state=red_dm)
+                #print(red_dm)
+                red_dm = (1.0/np.trace(red_dm.full()))*red_dm ###To avoid the numerical unstability of the simulator
+                obs_trace.append(np.trace(obs.toarray()@red_dm.full()))
+            else:
+
+                Trot_circ = FirstOrderTrotterEvol(sys_qubit_reg,anc_qub_reg, dil_ham,deltaT, n_steps=i,key='m', parallel=True)
+                red_dm = get_red_DM_from_circ(Trot_circ,sys_qubit_reg,init_state=init_state)
+                obs_trace.append(np.trace(obs.toarray()@red_dm.full()))
+
+
+    return np.array(obs_trace)
+
+
+
 
 
 def int_to_binary(n, bit_length=None):

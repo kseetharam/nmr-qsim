@@ -77,6 +77,7 @@ def SpecFunc(w,tc):
 def GammaRates(w,tc,coord1,coord2,coord3,coord4,gamma,iso_av=True):
     """
     Function to compute the damping constants for Linbaldians.
+    Note that gamma is a 1D array of 4 elemnts that contain the gyromagnetic ratios
     """
     hbar = 1.054571628*1e-34
     diff1 = coord2-coord1
@@ -113,7 +114,7 @@ def GammaRates(w,tc,coord1,coord2,coord3,coord4,gamma,iso_av=True):
         for i in range(5):
             Apref+=a_s1[i]*np.conjugate(a_s2[i])
     
-    return hbar**2 * 1e-14*gamma**4 * SpecFunc(w,tc)*Apref/(r1**3 * r2**3) #The 1e-14 prefactor is due to the squared magnetic permeability (divided by 4*np.pi)
+    return hbar**2 * 1e-14*np.prod(gamma) * SpecFunc(w,tc)*Apref/(r1**3 * r2**3) #The 1e-14 prefactor is due to the squared magnetic permeability (divided by 4*np.pi)
 
 
 def K2_MatRep(freqs,tc,coords,Nspins,gamma,basis):
@@ -218,7 +219,7 @@ def Get_K2RatesAndOps(freqs,tc,coords,Nspins,gamma,get_strs=True):
             for k in range(Nspins):
                 for l in range(k+1,Nspins):
 
-                    damp_rate = GammaRates(freqs[k]+freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate = GammaRates(freqs[k]+freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma[[i,j,k,l]])
 
                     List_Jump_Ops.append([S_plus(i)*S_plus(j),S_minus(k)*S_minus(l)])
                     List_rates.append(damp_rate)
@@ -261,8 +262,8 @@ def Get_K1RatesAndOps(freqs,tc,coords,Nspins,gamma,get_strs=True):
             for k in range(Nspins):
                 for l in range(k+1,Nspins):
                     
-                    damp_rate_l = GammaRates(freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
-                    damp_rate_k = GammaRates(freqs[k],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_l = GammaRates(freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma[[i,j,k,l]])
+                    damp_rate_k = GammaRates(freqs[k],tc,coords[i],coords[j],coords[k],coords[l],gamma[[i,j,k,l]])
 
                     List_Jump_Ops.append([Sz(i)*S_plus(j),Sz(k)*S_minus(l)])
                     List_rates.append(damp_rate_l)
@@ -354,8 +355,8 @@ def Get_K0RatesAndOps(freqs,tc,coords,Nspins,gamma,get_strs=True):
             for k in range(Nspins):
                 for l in range(k+1,Nspins):
 
-                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma)
-                    damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma)
+                    damp_rate_0 = GammaRates(0,tc,coords[i],coords[j],coords[k],coords[l],gamma[[i,j,k,l]])
+                    damp_rate_diff = GammaRates(freqs[k]-freqs[l],tc,coords[i],coords[j],coords[k],coords[l],gamma[[i,j,k,l]])
 
                     List_Jump_Ops.append([Sz(i)*Sz(j),Sz(k)*Sz(l)])
                     List_rates.append((8.0/3.0)*damp_rate_0)
