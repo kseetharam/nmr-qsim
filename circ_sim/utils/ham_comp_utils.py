@@ -5,6 +5,86 @@ import numpy as np
 import sys
 sys.path.append('./')
 from basis_utils import Sx,Sy,Sz,S_plus,S_minus
+import re
+import numpy as np
+
+
+###to parse data from Gaussian...
+def parse_gaussian_jmatrix(path):
+    """
+    Parse 'Total nuclear spin-spin coupling J (Hz):' matrix from a Gaussian log file.
+    Handles multi-block structure correctly (continuous rows, block column headers).
+    Returns a symmetric NumPy array in Hz.
+    """
+    with open(path, "r") as f:
+        lines = f.readlines()
+
+    # Find the start of the section
+    start = None
+    for i, line in enumerate(lines):
+        if "Total nuclear spin-spin coupling J (Hz):" in line:
+            start = i + 1
+            break
+    if start is None:
+        raise ValueError("No J-coupling section found.")
+
+    data = {}
+    col_headers = []
+    N = 0
+    i = start
+
+    while i < len(lines):
+        line = lines[i].rstrip()
+        if not line.strip():
+            i += 1
+            continue
+
+        tokens = line.split()
+
+        # Detect column header lines (only integers)
+        if all(re.fullmatch(r"\d+", t) for t in tokens):
+            col_headers = [int(t) for t in tokens]
+            N = max(N, max(col_headers))
+            i += 1
+            continue
+
+        # Data line (starts with row index, followed by numbers)
+        if re.match(r"\s*\d+", line):
+            parts = line.split()
+            row_idx = int(parts[0])
+            values = [float(v.replace("D", "E")) for v in parts[1:]]
+            for c, v in zip(col_headers, values):
+                data[(row_idx, c)] = v
+                data[(c, row_idx)] = v  # symmetry
+            N = max(N, row_idx)
+            i += 1
+            continue
+
+        # Stop if the line doesn't fit any known pattern
+        else:
+            break
+
+    # Construct full symmetric matrix
+    jmat = np.zeros((N, N))
+    for (r, c), v in data.items():
+        jmat[r - 1, c - 1] = v
+    jmat = (jmat + jmat.T) / 2.0
+    return jmat
+
+
+def connect_map_from_jmat(jmat,tar_nuc_idxs):
+
+    N=  len(tar_nuc_idxs)
+
+    graph = []
+    for i in range(N):
+        for j in range(i+1,N):
+            graph.append((i,j,jmat[tar_nuc_idxs[i],tar_nuc_idxs[j]]))
+
+    return graph
+
+
+
 
 
 
@@ -143,7 +223,10 @@ def compile_group(qub_reg,qub_op: QubitOperator):
         #print(f"{pauli_str if pauli_str else 'I'} : {coeff}")
         #print("qargs are:", qargs)
     
-    return circuit
+    #in the CZ+PhXZ gate set
+    return cirq.optimize_for_target_gateset(cirq.Circuit(circuit),gateset=cirq.CZTargetGateset())
+
+    #return circuit
 
 
 
