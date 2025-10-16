@@ -4,7 +4,6 @@ from ham_comp_utils import compile_group
 from nmrfuncs import basisStates
 import sys
 sys.path.append('../../acetonitrile/')
-from nmrfuncs_acet import fullHamiltonian, spin_basis_1d
 from basis_utils import InnProd
 from scipy.sparse.linalg import expm
 from scipy import sparse
