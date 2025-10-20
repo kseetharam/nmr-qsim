@@ -190,11 +190,15 @@ def get_FID_sing_Trot(h_list, J_coup_graph,tgrid,bin_encs,m_vals,Sz_mat,lamb=1.0
             
             #tar_ham = generate_heisenberg_hamiltonian(h_list, mod_J_coups)
             if noise_model is not None:
-                noisy_circ = noise.transform_circuit(compile_group(qub_reg,tgrid[j]*tar_ham),model=noise_model)
-                res = dm_sim.simulate(noisy_circ,initial_state=init_state)
+                if np.isclose(tgrid[j],0.0):
+                    dm = np.outer(init_state,np.conj(init_state))
+                else:
 
-                dm = res.final_density_matrix
-                fid_u_t += m_vals[i]*np.trace(dm@Sz_mat)
+                    noisy_circ = noise.transform_circuit(compile_group(qub_reg,tgrid[j]*tar_ham),model=noise_model)
+                    res = dm_sim.simulate(noisy_circ,initial_state=init_state)
+
+                    dm = res.final_density_matrix
+                fid_u_t += m_vals[i]*np.real(np.trace(dm@Sz_mat))
             else:
                 sing_trot_u = gen_sing_trot_unitary(tar_ham,tgrid[j])
             #U_t = expm(-1j*tgrid[j]*mat_ham)
@@ -208,12 +212,12 @@ def get_FID_sing_Trot(h_list, J_coup_graph,tgrid,bin_encs,m_vals,Sz_mat,lamb=1.0
 
             if return_exact:
                 prop_wf_exact = expm(-1j*tgrid[j]*sp_ham)@init_state
-                fid_u_exact += m_vals[i]*np.vdot(prop_wf_exact,Sz_mat@prop_wf_exact)
+                fid_u_exact += m_vals[i]*np.real(np.vdot(prop_wf_exact,Sz_mat@prop_wf_exact))
 
             #fid_t+=m_vals[i]*np.vdot(prop_wf,Sz_mat@prop_wf)
             #fid_b_t+= m_vals[i]*np.vdot(prop_wf_b,Sz_mat@prop_wf_b)
             if noise_model is None:
-                fid_u_t += m_vals[i]*np.vdot(prop_wf_u,Sz_mat@prop_wf_u)
+                fid_u_t += m_vals[i]*np.real(np.vdot(prop_wf_u,Sz_mat@prop_wf_u))
             #fid_t+=np.vdot(prop_wf,Sz_mat@prop_wf)
 
         FID[j] = fid_u_t
