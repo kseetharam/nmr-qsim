@@ -1,7 +1,7 @@
 import sys
 sys.path.append('./')
 from ham_comp_utils import compile_group
-from nmrfuncs import basisStates
+#from nmrfuncs import basisStates
 import sys
 sys.path.append('../../acetonitrile/')
 from basis_utils import InnProd
