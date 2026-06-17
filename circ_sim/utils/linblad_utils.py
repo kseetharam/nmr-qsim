@@ -183,10 +183,14 @@ def symmetrize_zeeman_coups(zeeman_mats,magfield_vect,gyro_ratios,Gref=np.eye(3)
     Bx, By, Bz = magfield_vect
 
     zeeman_anis = []
+    zeem_freqs = []
+    chem_shifts = []
 
     for i in range(len(zeeman_mats)):
 
         shift_zeeman_mat = 1e-6*zeeman_mats[i]+Gref
+
+        dimensionless_shift = np.trace(1e-6*zeeman_mats[i])/3.0
 
         a_00 = (np.trace(shift_zeeman_mat)/3.0)
         iso_ = a_00*np.eye(3)
@@ -200,6 +204,10 @@ def symmetrize_zeeman_coups(zeeman_mats,magfield_vect,gyro_ratios,Gref=np.eye(3)
        
         
         iso_op += -1.0*gyro_ratios[i]*a_00*(Sz(i)*magfield_vect[2]+Sy(i)*magfield_vect[1]+Sx(i)*magfield_vect[0])
+        zeem_freq = -1.0*gyro_ratios[i]*a_00*Bz
+        zeem_freqs.append(zeem_freq)
+        chem_shifts.append(-1.0*dimensionless_shift*gyro_ratios[i]*Bz)
+
         if verbose:
             print("Isotropic part of the Zeeman tensor for spin ", i)
             #print(f'{a_00*gyro_ratios[i]}*(S_z*{Bz}+S_y*{By}+S_x*{Bx})')
@@ -249,7 +257,7 @@ def symmetrize_zeeman_coups(zeeman_mats,magfield_vect,gyro_ratios,Gref=np.eye(3)
 
 
 
-    return of.get_sparse_operator(iso_op,n_qubits=nspins), dict_Qpq, zeeman_anis
+    return of.get_sparse_operator(iso_op,n_qubits=nspins), dict_Qpq, zeeman_anis, zeem_freqs, chem_shifts
 
 def symmetrize_dipolar_ham(coords,gyro_ratios,verbose=False):
     """

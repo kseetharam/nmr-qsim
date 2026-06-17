@@ -915,7 +915,7 @@ def one_24():
     return r'\frac{1}{24}'
 
 
-def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
+def Get_Det_And_Rates(freqs,tc,coords,Nspins,gammas,chemical_shifts):
     """
     Returns: 1) list of strings for pairs of jump operators that define a relaxation channel 2) its associated damping rate and 3) its oscillatory rate in the rotating frame of the the zeroth-order
     Hamiltonian
@@ -924,7 +924,7 @@ def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
     tc: correlation time for the classical rotational bath (in seconds)
     coords: list that contains the cartesian coordinates of the spins (in meters)
     Nspins: number of spins 
-    gamma: gyromagnetic ratio for spins (assuming an homonuclear scenario)
+    gammas: gyromagnetic ratio for spins 
     chemical shifts: list of chemical shifts for the spins
     """
 
@@ -937,6 +937,7 @@ def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
 
             for k in range(Nspins):
                 for l in range(k+1,Nspins):
+                    gamma = [gammas[i],gammas[j],gammas[k],gammas[l]]
                     delt_i = chemical_shifts[i]
                     delt_j = chemical_shifts[j]
                     delt_k =  chemical_shifts[k]
@@ -1012,7 +1013,7 @@ def Get_Det_And_Rates(freqs,tc,coords,Nspins,gamma,chemical_shifts):
     return list_jumps, list_damp_rates, list_dets
 
 #####For the purposes of generating text in latex format that can be easily compiled, we adapt the previous fucntion accordingly...
-def Get_Det_And_Rates_latex(freqs,tc,coords,Nspins,gamma,chemical_shifts):
+def Get_Det_And_Rates_latex(freqs,tc,coords,Nspins,gammas,chemical_shifts):
     """
     Returns: 1) list of strings for pairs of jump operators that define a relaxation channel 2) its associated damping rate and 3) its oscillatory rate in the rotating frame of the the zeroth-order
     Hamiltonian
@@ -1021,7 +1022,7 @@ def Get_Det_And_Rates_latex(freqs,tc,coords,Nspins,gamma,chemical_shifts):
     tc: correlation time for the classical rotational bath (in seconds)
     coords: list that contains the cartesian coordinates of the spins (in meters)
     Nspins: number of spins 
-    gamma: gyromagnetic ratio for spins (assuming an homonuclear scenario)
+    gammas: gyromagnetic ratio for spins 
     chemical shifts: list of chemical shifts for the spins
     """
 
@@ -1035,6 +1036,8 @@ def Get_Det_And_Rates_latex(freqs,tc,coords,Nspins,gamma,chemical_shifts):
 
             for k in range(Nspins):
                 for l in range(k+1,Nspins):
+
+                    gamma = [gammas[i],gammas[j],gammas[k],gammas[l]]
                     delt_i = chemical_shifts[i]
                     delt_j = chemical_shifts[j]
                     delt_k =  chemical_shifts[k]
