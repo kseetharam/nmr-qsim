@@ -74,7 +74,7 @@ parameters.decouple_f2={};
 parameters.rho0=state(spin_system,'Lz','1H','cheap');
 
 % Simulation
-%fid=liquid(spin_system,@noesy,parameters,'nmr');
+% fid=liquid(spin_system,@noesy,parameters,'nmr');
 fid=liquid(spin_system,@hmqc,parameters,'nmr');
 
 % Apodisation
