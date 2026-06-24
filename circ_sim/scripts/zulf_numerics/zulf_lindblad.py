@@ -1215,6 +1215,64 @@ if __name__ == '__main__':
     print(f"    ||L_can - L_IST||_F / ||L_IST||_F = {rel_err:.4e}  (machine precision = OK)")
 
     # ------------------------------------------------------------------
+    # Save canonical jump operators for off-line comparison
+    # ------------------------------------------------------------------
+    # Rebuild normalised IST basis (same convention as build_canonical_IST)
+    _save_IST_pairs = [(0, 1), (0, 2), (1, 2)]
+    _save_IST_ks    = [-2, -1, 0, 1, 2]
+    _save_P_arr = np.array(
+        [T2_op(si, sj, k).full()
+         for (si, sj) in _save_IST_pairs for k in _save_IST_ks],
+        dtype=complex,
+    )
+    _save_hs_norms = np.sqrt(np.array(
+        [np.real(np.trace(p.conj().T @ p)) for p in _save_P_arr]
+    ))
+    _save_P_norm = _save_P_arr / _save_hs_norms[:, np.newaxis, np.newaxis]
+
+    # "Diagonal" Q operators Q_{m,m}: IST component k == orientation index m.
+    # Under the Universal Linbladian formalism these are the analytical jump
+    # operators (up to the factor sqrt(tau_c / 5)).
+    _save_Q_diag = np.array(
+        [Q_ops[(m, m)].full() for m in range(-2, 3)], dtype=complex
+    )
+
+    _save_path = os.path.join(
+        DATA_DIR,
+        f'canonical_L_ops_tc{tau_c:.0e}_B0{B0:.2f}.npz',
+    )
+    np.savez(
+        _save_path,
+        # Canonical operators (from Delta_plus diagonalisation)
+        d_vals=d_vals,          # (15,) eigenvalues of Delta_plus [rad/s]
+        L_ops=L_ops,            # (15, 8, 8) canonical Lindblad operators
+        U_eigh=U_eigh,          # (15, 15) eigenvector matrix of Delta_plus
+        Delta_plus=Delta_p,     # (15, 15) Lindblad-rate matrix in IST basis
+        Delta_minus=Delta_m,    # (15, 15) commutator-rate matrix in IST basis
+        # Normalised IST basis {p_delta} used to define Delta_plus / L_ops
+        P_norm=_save_P_norm,    # (15, 8, 8)  unit-HS-norm IST operators
+        hs_norms=_save_hs_norms,  # (15,)    raw HS norms before normalisation
+        # Analytical reference operators from Universal Linbladian formalism
+        Q_diag=_save_Q_diag,    # (5, 8, 8)  Q_{m,m} for m = -2..+2 [rad/s]
+        # H0 eigensystem
+        ekets_arr=ekets_arr,    # (8, 8)  rows are eigenvectors
+        evals=evals,            # (8,)    eigenvalues [rad/s]
+        # Physical parameters
+        tau_c=np.array([tau_c]),
+        B0=np.array([B0]),
+        b_FC=np.array([b_FC]),
+        b_FH=np.array([b_FH]),
+        b_CH=np.array([b_CH]),
+        r_FC=r_FC,
+        r_FH=r_FH,
+        r_CH=r_CH,
+        gamma_F=np.array([GAMMA['19F']]),
+        gamma_C=np.array([GAMMA['13C']]),
+        gamma_H=np.array([GAMMA['1H']]),
+    )
+    print(f"\n  Canonical jump operators saved -> {_save_path}")
+
+    # ------------------------------------------------------------------
     # Dominant-5 approximation: top-rate operators only, Delta_minus = 0
     # ------------------------------------------------------------------
     print()
