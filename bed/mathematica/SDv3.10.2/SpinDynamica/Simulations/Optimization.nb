@@ -1,0 +1,1912 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     83801,       1904]
+NotebookOptionsPosition[     75021,       1714]
+NotebookOutlinePosition[     75734,       1738]
+CellTagsIndexPosition[     75691,       1735]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Simulations`Optimization", "Title",
+ CellChangeTimes->{{3.8444202137657948`*^9, 3.844420232769129*^9}, {
+  3.844421960923953*^9, 
+  3.844421967359462*^9}},ExpressionUUID->"5441a26a-f83b-4572-a414-\
+3e951b9cd47d"],
+
+Cell[CellGroupData[{
+
+Cell["BeginPackage", "Chapter",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{
+  3.605545641519261*^9, 3.605546445799432*^9, 3.629385531775414*^9, 
+   3.683109016913093*^9, {3.713552630143968*^9, 3.713552630983634*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"45d9da4c-c259-41ea-b665-55a077d27816"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<Simulations`Optimization`\>\"", ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Global`\>\"", ",", "\[IndentingNewLine]", "\"\<SpinDynamica`\>\"", 
+      ",", "\[IndentingNewLine]", "\"\<General`UserLevel`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`Hilbert`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`SpinOperators`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`Liouville`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Generators`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Approximations`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Propagation`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Events`Events`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Events`PulseSequence`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Interactions`Interactions`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Interactions`Hamiltonians`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Interactions`Relaxation`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Simulations`Polarization`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Signals`Signal`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Ensemble`EnsembleAverage`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<General`Matrices`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<General`Miscellaneous`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Rotations`Wigner`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Units`\>\"", ",", "\[IndentingNewLine]", 
+      "\"\<General`PhysicalConstants`\>\"", ",", "\[IndentingNewLine]", 
+      "\"\<Simulations`Simulations`\>\""}], "\[IndentingNewLine]", "}"}]}], 
+   "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.682597248826211*^9, 3.682597294461053*^9}, {
+   3.682597351454564*^9, 3.6825973593973722`*^9}, {3.682598408412565*^9, 
+   3.682598414442441*^9}, 3.682611835156332*^9, {3.682612805087681*^9, 
+   3.682612806848287*^9}, {3.6826135193470697`*^9, 3.682613519578733*^9}, 
+   3.683108999154292*^9, {3.683109984791785*^9, 3.683109991194178*^9}, 
+   3.683110338026148*^9, 3.683127201432787*^9, {3.683214854449751*^9, 
+   3.683214861642379*^9}, {3.691678328194463*^9, 3.691678351175767*^9}, {
+   3.691833229197735*^9, 3.691833235387183*^9}, {3.691833517358656*^9, 
+   3.691833522890497*^9}, {3.69225582749205*^9, 3.692255829824971*^9}, {
+   3.69225615947401*^9, 3.692256188085162*^9}, 3.701151279017712*^9, {
+   3.745396448625269*^9, 3.745396452970998*^9}, {3.745396501867449*^9, 
+   3.745396507770002*^9}, 3.753285748614682*^9, {3.755662617830538*^9, 
+   3.755662634397366*^9}, 3.949037464668724*^9, {3.94903755822619*^9, 
+   3.949037570323707*^9}, {3.949037756649809*^9, 3.9490377907187557`*^9}, {
+   3.94903786032913*^9, 3.949037861213195*^9}, {3.949037893911302*^9, 
+   3.949037916133752*^9}},ExpressionUUID->"6019cd42-48ee-46eb-950e-\
+b86dc8d46ee2"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "BeginPackage", "cxt", 
+   "\"Invalid context specified at position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) \
+in \\!\\(\\*RowBox[{\\\"BeginPackage\\\", \\\"[\\\", \
+RowBox[{\\\"\\\\\\\"Simulations`Optimization\\\\\\\"\\\", \\\",\\\", RowBox[{\
+\\\"{\\\", RowBox[{\\\"\\\\\\\"Global`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"SpinDynamica`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"General`UserLevel`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"QM`Hilbert`\\\\\\\"\\\", \\\",\\\", \\\"\\\\\\\"QM`SpinOperators`\
+\\\\\\\"\\\", \\\",\\\", \\\"\\\\\\\"QM`Liouville`\\\\\\\"\\\", \\\",\\\", \\\
+\"\\\\\\\"SD`Generators`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"SD`Approximations`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"SD`Propagation`\\\\\\\"\\\", \\\",\\\", RowBox[{\\\"\
+\[LeftSkeleton]\\\", \\\"4\\\", \\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"\\\
+\\\\\"Interactions`Relaxation`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"Simulations`Polarization`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"Signals`Signal`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"Ensemble`EnsembleAverage`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"General`Matrices`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"General`Miscellaneous`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"Rotations`Wigner`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"Units`\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"General`PhysicalConstants`\\\\\\\"\\\"}], \\\"}\\\"}]}], \
+\\\"]\\\"}]\\). A context must consist of valid symbol names separated by and \
+ending with \\!\\(\\*RowBox[{\\\"\\\\\\\"`\\\\\\\"\\\"}]\\).\"", 2, 60, 14, 
+   29601313758515011208, "Local"},
+  "MessageTemplate"]], "Message",
+ CellChangeTimes->{3.949037721809423*^9, 3.94903779818331*^9, 
+  3.9490378624253197`*^9},
+ CellLabel->
+  "During evaluation of \
+In[60]:=",ExpressionUUID->"393ca080-bfa8-4db6-a448-ce465106df7a"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["exports", "Chapter",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{
+  3.605545641519261*^9, 3.605546445799432*^9, 3.629385531775414*^9, {
+   3.713601917586119*^9, 3.713601917681364*^9}, {3.7136028082279615`*^9, 
+   3.7136028083633275`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"4aaa33df-6eb9-4635-bfe6-4fc0a535e972"],
+
+Cell[CellGroupData[{
+
+Cell["MaximizeTransformationAmplitude", "Section",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{
+  3.452685629017554*^9, {3.452685770302914*^9, 3.452685773062087*^9}, {
+   3.454560053522246*^9, 3.454560058216958*^9}, {3.454560100594059*^9, 
+   3.4545601017292137`*^9}, {3.454571512615376*^9, 3.454571533798867*^9}, {
+   3.455118358989929*^9, 3.455118360699583*^9}, 3.455118777072443*^9, {
+   3.455258350884461*^9, 3.455258351588242*^9}, {3.455259235163052*^9, 
+   3.455259235841276*^9}, {3.4556317366262007`*^9, 3.455631739792364*^9}, {
+   3.455635072682274*^9, 3.455635076244506*^9}, {3.45563543338888*^9, 
+   3.455635434064197*^9}, {3.456506289466201*^9, 3.456506295406816*^9}, {
+   3.456508348653371*^9, 3.456508356052676*^9}, {3.4565084005859623`*^9, 
+   3.456508400753638*^9}, {3.4565084369209943`*^9, 3.456508438583412*^9}, {
+   3.456509275980582*^9, 3.456509283884789*^9}, {3.497529440552011*^9, 
+   3.497529444510443*^9}, {3.505020062311255*^9, 3.505020066263239*^9}, {
+   3.5067592714096613`*^9, 3.50675927216*^9}, {3.744197951078443*^9, 
+   3.7441979548277006`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"bfc2d96c-dc85-4aeb-8d30-6f5dc059129c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "usage"}], "=", 
+   "\"\<MaximizeTransformationAmplitude[\[Rho]ini\[Rule]obs,events,{{p1,p1ini}\
+,{p2,p2ini}..}, opts] numerically optimizes a TransformationAmplitude \
+quantity with respect to parameters {p1,p2..}, starting from initial \
+parameter values {p1ini,p2ini..}. \nThe option rules opts may include \
+BackgroundGenerator and any of the other usual option specifications for \
+TransformationAmplitude. The values specified in opts may depend on the \
+parameters {p1,p2..}.\\nThe option rules opts may include the directive \
+ConstrainPositive\[Rule]True which constrains all parameters {p1,p2..} to \
+positive values. The syntax ConstrainPositive\[Rule]{p1,p2..} may be used to \
+constrain only a subset of parameters to positive values. This is frequently \
+required for pulse sequence delays, etc., which cannot take negative values. \
+\nMore general constraints may be implemented by using \
+MaximizeTransformationAmplitude[\[Rho]ini\[Rule]obs,events,{{p1,p1ini,{p1min,\
+p1max}}..}, opts] subjects the parameter p1 to the constraint p1min\
+\[NonBreakingSpace]\[LessEqual]\[NonBreakingSpace]p1\[NonBreakingSpace]\
+\[LessEqual]\[NonBreakingSpace]p1max. If the maximum value p1max is omitted, \
+there is no upper constraint. Any of the parameters {p1,p2..} may be \
+constrained in this way.  \nConstrained optimization is often computationally \
+more intensive than unconstrained optimization.\n\
+MaximizeTransformationAmplitude deploys the Mathematica routine FindMinimum \
+to find a local minimum of the negative transformation amplitude, starting \
+from a specified point. The rules specified in opts may include \
+specifications for FindMinimum, including a value for the Method option (see \
+the documentation for FindMinimum).\\nThe output of \
+MaximizeTransformationAmplitude has the form {maxval,rules} where maxval is \
+the optimized value of the TransformationAmplitude and rules specify the \
+values of the optimized parameters. \>\""}], ";"}]], "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.452685645562502*^9, 3.45268596259144*^9}, {
+   3.452686007045341*^9, 3.452686024085301*^9}, {3.45268620091995*^9, 
+   3.452686229304071*^9}, {3.4526890536560707`*^9, 3.4526890683727083`*^9}, {
+   3.45269039577855*^9, 3.4526904110664663`*^9}, {3.452711827982612*^9, 
+   3.452712227130121*^9}, {3.452712277449806*^9, 3.452712280755077*^9}, {
+   3.452712380593004*^9, 3.452712381700644*^9}, {3.452712440922771*^9, 
+   3.452712454114936*^9}, {3.452712620899944*^9, 3.452712629385104*^9}, {
+   3.452712715419836*^9, 3.452712759967291*^9}, {3.452712897486701*^9, 
+   3.452712995788553*^9}, {3.452714346495099*^9, 3.452714552284289*^9}, {
+   3.452791964028174*^9, 3.452792398306984*^9}, 3.4527924459630947`*^9, {
+   3.452792644226605*^9, 3.452792684928147*^9}, {3.452792720968179*^9, 
+   3.452792741061995*^9}, {3.452792783081061*^9, 3.45279281940061*^9}, {
+   3.4527928670506577`*^9, 3.452792894220006*^9}, {3.45279292667695*^9, 
+   3.452793088020947*^9}, {3.45279312594724*^9, 3.452793136071469*^9}, {
+   3.454560061350251*^9, 3.4545602516118813`*^9}, {3.454571523067834*^9, 
+   3.454571580274415*^9}, {3.454571615796256*^9, 3.454571731313817*^9}, {
+   3.454571797247858*^9, 3.454571869797944*^9}, {3.454578908211237*^9, 
+   3.454578924543745*^9}, {3.454587299797113*^9, 3.454587443427005*^9}, {
+   3.455118364222556*^9, 3.45511865827855*^9}, {3.455118689418354*^9, 
+   3.4551187064071817`*^9}, {3.4551187874827213`*^9, 
+   3.4551188019210043`*^9}, {3.455258355837818*^9, 3.455258370966402*^9}, {
+   3.455259238906035*^9, 3.455259375376084*^9}, 3.455268612922326*^9, {
+   3.455346721466736*^9, 3.4553467219827414`*^9}, {3.455377365093207*^9, 
+   3.455377376240534*^9}, {3.455631743707788*^9, 3.455631802467959*^9}, {
+   3.4556354392890034`*^9, 3.455635443992669*^9}, {3.4565062997331133`*^9, 
+   3.456506432305655*^9}, {3.456508442525239*^9, 3.456508609405936*^9}, {
+   3.45654472052695*^9, 3.456544720871257*^9}, {3.462796042540196*^9, 
+   3.462796064587679*^9}, {3.4973643370282793`*^9, 3.497364438327374*^9}, {
+   3.497529448958867*^9, 3.497529576444746*^9}, {3.506759076076675*^9, 
+   3.506759241758301*^9}, {3.506759275898944*^9, 3.506759440335146*^9}, {
+   3.5067595084616137`*^9, 3.506759543118602*^9}, {3.506759600410699*^9, 
+   3.5067598558941917`*^9}, 3.506759924676757*^9, {3.506759966451091*^9, 
+   3.506759984467004*^9}, {3.50676049556107*^9, 3.506760553034739*^9}, {
+   3.506760618245913*^9, 3.506760625923717*^9}, {3.506794515174374*^9, 
+   3.5067945544153147`*^9}, {3.50685512718398*^9, 3.50685516909583*^9}, 
+   3.506855204397396*^9, {3.5068552389943743`*^9, 3.5068552390167084`*^9}, {
+   3.5068552960643587`*^9, 3.506855297013663*^9}, {3.5071262443641777`*^9, 
+   3.5071263671139803`*^9}, {3.509891293319278*^9, 3.509891300273151*^9}, {
+   3.50989136549286*^9, 3.509891422036111*^9}, {3.509891467728736*^9, 
+   3.509891487672999*^9}, 3.53439833597149*^9, {3.615291658312726*^9, 
+   3.615291695893518*^9}, {3.615291726520569*^9, 3.615291743898257*^9}, {
+   3.709375490542859*^9, 3.709375491206705*^9}, {3.720232375271572*^9, 
+   3.7202324370528517`*^9}, {3.721754984223358*^9, 3.721755068648058*^9}, {
+   3.721887859708981*^9, 3.721887860896724*^9}, {3.7218879457479277`*^9, 
+   3.7218881475689697`*^9}, {3.72188821703861*^9, 3.721888222407333*^9}, {
+   3.7218888055335484`*^9, 3.7218891081691303`*^9}, {3.722474187868596*^9, 
+   3.722474194181658*^9}, {3.72247425218154*^9, 3.7224742750766573`*^9}, {
+   3.7441979728061867`*^9, 3.744198207184675*^9}, {3.744198243586884*^9, 
+   3.744198420168029*^9}, {3.744198459636565*^9, 3.744198683885248*^9}, {
+   3.74420011374732*^9, 3.744200181838018*^9}, {3.7442004800958548`*^9, 
+   3.744200504089458*^9}, {3.744268157150163*^9, 3.744268349713698*^9}, 
+   3.7442683804631977`*^9, {3.744268417130619*^9, 3.744268592294328*^9}, {
+   3.744277249536759*^9, 3.744277487927601*^9}, {3.744277596262108*^9, 
+   3.744277624129046*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"2472ef99-2343-45fa-b12f-9e9005911f6f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ConstrainPositive", "::", "usage"}], "=", 
+   "\"\<ConstrainPositive is an option for MaximizeTransformationAmplitude. \
+If ConstrainPositive\[Rule]True or ConstrainPositive\[Rule]All, all variable \
+parameters of  MaximizeTransformationAmplitude are constrained to positive \
+values. This is frequently required for pulse sequence delays, etc., which \
+cannot take negative values. The syntax ConstrainPositive\[Rule]{p1,p2..} may \
+be used to constrain only a subset of parameters to positive values.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277503360028*^9, 3.744277590832155*^9}, {
+  3.744277631926694*^9, 3.744277684721187*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"f0fa45b5-72a9-4e6e-94a1-584c3a80a1ba"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["start", "Chapter",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.713540147298855*^9, 3.713540147898288*^9}, {
+   3.7136034080327606`*^9, 3.7136034081120296`*^9}, {3.713604106814637*^9, 
+   3.713604108733733*^9}, 3.722473537382512*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"07c80210-6f7d-4cab-9f50-4a51d9556232"],
+
+Cell["Begin[\"`Private`\"];", "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->True,
+ CellLabel->"In[33]:=",ExpressionUUID->"9e213e86-521a-4400-a977-5a33309a5153"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["MaximizeTransformationAmplitude", "Chapter",
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.45268559236838*^9, 3.452685596612178*^9}, 
+   3.452685977341175*^9, {3.456221032206551*^9, 3.456221041675785*^9}, 
+   3.456387573527132*^9, {3.456508634043894*^9, 3.456508635514103*^9}, {
+   3.497529605471568*^9, 3.4975296086541247`*^9}, {3.505019908545583*^9, 
+   3.505019916694314*^9}, 3.505019947230769*^9, {3.505022202959749*^9, 
+   3.505022206743303*^9}, 3.506691865831951*^9, 3.72242389191741*^9, {
+   3.744197923727876*^9, 
+   3.744197925203421*^9}},ExpressionUUID->"5f831a4f-365c-496f-bdb8-\
+0779de81b648"],
+
+Cell[CellGroupData[{
+
+Cell["options & attributes", "Subsubtitle",
+ InitializationCell->True,
+ CellChangeTimes->{{3.455119111984703*^9, 3.455119113726385*^9}, {
+   3.456338125870762*^9, 3.456338128092794*^9}, {3.464426854630291*^9, 
+   3.464426855428462*^9}, {3.541442774600806*^9, 3.5414427905242567`*^9}, 
+   3.541488256748209*^9, 3.6833678572992496`*^9, {3.683957788670847*^9, 
+   3.683957789873822*^9}, {3.683959370434451*^9, 3.683959372582471*^9}, {
+   3.683963462002846*^9, 3.683963467650033*^9}, 3.683963828516594*^9, {
+   3.683973033466785*^9, 3.683973044514587*^9}, 3.6840002435345*^9, 
+   3.699957871043387*^9, {3.722053600474162*^9, 
+   3.722053604311769*^9}},ExpressionUUID->"36e266ae-ca0f-4997-b485-\
+94686c7b9c5b"],
+
+Cell[CellGroupData[{
+
+Cell["options", "Section",
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4483607649589667`*^9, 3.448360776920339*^9}, {
+   3.455107952027554*^9, 3.455107958728705*^9}, {3.46279631431157*^9, 
+   3.462796315357738*^9}, {3.469894351830557*^9, 3.469894355180109*^9}, 
+   3.470141048075708*^9, {3.721861723063643*^9, 3.721861730059412*^9}, 
+   3.721887242993006*^9},ExpressionUUID->"818b90a0-e06d-417f-a50e-\
+5b6b97980d00"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "MaximizeTransformationAmplitude", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Method", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"ConstrainPositive", "\[Rule]", "Automatic"}]}], "}"}]}], 
+  ";"}]], "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.46279631759762*^9, 3.462796327632659*^9}, {
+   3.462796499979474*^9, 3.462796500513019*^9}, {3.463940569383344*^9, 
+   3.463940573195265*^9}, 3.4648620535854683`*^9, {3.465814564759466*^9, 
+   3.465814565148946*^9}, {3.465814951086645*^9, 3.465814954331346*^9}, {
+   3.486719403502572*^9, 3.486719404123908*^9}, {3.497364292109794*^9, 
+   3.497364297163127*^9}, {3.497371897761854*^9, 3.497371906743175*^9}, {
+   3.49737232158766*^9, 3.4973723346500463`*^9}, 3.497529619779294*^9, 
+   3.497572546269267*^9, {3.506694571364847*^9, 3.506694574619191*^9}, {
+   3.50676066374996*^9, 3.506760689656033*^9}, {3.5067668601939793`*^9, 
+   3.506766861670865*^9}, 3.506767076536017*^9, {3.5067753444118958`*^9, 
+   3.506775349337023*^9}, {3.506794750324267*^9, 3.50679476197094*^9}, 
+   3.5068552391541142`*^9, 3.50685540941826*^9, {3.50712640599798*^9, 
+   3.507126420035283*^9}, {3.5071285226083736`*^9, 3.507128534709289*^9}, {
+   3.5072759370082803`*^9, 3.507275938431957*^9}, {3.507571622270445*^9, 
+   3.5075716295419292`*^9}, {3.508583070814494*^9, 3.508583079551385*^9}, 
+   3.5085831257459*^9, {3.508584092301716*^9, 3.508584116149168*^9}, {
+   3.508584165855364*^9, 3.508584166935214*^9}, 3.508609688184823*^9, {
+   3.508673942173622*^9, 3.508673942722736*^9}, {3.508681447965564*^9, 
+   3.508681455651271*^9}, {3.508681808863309*^9, 3.508681809524273*^9}, {
+   3.509187475972389*^9, 3.509187486368254*^9}, 3.509187572766778*^9, {
+   3.509202710447878*^9, 3.509202713244726*^9}, 3.50920275639815*^9, 
+   3.509456901722925*^9, {3.509458294721397*^9, 3.509458300182678*^9}, {
+   3.510489743459514*^9, 3.5104897556279593`*^9}, {3.514876461353185*^9, 
+   3.5148764622118397`*^9}, 3.515004308085532*^9, 3.515004360424423*^9, 
+   3.515078115971826*^9, {3.533177158503834*^9, 3.533177162699546*^9}, {
+   3.534399058676367*^9, 3.534399064507273*^9}, {3.539112680722073*^9, 
+   3.539112681512909*^9}, 3.543413759248107*^9, 3.543498937461519*^9, 
+   3.545050561058374*^9, {3.572539894675764*^9, 3.5725398982129316`*^9}, {
+   3.626027716277868*^9, 3.626027716941956*^9}, {3.657712903551982*^9, 
+   3.6577129097977*^9}, {3.702816071150379*^9, 3.702816072340538*^9}, {
+   3.703082532778181*^9, 3.7030825455365343`*^9}, {3.709375525012845*^9, 
+   3.709375525609339*^9}, {3.709387217297209*^9, 3.709387218485963*^9}, {
+   3.721764466735124*^9, 3.721764515985629*^9}, {3.721764987162115*^9, 
+   3.721764988647385*^9}, {3.721778102712504*^9, 3.721778104958108*^9}, {
+   3.721861704569773*^9, 3.721861705770383*^9}, 3.721887083176839*^9, {
+   3.7218871198157377`*^9, 3.721887120742151*^9}, {3.72188717773267*^9, 
+   3.721887219833814*^9}, {3.744198721316077*^9, 3.744198749966634*^9}, {
+   3.744199457645911*^9, 3.744199459692824*^9}, {3.744277839733025*^9, 
+   3.74427784657507*^9}, {3.744280236400559*^9, 3.744280239597035*^9}},
+ CellLabel->"In[34]:=",ExpressionUUID->"854297ca-d8f1-4578-aa0a-2608e324903a"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["preparations", "Subsubtitle",
+ InitializationCell->True,
+ CellChangeTimes->{{3.455119111984703*^9, 3.455119113726385*^9}, {
+   3.456338125870762*^9, 3.456338128092794*^9}, {3.464426854630291*^9, 
+   3.464426855428462*^9}, {3.541442774600806*^9, 3.5414427905242567`*^9}, 
+   3.541488256748209*^9, 3.6833678572992496`*^9, {3.683957788670847*^9, 
+   3.683957789873822*^9}, {3.683959370434451*^9, 3.683959372582471*^9}, {
+   3.683963462002846*^9, 3.683963467650033*^9}, 3.683963828516594*^9, {
+   3.683973033466785*^9, 3.683973044514587*^9}, 3.6840002435345*^9, 
+   3.699957871043387*^9, {3.722053600474162*^9, 3.722053604311769*^9}, {
+   3.744198823162103*^9, 
+   3.744198824879379*^9}},ExpressionUUID->"09fc7921-368e-432c-884b-\
+b8724d1822ec"],
+
+Cell[CellGroupData[{
+
+Cell["traps", "Section",
+ CellChangeTimes->{{3.7441990281856203`*^9, 
+  3.744199028807974*^9}},ExpressionUUID->"d8e341d3-b30b-46a0-9987-\
+e4a8c549677d"],
+
+Cell[CellGroupData[{
+
+Cell["multiple observables are disallowed", "Subsection",
+ CellChangeTimes->{{3.744198879476315*^9, 3.744198887862782*^9}, {
+  3.74419892846472*^9, 3.744198930858957*^9}, {3.7442686417358513`*^9, 
+  3.7442686419272017`*^9}, {3.744282570400301*^9, 
+  3.7442825734516172`*^9}},ExpressionUUID->"256ca297-0212-446d-9a25-\
+1b9529d53d1a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_List"}], ",", "more___"}], "]"}], ":=",
+    "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"MaximizeTransformationAmplitude", "::", "multobs"}], ";", 
+     "$Failed"}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744198891727161*^9, 3.744198935422387*^9}, {
+  3.744199009336542*^9, 3.744199015311526*^9}},
+ CellLabel->"In[35]:=",ExpressionUUID->"03e5ac0c-8249-4694-87fd-b85d8f488bfc"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["syntax standardization", "Section",
+ CellChangeTimes->{{3.7441990281856203`*^9, 
+  3.744199051557382*^9}},ExpressionUUID->"6954f715-65cb-4fb6-a6fe-\
+0fbaec0837cd"],
+
+Cell[CellGroupData[{
+
+Cell["single parameter", "Subsection",
+ CellChangeTimes->{{3.744268654383067*^9, 3.744268676253565*^9}, {
+   3.7442797402438397`*^9, 3.744279746698517*^9}, 
+   3.744281558272043*^9},ExpressionUUID->"7accf3a5-44c0-4fd8-80d5-\
+44ac69f31390"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"v", ":", 
+        RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+       RowBox[{"vini", ":", 
+        RowBox[{"Except", "[", "_List", "]"}]}]}], "}"}], ",", "more___"}], 
+    "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"v", ",", "vini"}], "}"}], "}"}], ",", "more"}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744199079736761*^9, 3.744199179063078*^9}},
+ CellLabel->"In[36]:=",ExpressionUUID->"85900b34-27db-43d9-a75a-c0a5aa4ab4ca"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"v", ":", 
+        RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+       RowBox[{"vini", ":", 
+        RowBox[{"Except", "[", "_List", "]"}]}], ",", "vconstr_"}], "}"}], 
+     ",", "more___"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"v", ",", "vini", ",", "vconstr"}], "}"}], "}"}], ",", 
+     "more"}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744199079736761*^9, 3.744199179063078*^9}, {
+  3.7442686849106913`*^9, 3.744268700165257*^9}},
+ CellLabel->"In[37]:=",ExpressionUUID->"b303d3ba-3648-4dfb-bcef-b86d471905f1"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ConstrainPositive", "Subsection",
+ CellChangeTimes->{{3.74427771704383*^9, 3.744277719587055*^9}, 
+   3.744277759713423*^9},ExpressionUUID->"3e1d0f88-2da8-4aba-a82a-\
+23195a7f2adc"],
+
+Cell[CellGroupData[{
+
+Cell["convert True to All", "Subsubsection",
+ CellChangeTimes->{{3.744281232073284*^9, 
+  3.744281237889523*^9}},ExpressionUUID->"0e691400-39c9-4e35-8c8b-\
+3bbe9c62c3f3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "vars_List", ",", 
+     RowBox[{"more", ":", 
+      RowBox[{
+       RowBox[{"Except", "[", 
+        RowBox[{"(", 
+         RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "]"}], "..."}]}], ",",
+      "\[IndentingNewLine]", "opts___Rule"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "constrpos", "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+       "MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", "vars", 
+         ",", "more", ",", "\[IndentingNewLine]", 
+         RowBox[{"SimplifyRules", "[", 
+          RowBox[{
+           RowBox[{"ConstrainPositive", "\[Rule]", "All"}], ",", "opts"}], 
+          "]"}]}], "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ")"}],
+       "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MatchQ", "[", 
+         RowBox[{"constrpos", ",", "True"}], "]"}]}], "\[IndentingNewLine]", 
+       ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277777577664*^9, 3.744277948974262*^9}, {
+   3.744283338112158*^9, 3.74428334518244*^9}, {3.744283386672727*^9, 
+   3.744283416837393*^9}, 3.744283934795853*^9, 3.744284664080236*^9},
+ CellLabel->"In[38]:=",ExpressionUUID->"05864145-e876-4b84-b431-60cd946b107a"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["interpret All", "Subsubsection",
+ CellChangeTimes->{{3.744281232073284*^9, 
+  3.744281258129087*^9}},ExpressionUUID->"5b01612c-b2ec-43bd-a453-\
+1ebe8a5da7d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}]}], "}"}], ".."}], "}"}]}], 
+     ",", 
+     RowBox[{"more", ":", 
+      RowBox[{
+       RowBox[{"Except", "[", 
+        RowBox[{"(", 
+         RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "]"}], "..."}]}], ",",
+      "\[IndentingNewLine]", "opts___Rule"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"constrpos", ",", "vars", ",", "varinivals"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"vars", ",", "varinivals"}], "}"}], "=", 
+         RowBox[{"Transpose", "[", "varspecs", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+          "varspecs", ",", "more", ",", "\[IndentingNewLine]", 
+          RowBox[{"SimplifyRules", "[", 
+           RowBox[{
+            RowBox[{"ConstrainPositive", "\[Rule]", "vars"}], ",", "opts"}], 
+           "]"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+       ")"}], "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MatchQ", "[", 
+         RowBox[{"constrpos", ",", "All"}], "]"}]}], "\[IndentingNewLine]", 
+       ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277777577664*^9, 3.744277948974262*^9}, {
+   3.744278012516142*^9, 3.744278107266035*^9}, {3.744278285542115*^9, 
+   3.744278299032616*^9}, {3.744283438378557*^9, 3.744283450077379*^9}, {
+   3.744283484164381*^9, 3.744283489246504*^9}, 3.744283940937015*^9, 
+   3.744284669733333*^9},
+ CellLabel->"In[39]:=",ExpressionUUID->"800e0cec-631f-4b42-9da8-e0a167fe9f0e"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["single constrained parameter", "Subsubsection",
+ CellChangeTimes->{{3.744281232073284*^9, 3.744281342725394*^9}, {
+  3.744281436725033*^9, 3.744281441523223*^9}, {3.744281578424193*^9, 
+  3.744281582767428*^9}},ExpressionUUID->"e6047448-3570-4ebc-bdf0-\
+dae751417f50"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}]}], "}"}], ".."}], "}"}]}], 
+     ",", 
+     RowBox[{"more", ":", 
+      RowBox[{
+       RowBox[{"Except", "[", 
+        RowBox[{"(", 
+         RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "]"}], "..."}]}], ",",
+      "opts___Rule"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "constrpos", "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+       "MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+         "varspecs", ",", "more", ",", "\[IndentingNewLine]", 
+         RowBox[{"SimplifyRules", "[", 
+          RowBox[{
+           RowBox[{"ConstrainPositive", "\[Rule]", 
+            RowBox[{"{", "constrpos", "}"}]}], ",", "opts"}], "]"}]}], 
+        "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ")"}], "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"!", 
+         RowBox[{"MatchQ", "[", 
+          RowBox[{"constrpos", ",", 
+           RowBox[{
+           "_List", "|", "All", "|", "False", "|", "True", "|", 
+            "Automatic"}]}], "]"}]}]}], "\[IndentingNewLine]", ")"}]}]}], 
+    "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277777577664*^9, 3.744277948974262*^9}, {
+   3.744278012516142*^9, 3.744278107266035*^9}, {3.744278176268837*^9, 
+   3.744278270598173*^9}, {3.744278317294277*^9, 3.744278495996976*^9}, {
+   3.744278591517711*^9, 3.7442786304084463`*^9}, {3.744278740198392*^9, 
+   3.744278748629757*^9}, {3.744279527449058*^9, 3.744279527749641*^9}, {
+   3.744279830309925*^9, 3.744279836159008*^9}, {3.744281027086418*^9, 
+   3.744281028633031*^9}, {3.744281065443784*^9, 3.744281126576437*^9}, {
+   3.744281370676139*^9, 3.744281429167144*^9}, {3.744281487374736*^9, 
+   3.744281499684928*^9}, {3.744281568075562*^9, 3.744281573083713*^9}, 
+   3.744283946546198*^9, 3.744284675183341*^9},
+ CellLabel->"In[40]:=",ExpressionUUID->"c95d6142-e814-4e93-9534-6b06c99ccc2c"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+insert min value of 0 into constraints on all indicated variables\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.744281232073284*^9, 
+  3.744281308222134*^9}},ExpressionUUID->"3cca8c74-5fd7-4c0a-acd7-\
+904e99de8152"],
+
+Cell["\<\
+generate error message if a constrained variable is not recognized\
+\>", "Text",
+ CellChangeTimes->{{3.744281834462741*^9, 
+  3.74428184656288*^9}},ExpressionUUID->"9be3b350-efa5-4426-a7eb-\
+4de1b30f2ac8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}]}], "}"}], ".."}], "}"}]}], 
+     ",", 
+     RowBox[{"more", ":", 
+      RowBox[{
+       RowBox[{"Except", "[", 
+        RowBox[{"(", 
+         RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "]"}], "..."}]}], ",",
+      "\[IndentingNewLine]", "opts___Rule"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"constrpos", ",", "constrposvars"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrposvars", "=", "constrpos"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{
+             RowBox[{"First", "/@", "varspecs"}], ",", "constrposvars"}], 
+            "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Message", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+              "MaximizeTransformationAmplitude", "::", "badconstrvar"}], ",", 
+              "constrposvars"}], "]"}], ";", "\[IndentingNewLine]", 
+            "$Failed"}], "\[IndentingNewLine]", ")"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+          "MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"varspecs", "/.", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"#1", ",", "inival_"}], "}"}], ":>", 
+                  RowBox[{"{", 
+                   RowBox[{"#1", ",", "inival", ",", 
+                    RowBox[{"{", "0", "}"}]}], "}"}]}], ")"}], "&"}], "/@", 
+               "constrposvars"}], ")"}]}], ",", "\[IndentingNewLine]", "more",
+             ",", "\[IndentingNewLine]", 
+            RowBox[{"SimplifyRules", "[", 
+             RowBox[{
+              RowBox[{"ConstrainPositive", "\[Rule]", "Automatic"}], ",", 
+              "opts"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+         "\[IndentingNewLine]", "]"}]}], ")"}], "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MatchQ", "[", 
+         RowBox[{"constrpos", ",", 
+          RowBox[{"{", 
+           RowBox[{"_Symbol", ".."}], "}"}]}], "]"}]}], "\[IndentingNewLine]",
+        ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277777577664*^9, 3.744277948974262*^9}, {
+   3.744278012516142*^9, 3.744278107266035*^9}, {3.744278176268837*^9, 
+   3.744278270598173*^9}, {3.744278317294277*^9, 3.744278495996976*^9}, {
+   3.744278591517711*^9, 3.7442786304084463`*^9}, {3.744278740198392*^9, 
+   3.744278748629757*^9}, {3.744279527449058*^9, 3.744279527749641*^9}, {
+   3.744279830309925*^9, 3.744279836159008*^9}, {3.744281027086418*^9, 
+   3.744281028633031*^9}, {3.744281688777438*^9, 3.744281821820197*^9}, {
+   3.744282202273187*^9, 3.744282221512125*^9}, 3.744283951797909*^9, 
+   3.744284680583966*^9},
+ CellLabel->"In[41]:=",ExpressionUUID->"bb723d82-a872-4ba5-a475-1f5366899c63"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["trap constraint conflict", "Subsubsection",
+ CellChangeTimes->{{3.744281232073284*^9, 3.744281308222134*^9}, {
+  3.744281877619587*^9, 
+  3.744281881517639*^9}},ExpressionUUID->"50ce487a-5fec-4b5b-973d-\
+3201ec2af692"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{"___", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}], ",", "_"}], "}"}], ",", 
+        "___"}], "}"}]}], ",", 
+     RowBox[{"more", ":", 
+      RowBox[{
+       RowBox[{"Except", "[", 
+        RowBox[{"(", 
+         RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "]"}], "..."}]}], ",",
+      "\[IndentingNewLine]", "opts___Rule"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"constrpos", ",", "constrposvars"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"MaximizeTransformationAmplitude", "::", "constrposconf"}], 
+          ",", "constrpos"}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+          "\[IndentingNewLine]", "varspecs", ",", "\[IndentingNewLine]", 
+          "more", ",", "\[IndentingNewLine]", 
+          RowBox[{"SimplifyRules", "[", 
+           RowBox[{
+            RowBox[{"ConstrainPositive", "\[Rule]", "Automatic"}], ",", 
+            "opts"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+       "\[IndentingNewLine]", ")"}], "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"!", 
+         RowBox[{"MatchQ", "[", 
+          RowBox[{"constrpos", ",", "Automatic"}], "]"}]}]}], 
+       "\[IndentingNewLine]", ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277777577664*^9, 3.744277948974262*^9}, {
+   3.744278012516142*^9, 3.744278107266035*^9}, {3.744278176268837*^9, 
+   3.744278270598173*^9}, {3.744278317294277*^9, 3.744278495996976*^9}, {
+   3.744278591517711*^9, 3.7442786304084463`*^9}, {3.744278670202725*^9, 
+   3.744278727041493*^9}, {3.7442787663737597`*^9, 3.744278823616399*^9}, {
+   3.744279425870192*^9, 3.7442794305050917`*^9}, {3.744279617305771*^9, 
+   3.7442796195154967`*^9}, {3.7442799068928638`*^9, 3.7442799112658453`*^9}, 
+   3.744280018408389*^9, 3.7442839572502136`*^9, 3.744284686448376*^9},
+ CellLabel->"In[42]:=",ExpressionUUID->"e8e0a762-0817-4514-b477-651bd789fdad"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+set ConstrainPositive\[Rule]False if no constraint indication detected\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.744281232073284*^9, 3.744281308222134*^9}, {
+  3.744281877619587*^9, 3.744281881517639*^9}, {3.744281959420184*^9, 
+  3.744281977813328*^9}, {3.744283217146745*^9, 
+  3.744283222593617*^9}},ExpressionUUID->"6e53c7d7-4191-44e3-b5f2-\
+8b35c6db0c76"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}]}], "}"}], ".."}], "}"}]}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"more", ":", 
+      RowBox[{
+       RowBox[{"Except", "[", 
+        RowBox[{"(", 
+         RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "]"}], "..."}]}], ",",
+      "\[IndentingNewLine]", "opts___Rule"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"constrpos", ",", "constrposvars"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrposvars", "=", "constrpos"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+          "\[IndentingNewLine]", "varspecs", ",", "more", ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"SimplifyRules", "[", 
+           RowBox[{
+            RowBox[{"ConstrainPositive", "\[Rule]", "False"}], ",", "opts"}], 
+           "]"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+       ")"}], "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MatchQ", "[", 
+         RowBox[{"constrpos", ",", "Automatic"}], "]"}]}], 
+       "\[IndentingNewLine]", ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744277777577664*^9, 3.744277948974262*^9}, {
+   3.744278012516142*^9, 3.744278107266035*^9}, {3.744278176268837*^9, 
+   3.744278270598173*^9}, {3.744278317294277*^9, 3.744278495996976*^9}, {
+   3.744278591517711*^9, 3.7442786304084463`*^9}, {3.744278740198392*^9, 
+   3.744278748629757*^9}, {3.744279527449058*^9, 3.744279527749641*^9}, {
+   3.744279830309925*^9, 3.744279836159008*^9}, {3.744280486061185*^9, 
+   3.744280502697468*^9}, 3.744282769709928*^9, 3.744282814865819*^9, 
+   3.744283294888875*^9, {3.744283557294843*^9, 3.744283559627396*^9}, {
+   3.744283654555971*^9, 3.744283657203278*^9}, {3.7442838230895*^9, 
+   3.744283827854986*^9}, {3.744283889159518*^9, 3.744283910452843*^9}, 
+   3.744284693436362*^9, 3.744284869632679*^9},
+ CellLabel->"In[43]:=",ExpressionUUID->"6c410d11-a24f-43d1-908b-32967f54c087"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["general constrained syntax", "Subsubsection",
+ CellChangeTimes->{{3.74427771704383*^9, 3.744277719587055*^9}, {
+  3.744279925079965*^9, 3.744279928694098*^9}, {3.744283675565488*^9, 
+  3.744283683017881*^9}},ExpressionUUID->"d1b34d77-90cc-48ce-b7ee-\
+8a8dc1e0e063"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va___", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"vb", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+         RowBox[{"vbini", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+         RowBox[{"vbmin", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}]}], "}"}], ",", "vc___"}], 
+      "}"}], ",", "more___"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va", ",", 
+       RowBox[{"{", 
+        RowBox[{"vb", ",", "vbini", ",", 
+         RowBox[{"{", "vbmin", "}"}]}], "}"}], ",", "vc"}], "}"}], ",", 
+     "more"}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744199079736761*^9, 3.744199179063078*^9}, {
+  3.744268735753817*^9, 3.744268792171048*^9}, {3.744270397442937*^9, 
+  3.7442704129697857`*^9}},
+ CellLabel->"In[44]:=",ExpressionUUID->"e61b2eda-61d2-4c2f-ab27-27b6f8db289e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va___", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"vb", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+         RowBox[{"vbini", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"vbmin", ":", 
+           RowBox[{"Except", "[", "_List", "]"}]}], "}"}]}], "}"}], ",", 
+       "vc___"}], "}"}], ",", "more___"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va", ",", 
+       RowBox[{"{", 
+        RowBox[{"vb", ",", "vbini", ",", 
+         RowBox[{"{", 
+          RowBox[{"vbmin", ",", "Infinity"}], "}"}]}], "}"}], ",", "vc"}], 
+      "}"}], ",", "more"}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744199079736761*^9, 3.744199179063078*^9}, {
+  3.744268735753817*^9, 3.744268792171048*^9}, {3.744268832250239*^9, 
+  3.744268841848669*^9}, {3.744270368104595*^9, 3.744270387569596*^9}},
+ CellLabel->"In[45]:=",ExpressionUUID->"47742de6-f5ba-4b02-b34d-f912964fc738"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va___", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"vb", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+         RowBox[{"vbini", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}]}], "}"}], ",", "vc___", ",", 
+       RowBox[{"vd", ":", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Except", "[", "_List", "]"}], ",", 
+            RowBox[{"Except", "[", "_List", "]"}]}], "}"}]}], "}"}]}], ",", 
+       "ve___"}], "}"}], ",", "more___"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va", ",", 
+       RowBox[{"{", 
+        RowBox[{"vb", ",", "vbini", ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "Infinity"}], ",", "Infinity"}], "}"}]}], "}"}], ",", 
+       "vc", ",", "vd", ",", "ve"}], "}"}], ",", "more"}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744199079736761*^9, 3.744199179063078*^9}, {
+  3.744268735753817*^9, 3.744268792171048*^9}, {3.744268832250239*^9, 
+  3.744268841848669*^9}, {3.744268876473351*^9, 3.744268893070602*^9}, {
+  3.744270152655787*^9, 3.744270263418435*^9}},
+ CellLabel->"In[46]:=",ExpressionUUID->"7ce0dacb-68f8-42a1-99ce-de73b5ba1511"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "events_", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va___", ",", 
+       RowBox[{"vb", ":", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"Except", "[", "_List", "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Except", "[", "_List", "]"}], ",", 
+            RowBox[{"Except", "[", "_List", "]"}]}], "}"}]}], "}"}]}], ",", 
+       "vc___", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"vd", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+         RowBox[{"vdini", ":", 
+          RowBox[{"Except", "[", "_List", "]"}]}]}], "}"}], ",", "ve___"}], 
+      "}"}], ",", "more___"}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", "events", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"va", ",", "vb", ",", "vc", ",", 
+       RowBox[{"{", 
+        RowBox[{"vd", ",", "vdini", ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "Infinity"}], ",", "Infinity"}], "}"}]}], "}"}], ",", 
+       "ve"}], "}"}], ",", "more"}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744199079736761*^9, 3.744199179063078*^9}, {
+  3.744268735753817*^9, 3.744268792171048*^9}, {3.744268832250239*^9, 
+  3.744268841848669*^9}, {3.744268876473351*^9, 3.744268893070602*^9}, {
+  3.744270152655787*^9, 3.7442703449370136`*^9}},
+ CellLabel->"In[47]:=",ExpressionUUID->"2a4d9745-982e-49d7-b1d5-ac6769458564"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["unconstrained optimization", "Subsubtitle",
+ InitializationCell->True,
+ CellChangeTimes->{{3.455119111984703*^9, 3.455119113726385*^9}, {
+   3.456338125870762*^9, 3.456338128092794*^9}, {3.464426854630291*^9, 
+   3.464426855428462*^9}, {3.541442774600806*^9, 3.5414427905242567`*^9}, 
+   3.541488256748209*^9, 3.6833678572992496`*^9, {3.683957788670847*^9, 
+   3.683957789873822*^9}, {3.683959370434451*^9, 3.683959372582471*^9}, {
+   3.683963462002846*^9, 3.683963467650033*^9}, 3.683963828516594*^9, {
+   3.683973033466785*^9, 3.683973044514587*^9}, 3.6840002435345*^9, 
+   3.699957871043387*^9, {3.722053600474162*^9, 3.722053604311769*^9}, {
+   3.744198823162103*^9, 
+   3.744198834823688*^9}},ExpressionUUID->"a734e686-40b5-4c40-924c-\
+53ad72839c88"],
+
+Cell["default Method in this case is \[OpenCurlyDoubleQuote]InteriorPoint\
+\[CloseCurlyDoubleQuote]", "Text",
+ CellChangeTimes->{{3.744199362301531*^9, 3.744199378121757*^9}, 
+   3.744280567686783*^9},ExpressionUUID->"1835c82d-d627-4a6c-9553-\
+424efe101afe"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "\[IndentingNewLine]", 
+     "events_", ",", "\[IndentingNewLine]", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_", ",", "_"}], "}"}], ".."}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"opts", ":", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "..."}]}]}], 
+    "\[IndentingNewLine]", "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "negta", ",", "minval", ",", "varrules", ",", "vars", ",", "varinivals",
+        ",", "nvar", ",", "method", ",", "constrpos"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"vars", ",", "varinivals"}], "}"}], "=", 
+         RowBox[{"Transpose", "[", "varspecs", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"nvar", "=", 
+         RowBox[{"Length", "[", "vars", "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"negta", "[", 
+          RowBox[{"Repeated", "[", 
+           RowBox[{
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"{", "nvar", "}"}]}], "]"}], "]"}], ":=", 
+         "\[IndentingNewLine]", 
+         RowBox[{"-", 
+          RowBox[{"TransformationAmplitude", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", 
+            "\[IndentingNewLine]", "events", ",", "\[IndentingNewLine]", 
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"Sequence", "@@", 
+              RowBox[{"FilterRules", "[", 
+               RowBox[{
+                RowBox[{"{", "opts", "}"}], ",", 
+                RowBox[{"Options", "[", "TransformationAmplitude", "]"}]}], 
+               "]"}]}], "]"}]}], "\[IndentingNewLine]", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Message", "[", 
+         RowBox[{"MaximizeTransformationAmplitude", "::", "unconstr"}], "]"}],
+         ";", "\[IndentingNewLine]", 
+        RowBox[{"method", "=", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Method", "/.", 
+            RowBox[{"{", "opts", "}"}]}], "/.", 
+           RowBox[{"Options", "[", "MaximizeTransformationAmplitude", "]"}]}],
+           "/.", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", "\[Rule]", "\"\<InteriorPoint\>\""}], 
+           "}"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"!", 
+           RowBox[{"MatchQ", "[", 
+            RowBox[{"method", ",", "Automatic"}], "]"}]}], ",", 
+          RowBox[{"Message", "[", 
+           RowBox[{
+            RowBox[{"MaximizeTransformationAmplitude", "::", "meth"}], ",", 
+            "method"}], "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Check", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"minval", ",", "varrules"}], "}"}], "=", 
+             "\[IndentingNewLine]", 
+             RowBox[{"FindMinimum", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"negta", "[", 
+                RowBox[{"Sequence", "@@", "vars"}], "]"}], ",", 
+               "\[IndentingNewLine]", "varspecs", ",", "\[IndentingNewLine]", 
+               
+               RowBox[{"Evaluate", "[", 
+                RowBox[{"Sequence", "@@", 
+                 RowBox[{"FilterRules", " ", "[", "\[IndentingNewLine]", 
+                  RowBox[{
+                   RowBox[{"Join", "[", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Method", "\[Rule]", "method"}], ",", "opts"}], 
+                    "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    "Options", "[", "MaximizeTransformationAmplitude", 
+                    "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"Options", "[", "FindMinimum", "]"}]}], 
+                  "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+                "]"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "minval"}], ",", "varrules"}], "}"}]}], ")"}], ",",
+           "\[IndentingNewLine]", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Message", "[", 
+             RowBox[{"MaximizeTransformationAmplitude", "::", "fail"}], "]"}],
+             ";", "\[IndentingNewLine]", "$Failed"}], ")"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Event", "::", "negdur"}], ",", 
+            RowBox[{"Delay", "::", "negdur"}], ",", 
+            RowBox[{"Pulse", "::", "inval\[Beta]"}], ",", 
+            RowBox[{"Pulse", "::", "inval\[Phi]"}], ",", 
+            RowBox[{"Pulse", "::", "neg\[Tau]"}], ",", 
+            RowBox[{"ShapedPulse", "::", "invaldur"}], ",", 
+            RowBox[{"FindMinimum", "::", "nrnum"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", ")"}], "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"constrpos", "=", 
+         RowBox[{
+          RowBox[{"ConstrainPositive", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{
+          "Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"MatchQ", "[", 
+         RowBox[{"constrpos", ",", "False"}], "]"}]}], "\[IndentingNewLine]", 
+       ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.7441992159325123`*^9, {3.744199386330467*^9, 3.744199441927689*^9}, {
+   3.744199472121543*^9, 3.744199553459427*^9}, {3.744199625186706*^9, 
+   3.744199642944803*^9}, {3.744208825893285*^9, 3.744208861938894*^9}, 
+   3.744208969988455*^9, 3.744209082938859*^9, {3.744209510488188*^9, 
+   3.744209526392623*^9}, 3.7442098066161838`*^9, {3.744214192054021*^9, 
+   3.744214192494932*^9}, {3.744274095744903*^9, 3.744274102645*^9}, {
+   3.74428060701107*^9, 3.744280622157024*^9}, {3.744282513657896*^9, 
+   3.744282522264087*^9}, 3.74428487672464*^9},
+ CellLabel->"In[48]:=",ExpressionUUID->"1b21da4a-5bcb-4ac8-812e-0853373cc8b7"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["constrained optimization", "Subsubtitle",
+ InitializationCell->True,
+ CellChangeTimes->{{3.455119111984703*^9, 3.455119113726385*^9}, {
+   3.456338125870762*^9, 3.456338128092794*^9}, {3.464426854630291*^9, 
+   3.464426855428462*^9}, {3.541442774600806*^9, 3.5414427905242567`*^9}, 
+   3.541488256748209*^9, 3.6833678572992496`*^9, {3.683957788670847*^9, 
+   3.683957789873822*^9}, {3.683959370434451*^9, 3.683959372582471*^9}, {
+   3.683963462002846*^9, 3.683963467650033*^9}, 3.683963828516594*^9, {
+   3.683973033466785*^9, 3.683973044514587*^9}, 3.6840002435345*^9, 
+   3.699957871043387*^9, {3.722053600474162*^9, 3.722053604311769*^9}, {
+   3.744198823162103*^9, 
+   3.744198840320845*^9}},ExpressionUUID->"1dbe24cf-b36c-4596-8e3d-\
+199f42a01b1d"],
+
+Cell["default Method is Automatic in this case", "Text",
+ CellChangeTimes->{{3.744199362301531*^9, 3.744199378121757*^9}, {
+  3.7441997180046587`*^9, 
+  3.744199723484242*^9}},ExpressionUUID->"f4eb047e-14e9-4c82-a8c6-\
+e26d2e254279"],
+
+Cell["\<\
+implement reflective boundaries, so that even if FindMinimum transgresses \
+into a non-physical region, a TransformationAmplitude error will not be \
+generated.\
+\>", "Text",
+ CellChangeTimes->{{3.744270492003914*^9, 3.744270560426846*^9}, 
+   3.744273823438403*^9},ExpressionUUID->"cb1cad72-8c46-487d-9735-\
+4d82c8b863fc"],
+
+Cell["\<\
+The additional error trap Check[..] should be obsolete but does no harm. \
+\>", "Text",
+ CellChangeTimes->{{3.744273830687197*^9, 3.744273868997435*^9}, {
+  3.744277183033781*^9, 
+  3.744277192679408*^9}},ExpressionUUID->"58ba8414-b4d3-4646-a10c-\
+70b50f89c9b2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\[Rho]ini_", "\[Rule]", "obs_"}], ",", "\[IndentingNewLine]", 
+     "events_", ",", "\[IndentingNewLine]", 
+     RowBox[{"varspecs", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_", ",", "_", ",", 
+          RowBox[{"{", 
+           RowBox[{"_", ",", "_"}], "}"}]}], "}"}], ".."}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"opts", ":", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"_Rule", "|", "_RuleDelayed"}], ")"}], "..."}]}]}], 
+    "\[IndentingNewLine]", "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "negta", ",", "minval", ",", "varrules", ",", "vars", ",", "varinivals",
+        ",", "nvar", ",", "method", ",", "varbounds", ",", "varminvals", ",", 
+       "varmaxvals", ",", "constraints"}], "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"vars", ",", "varinivals", ",", "varbounds"}], "}"}], "=", 
+        RowBox[{"Transpose", "[", "varspecs", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"varminvals", ",", "varmaxvals"}], "}"}], "=", 
+        RowBox[{"Transpose", "[", "varbounds", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"constraints", "=", 
+        RowBox[{"And", "@@", 
+         RowBox[{"MapThread", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"#1", "\[LessEqual]", "#2", "\[LessEqual]", "#3"}], 
+             ")"}], "&"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"varminvals", ",", "vars", ",", "varmaxvals"}], "}"}]}], 
+          "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Message", "[", 
+        RowBox[{
+         RowBox[{"MaximizeTransformationAmplitude", "::", "constr"}], ",", 
+         "constraints"}], "]"}], ";", 
+       RowBox[{"nvar", "=", 
+        RowBox[{"Length", "[", "vars", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"negta", "[", 
+         RowBox[{"vars", ":", 
+          RowBox[{"Repeated", "[", 
+           RowBox[{
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"{", "nvar", "}"}]}], "]"}]}], "]"}], ":=", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"varvals", ",", "reflvarvals"}], "}"}], ",", 
+          RowBox[{"(", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"varvals", "=", 
+             RowBox[{"{", "vars", "}"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"reflvarvals", "=", 
+             RowBox[{"MapThread", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Which", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"#1", ">", "#2"}], ",", 
+                  RowBox[{"#1", "+", 
+                   RowBox[{"Abs", "[", 
+                    RowBox[{"#2", "-", "#1"}], "]"}]}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"#2", ">", "#3"}], ",", 
+                  RowBox[{"#3", "-", 
+                   RowBox[{"Abs", "[", 
+                    RowBox[{"#2", "-", "#3"}], "]"}]}], ",", 
+                  "\[IndentingNewLine]", "True", ",", "#2"}], "]"}], "&"}], 
+               ",", "\[IndentingNewLine]", 
+               RowBox[{"{", 
+                RowBox[{"varminvals", ",", "varvals", ",", "varmaxvals"}], 
+                "}"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"-", 
+              RowBox[{"TransformationAmplitude", "[", 
+               RowBox[{
+                RowBox[{"\[Rho]ini", "\[Rule]", "obs"}], ",", 
+                "\[IndentingNewLine]", "events", ",", "\[IndentingNewLine]", 
+                RowBox[{"Evaluate", "[", 
+                 RowBox[{"Sequence", "@@", 
+                  RowBox[{"FilterRules", "[", 
+                   RowBox[{
+                    RowBox[{"{", "opts", "}"}], ",", 
+                    RowBox[{
+                    "Options", "[", "TransformationAmplitude", "]"}]}], 
+                   "]"}]}], "]"}]}], "\[IndentingNewLine]", "]"}]}], "/.", 
+             RowBox[{"MapThread", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"#1", "\[Rule]", "#2"}], ")"}], "&"}], ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", "vars", "}"}], ",", "reflvarvals"}], "}"}]}], 
+              "]"}]}]}], "\[IndentingNewLine]", ")"}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"method", "=", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Method", "/.", 
+          RowBox[{"{", "opts", "}"}]}], "/.", 
+         RowBox[{"Options", "[", "MaximizeTransformationAmplitude", "]"}]}]}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"!", 
+          RowBox[{"MatchQ", "[", 
+           RowBox[{"method", ",", "Automatic"}], "]"}]}], ",", 
+         RowBox[{"Message", "[", 
+          RowBox[{
+           RowBox[{"MaximizeTransformationAmplitude", "::", "meth"}], ",", 
+           "method"}], "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Check", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"minval", ",", "varrules"}], "}"}], "=", 
+            "\[IndentingNewLine]", 
+            RowBox[{"FindMinimum", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"negta", "[", 
+                 RowBox[{"Sequence", "@@", "vars"}], "]"}], ",", 
+                "constraints"}], "}"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"Transpose", "[", 
+               RowBox[{"{", 
+                RowBox[{"vars", ",", "varinivals"}], "}"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Sequence", "@@", 
+                RowBox[{"FilterRules", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Join", "[", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Method", "\[Rule]", "method"}], ",", "opts"}], 
+                    "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    "Options", "[", "MaximizeTransformationAmplitude", 
+                    "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"Options", "[", "FindMinimum", "]"}]}], 
+                 "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+               "]"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "minval"}], ",", "varrules"}], "}"}]}], ")"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Message", "[", 
+            RowBox[{"MaximizeTransformationAmplitude", "::", "fail"}], "]"}], 
+           ";", "\[IndentingNewLine]", "$Failed"}], ")"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Event", "::", "negdur"}], ",", 
+           RowBox[{"Delay", "::", "negdur"}], ",", 
+           RowBox[{"Pulse", "::", "inval\[Beta]"}], ",", 
+           RowBox[{"Pulse", "::", "inval\[Phi]"}], ",", 
+           RowBox[{"Pulse", "::", "neg\[Tau]"}], ",", 
+           RowBox[{"ShapedPulse", "::", "invaldur"}], ",", 
+           RowBox[{"FindMinimum", "::", "nrnum"}]}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", ")"}]}], 
+    "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.7441992159325123`*^9, {3.744199386330467*^9, 3.744199441927689*^9}, {
+   3.744199472121543*^9, 3.744199553459427*^9}, {3.744199625186706*^9, 
+   3.744199642944803*^9}, {3.744199701309751*^9, 3.744199746608117*^9}, {
+   3.744200233143704*^9, 3.7442002409905996`*^9}, {3.744200609434312*^9, 
+   3.7442006131546707`*^9}, {3.744209094990562*^9, 3.744209096793093*^9}, 
+   3.744209536835313*^9, {3.744209815220118*^9, 3.744209817975624*^9}, {
+   3.744214202045223*^9, 3.744214202394396*^9}, {3.74427059145019*^9, 
+   3.7442707813629*^9}, {3.744270865020771*^9, 3.744270898933025*^9}, {
+   3.744270929118934*^9, 3.744270951797046*^9}, {3.744270993972619*^9, 
+   3.744271061617485*^9}, {3.744271098988882*^9, 3.7442711862777987`*^9}, {
+   3.744271223510599*^9, 3.7442713107924237`*^9}, {3.744271348949044*^9, 
+   3.744271383125759*^9}, {3.744271457203677*^9, 3.744271493615012*^9}, {
+   3.744271582429209*^9, 3.744271674351265*^9}, {3.744271751695507*^9, 
+   3.744271754698601*^9}, {3.744271832363768*^9, 3.7442719531758966`*^9}, {
+   3.7442719993732033`*^9, 3.7442720279424353`*^9}, {3.744272061068301*^9, 
+   3.744272441031548*^9}, {3.744272490092059*^9, 3.74427256728865*^9}, {
+   3.74427260761841*^9, 3.744272617455245*^9}, {3.744272959612751*^9, 
+   3.744272983040737*^9}, 3.744273350941954*^9, {3.7442738991967497`*^9, 
+   3.7442739167422457`*^9}, {3.744274479139971*^9, 3.744274484688467*^9}, {
+   3.744274561123698*^9, 3.744274756593893*^9}, {3.744274798379401*^9, 
+   3.744274890034616*^9}, {3.744277170584386*^9, 3.744277171282589*^9}, {
+   3.8973659396003833`*^9, 3.897365942206217*^9}, {3.897366023138221*^9, 
+   3.897366051176452*^9}, {3.897366103524504*^9, 3.897366128241456*^9}, {
+   3.897366158987469*^9, 3.8973661720885153`*^9}, {3.897366213806405*^9, 
+   3.8973662310159445`*^9}, {3.8973664662749023`*^9, 3.897366496571245*^9}, {
+   3.8973666548401575`*^9, 3.8973666579391017`*^9}, 3.897366798101282*^9, {
+   3.897366894295589*^9, 3.8973668961017976`*^9}, {3.8973670167817287`*^9, 
+   3.8973670171138115`*^9}},
+ CellLabel->"In[49]:=",ExpressionUUID->"c22acc24-c06d-4824-803d-f7049d3b3850"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["messages", "Subsubtitle",
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.430456142359412*^9, 3.430456146975505*^9}, {
+   3.456508942983632*^9, 3.456508989966378*^9}, {3.456510357569454*^9, 
+   3.456510365295979*^9}, {3.497529807096361*^9, 3.497529811925864*^9}, 
+   3.502002205267657*^9, {3.5067611334401627`*^9, 
+   3.506761136950787*^9}},ExpressionUUID->"f61f8e15-ac26-4490-83a6-\
+25f20441ed21"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "fail"}], "=", 
+   "\"\<An event duration, or pulse flip angle, has transgressed into an \
+unphysical region, causing MaximizeTransformationAmplitude to fail. Try again \
+with a different starting point, or incorporate constraints on the parameters \
+(see usage message for MaximizeTransformationAmplitude).\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.721758035405245*^9, 3.721758054323201*^9}, 
+   3.744198793663895*^9, {3.744208585082854*^9, 3.744208613280489*^9}},
+ CellLabel->"In[50]:=",ExpressionUUID->"48f6d1ca-0590-43c0-b0a1-b4652eed8afa"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "multobs"}], "=", 
+   "\"\<Only a single target observable may be specified.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744198945909642*^9, 3.744198969721*^9}},
+ CellLabel->"In[51]:=",ExpressionUUID->"be020dda-cf87-4ade-a0e0-a3a04fe30f45"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "constr"}], "=", 
+   "\"\<Deploying FindMinimum with constraints `1`.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744198945909642*^9, 3.744198969721*^9}, {
+  3.744200532404533*^9, 3.744200595186355*^9}, {3.744208659080576*^9, 
+  3.744208660077382*^9}, {3.7442733573933997`*^9, 3.744273373585315*^9}, {
+  3.744273925201261*^9, 3.7442739265834007`*^9}},
+ CellLabel->"In[52]:=",ExpressionUUID->"37a1f92d-cff4-41d9-9eb6-0861de0c66f3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "unconstr"}], "=", 
+   "\"\<Deploying FindMinimum without constraints.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744198945909642*^9, 3.744198969721*^9}, {
+  3.744200532404533*^9, 3.744200595186355*^9}, {3.744208659080576*^9, 
+  3.744208660077382*^9}, {3.7442733573933997`*^9, 3.744273373585315*^9}, {
+  3.744273925201261*^9, 3.7442739265834007`*^9}, {3.744274123592579*^9, 
+  3.744274128298059*^9}},
+ CellLabel->"In[53]:=",ExpressionUUID->"8e219093-8f0e-42a9-88e5-59cde04d0a66"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "meth"}], "=", 
+   "\"\<Executing FindMinimum using Method \[Rule] \\\"`1`\\\". See the usage \
+message for FindMinimum for other possible values of Method. \>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744208873635969*^9, 3.74420893008661*^9}, {
+  3.744209007336115*^9, 3.744209055885598*^9}, {3.7442092525901003`*^9, 
+  3.7442092846837873`*^9}},
+ CellLabel->"In[54]:=",ExpressionUUID->"2a048743-336b-4c9f-9be9-7a523d94b4d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "constrposconf"}], "=", 
+   "\"\<Explicit constraints take precedence. The directive ConstrainPositive\
+\[Rule]`1` has been ignored.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744278863979792*^9, 3.7442789102993813`*^9}, {
+  3.7442830892484217`*^9, 3.744283094946815*^9}},
+ CellLabel->"In[55]:=",ExpressionUUID->"776d1797-c25d-45e4-b03a-736860428edb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximizeTransformationAmplitude", "::", "badconstrvar"}], "=", 
+   "\"\<One or more of the constrained variables `1` are \
+inappropriate.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.744278863979792*^9, 3.7442789102993813`*^9}, {
+  3.744282254166321*^9, 3.744282297269389*^9}},
+ CellLabel->"In[56]:=",ExpressionUUID->"c9b8b685-3976-42f6-ae89-ba433ed44f20"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Chapter",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"14d30e96-b177-46d1-a8dc-907bdf611020"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+End[];
+EndPackage[];\
+\>", "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.51238794480797*^9, 3.512387952205147*^9}, 
+   3.513231730353488*^9},
+ AspectRatioFixed->True,
+ CellLabel->"In[57]:=",ExpressionUUID->"dfb9ef2b-ef42-4d6a-ba63-c3fe5e6f61e6"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "EndPackage", "noctx", "\"No previous context defined.\"", 2, 58, 11, 
+   29601313758515011208, "Local"},
+  "MessageTemplate"]], "Message",
+ CellChangeTimes->{{3.949037701823628*^9, 3.9490377019231586`*^9}},
+ CellLabel->
+  "During evaluation of \
+In[57]:=",ExpressionUUID->"7e6b56b9-b933-460e-b542-62199eb6b789"]
+}, Closed]]
+}, Closed]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{1017, 613},
+WindowMargins->{{Automatic, 181}, {Automatic, 0}},
+ShowCellLabel->True,
+FrontEndVersion->"14.1 for Mac OS X ARM (64-bit) (July 16, 2024)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, 128}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False},
+CharacterEncoding -> "MacintoshAutomaticEncoding",
+ExpressionUUID->"8fbd1724-2a68-48fb-aeef-55e82a807c22"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 218, 4, 96, "Title",ExpressionUUID->"5441a26a-f83b-4572-a414-3e951b9cd47d"],
+Cell[CellGroupData[{
+Cell[810, 30, 351, 8, 67, "Chapter",ExpressionUUID->"45d9da4c-c259-41ea-b665-55a077d27816",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[1186, 42, 2878, 46, 535, "Input",ExpressionUUID->"6019cd42-48ee-46eb-950e-b86dc8d46ee2",
+ InitializationCell->True],
+Cell[4067, 90, 1800, 32, 95, "Message",ExpressionUUID->"393ca080-bfa8-4db6-a448-ce465106df7a"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5916, 128, 378, 9, 56, "Chapter",ExpressionUUID->"4aaa33df-6eb9-4635-bfe6-4fc0a535e972",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[6319, 141, 1209, 20, 35, "Section",ExpressionUUID->"bfc2d96c-dc85-4aeb-8d30-6f5dc059129c",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[7531, 163, 6097, 87, 453, "Input",ExpressionUUID->"2472ef99-2343-45fa-b12f-9e9005911f6f",
+ InitializationCell->True],
+Cell[13631, 252, 798, 14, 147, "Input",ExpressionUUID->"f0fa45b5-72a9-4e6e-94a1-584c3a80a1ba",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[14478, 272, 375, 8, 56, "Chapter",ExpressionUUID->"07c80210-6f7d-4cab-9f50-4a51d9556232",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[14856, 282, 222, 5, 45, "Input",ExpressionUUID->"9e213e86-521a-4400-a977-5a33309a5153",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[15115, 292, 642, 11, 56, "Chapter",ExpressionUUID->"5f831a4f-365c-496f-bdb8-0779de81b648",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[15782, 307, 705, 11, 40, "Subsubtitle",ExpressionUUID->"36e266ae-ca0f-4997-b485-94686c7b9c5b",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[16512, 322, 449, 8, 36, "Section",ExpressionUUID->"818b90a0-e06d-417f-a50e-5b6b97980d00",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[16964, 332, 3251, 50, 68, "Input",ExpressionUUID->"854297ca-d8f1-4578-aa0a-2608e324903a",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[20264, 388, 747, 12, 40, "Subsubtitle",ExpressionUUID->"09fc7921-368e-432c-884b-b8724d1822ec",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[21036, 404, 152, 3, 36, "Section",ExpressionUUID->"d8e341d3-b30b-46a0-9987-e4a8c549677d"],
+Cell[CellGroupData[{
+Cell[21213, 411, 332, 5, 83, "Subsection",ExpressionUUID->"256ca297-0212-446d-9a25-1b9529d53d1a"],
+Cell[21548, 418, 578, 14, 138, "Input",ExpressionUUID->"03e5ac0c-8249-4694-87fd-b85d8f488bfc",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[22175, 438, 169, 3, 36, "Section",ExpressionUUID->"6954f715-65cb-4fb6-a6fe-0fbaec0837cd"],
+Cell[CellGroupData[{
+Cell[22369, 445, 239, 4, 54, "Subsection",ExpressionUUID->"7accf3a5-44c0-4fd8-80d5-44ac69f31390"],
+Cell[22611, 451, 996, 24, 270, "Input",ExpressionUUID->"85900b34-27db-43d9-a75a-c0a5aa4ab4ca",
+ InitializationCell->True],
+Cell[23610, 477, 1082, 25, 270, "Input",ExpressionUUID->"b303d3ba-3648-4dfb-bcef-b86d471905f1",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[24729, 507, 187, 3, 38, "Subsection",ExpressionUUID->"3e1d0f88-2da8-4aba-a82a-23195a7f2adc"],
+Cell[CellGroupData[{
+Cell[24941, 514, 170, 3, 70, "Subsubsection",ExpressionUUID->"0e691400-39c9-4e35-8c8b-3bbe9c62c3f3"],
+Cell[25114, 519, 1880, 44, 466, "Input",ExpressionUUID->"05864145-e876-4b84-b431-60cd946b107a",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[27031, 568, 164, 3, 70, "Subsubsection",ExpressionUUID->"5b01612c-b2ec-43bd-a453-1ebe8a5da7d7"],
+Cell[27198, 573, 2472, 59, 532, "Input",ExpressionUUID->"800e0cec-631f-4b42-9da8-e0a167fe9f0e",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[29707, 637, 274, 4, 70, "Subsubsection",ExpressionUUID->"e6047448-3570-4ebc-bdf0-dae751417f50"],
+Cell[29984, 643, 2735, 62, 500, "Input",ExpressionUUID->"c95d6142-e814-4e93-9534-6b06c99ccc2c",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[32756, 710, 224, 5, 70, "Subsubsection",ExpressionUUID->"3cca8c74-5fd7-4c0a-acd7-904e99de8152"],
+Cell[32983, 717, 215, 5, 53, "Text",ExpressionUUID->"9be3b350-efa5-4426-a7eb-4de1b30f2ac8"],
+Cell[33201, 724, 3947, 92, 893, "Input",ExpressionUUID->"bb723d82-a872-4ba5-a475-1f5366899c63",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[37185, 821, 224, 4, 70, "Subsubsection",ExpressionUUID->"50ce487a-5fec-4b5b-973d-3201ec2af692"],
+Cell[37412, 827, 2868, 63, 663, "Input",ExpressionUUID->"e8e0a762-0817-4514-b477-651bd789fdad",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[40317, 895, 373, 7, 70, "Subsubsection",ExpressionUUID->"6e53c7d7-4191-44e3-b5f2-8b35c6db0c76"],
+Cell[40693, 904, 2881, 63, 565, "Input",ExpressionUUID->"6c410d11-a24f-43d1-908b-32967f54c087",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[43611, 972, 271, 4, 70, "Subsubsection",ExpressionUUID->"d1b34d77-90cc-48ce-b7ee-8a8dc1e0e063"],
+Cell[43885, 978, 1360, 32, 302, "Input",ExpressionUUID->"e61b2eda-61d2-4c2f-ab27-27b6f8db289e",
+ InitializationCell->True],
+Cell[45248, 1012, 1476, 34, 302, "Input",ExpressionUUID->"47742de6-f5ba-4b02-b34d-f912964fc738",
+ InitializationCell->True],
+Cell[46727, 1048, 1831, 43, 335, "Input",ExpressionUUID->"7ce0dacb-68f8-42a1-99ce-de73b5ba1511",
+ InitializationCell->True],
+Cell[48561, 1093, 1838, 44, 302, "Input",ExpressionUUID->"2a4d9745-982e-49d7-b1d5-ac6769458564",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[50472, 1145, 761, 12, 40, "Subsubtitle",ExpressionUUID->"a734e686-40b5-4c40-924c-53ad72839c88",
+ InitializationCell->True],
+Cell[51236, 1159, 258, 4, 35, "Text",ExpressionUUID->"1835c82d-d627-4a6c-9553-424efe101afe"],
+Cell[51497, 1165, 6609, 150, 908, "Input",ExpressionUUID->"1b21da4a-5bcb-4ac8-812e-0853373cc8b7",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[58143, 1320, 759, 12, 40, "Subsubtitle",ExpressionUUID->"1dbe24cf-b36c-4596-8e3d-199f42a01b1d",
+ InitializationCell->True],
+Cell[58905, 1334, 233, 4, 35, "Text",ExpressionUUID->"f4eb047e-14e9-4c82-a8c6-e26d2e254279"],
+Cell[59141, 1340, 333, 7, 58, "Text",ExpressionUUID->"cb1cad72-8c46-487d-9735-4d82c8b863fc"],
+Cell[59477, 1349, 272, 6, 35, "Text",ExpressionUUID->"58ba8414-b4d3-4646-a10c-70b50f89c9b2"],
+Cell[59752, 1357, 10201, 220, 1097, "Input",ExpressionUUID->"c22acc24-c06d-4824-803d-f7049d3b3850",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[69990, 1582, 433, 8, 40, "Subsubtitle",ExpressionUUID->"f61f8e15-ac26-4490-83a6-25f20441ed21",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[70426, 1592, 666, 12, 106, "Input",ExpressionUUID->"48f6d1ca-0590-43c0-b0a1-b4652eed8afa",
+ InitializationCell->True],
+Cell[71095, 1606, 360, 8, 45, "Input",ExpressionUUID->"be020dda-cf87-4ade-a0e0-a3a04fe30f45",
+ InitializationCell->True],
+Cell[71458, 1616, 547, 10, 45, "Input",ExpressionUUID->"37a1f92d-cff4-41d9-9eb6-0861de0c66f3",
+ InitializationCell->True],
+Cell[72008, 1628, 597, 11, 45, "Input",ExpressionUUID->"8e219093-8f0e-42a9-88e5-59cde04d0a66",
+ InitializationCell->True],
+Cell[72608, 1641, 545, 11, 86, "Input",ExpressionUUID->"2a048743-336b-4c9f-9be9-7a523d94b4d7",
+ InitializationCell->True],
+Cell[73156, 1654, 469, 9, 65, "Input",ExpressionUUID->"776d1797-c25d-45e4-b03a-736860428edb",
+ InitializationCell->True],
+Cell[73628, 1665, 432, 9, 65, "Input",ExpressionUUID->"c9b8b685-3976-42f6-ae89-ba433ed44f20",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[74109, 1680, 181, 5, 56, "Chapter",ExpressionUUID->"14d30e96-b177-46d1-a8dc-907bdf611020",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[74315, 1689, 320, 10, 62, "Input",ExpressionUUID->"dfb9ef2b-ef42-4d6a-ba63-c3fe5e6f61e6",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[74638, 1701, 343, 8, 26, "Message",ExpressionUUID->"7e6b56b9-b933-460e-b542-62199eb6b789"]
+}, Closed]]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

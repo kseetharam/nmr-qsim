@@ -1,0 +1,216 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      7434,        208]
+NotebookOptionsPosition[      5197,        147]
+NotebookOutlinePosition[      5910,        171]
+CellTagsIndexPosition[      5867,        168]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Interactions`Hamiltonians`", "Title",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4526855795508213`*^9, 3.452685580972721*^9}, 
+   3.682593449496829*^9, {3.683108316372006*^9, 3.683108316618305*^9}, 
+   3.683108496382702*^9, {3.6922554416781282`*^9, 3.6922554756081467`*^9}, {
+   3.692255694358355*^9, 3.6922556966811047`*^9}, {3.692255899881611*^9, 
+   3.69225590052778*^9}, {3.692256374137116*^9, 3.692256376144055*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"af55b51e-23a4-48ee-a1db-50a301e4b1dc"],
+
+Cell["\<\
+this package will contain predefined Hamiltonian operators and associated \
+routines. \
+\>", "Text",
+ InitializationCell->True,
+ CellChangeTimes->{{3.614934233307365*^9, 3.614934285396604*^9}, {
+  3.692255494145166*^9, 3.692255524598576*^9}, {3.69225570038202*^9, 
+  3.6922557146195383`*^9}},ExpressionUUID->"2f3b247f-b376-4427-b397-\
+ee2d7bae7217"],
+
+Cell[CellGroupData[{
+
+Cell["BeginPackage", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.605545641519261*^9, 3.605546445799432*^9, 
+  3.629385531775414*^9, 3.683109016913093*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"0523b2a6-14d8-4c82-8e60-13799c9dc589"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<Interactions`Hamiltonians`\>\"", ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Global`\>\"", ",", "\[IndentingNewLine]", "\"\<SpinDynamica`\>\"", 
+      ",", "\[IndentingNewLine]", "\"\<General`UserLevel`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<General`Matrices`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<General`Miscellaneous`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`Hilbert`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`SpinOperators`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`Liouville`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Generators`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Approximations`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Rotations`Wigner`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Units`\>\"", ",", "\[IndentingNewLine]", 
+      "\"\<General`PhysicalConstants`\>\""}], "}"}]}], "]"}], ";"}]], "Input",\
+
+ InitializationCell->True,
+ CellChangeTimes->{{3.682597329576949*^9, 3.682597339617495*^9}, {
+   3.682611681453899*^9, 3.682611690204586*^9}, 3.682611819113118*^9, {
+   3.6826128177214537`*^9, 3.682612818096237*^9}, {3.6831083938005047`*^9, 
+   3.68310839584037*^9}, {3.683108457078102*^9, 3.683108458420087*^9}, {
+   3.683108860481447*^9, 3.683108865855433*^9}, 3.6831102927632017`*^9, 
+   3.683111933228162*^9, {3.684039407787024*^9, 3.684039436010972*^9}, {
+   3.692255452268602*^9, 3.6922554801241693`*^9}, {3.692255604695547*^9, 
+   3.692255606438252*^9}, {3.6922556693428*^9, 3.692255672284628*^9}, 
+   3.692255720777025*^9, 3.692255904852511*^9, {3.692256380514813*^9, 
+   3.692256404018084*^9}, 3.701151476441581*^9, 3.7453970538456373`*^9, 
+   3.7892861901231737`*^9},ExpressionUUID->"3f6fa006-51c4-4805-b32e-\
+ca0ea0e29067"]
+}, Closed]],
+
+Cell["exports", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.605545641519261*^9, 3.605546445799432*^9, 
+  3.629385531775414*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"95d3f731-d0d9-44ed-b251-d98f423fa706"],
+
+Cell[CellGroupData[{
+
+Cell["start", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"0b98031d-00c2-43e9-9b56-77039c2ad193"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$Chronology", "=", "\"\<LeftToRight\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.545050393596538*^9, 3.5450503995208893`*^9}, {
+  3.545050732985859*^9, 
+  3.545050735366548*^9}},ExpressionUUID->"a60b9a83-4183-4f03-892f-\
+f0634177e517"],
+
+Cell["Begin[\"`Private`\"];", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"f0cea6a4-22ae-4a81-81a1-d30ce0c435d5"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Subtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"27ec6c59-b023-4478-a973-9184ab8e2bc3"],
+
+Cell["\<\
+End[];
+EndPackage[];\
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.51238794480797*^9, 3.512387952205147*^9}, 
+   3.513231730353488*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"bb3275cd-5a90-4e78-b449-d52467b78d59"]
+}, Closed]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{808, 715},
+WindowMargins->{{Automatic, 159}, {Automatic, 40}},
+ShowCellLabel->True,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (June 19, 2021)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, 128}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False},
+CharacterEncoding -> "MacintoshAutomaticEncoding",
+ExpressionUUID->"650fdd34-7904-4c93-a4ca-e8a0781c1c15"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 565, 10, 98, "Title",ExpressionUUID->"af55b51e-23a4-48ee-a1db-50a301e4b1dc",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1135, 34, 359, 8, 35, "Text",ExpressionUUID->"2f3b247f-b376-4427-b397-ee2d7bae7217",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[1519, 46, 305, 7, 41, "Subsubtitle",ExpressionUUID->"0523b2a6-14d8-4c82-8e60-13799c9dc589",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1827, 55, 1810, 31, 320, "Input",ExpressionUUID->"3f6fa006-51c4-4805-b32e-ca0ea0e29067",
+ InitializationCell->True]
+}, Closed]],
+Cell[3652, 89, 278, 7, 41, "Subsubtitle",ExpressionUUID->"95d3f731-d0d9-44ed-b251-d98f423fa706",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[3955, 100, 187, 5, 41, "Subsubtitle",ExpressionUUID->"0b98031d-00c2-43e9-9b56-77039c2ad193",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[4145, 107, 299, 7, 48, "Input",ExpressionUUID->"a60b9a83-4183-4f03-892f-f0634177e517",
+ InitializationCell->True],
+Cell[4447, 116, 201, 5, 48, "Input",ExpressionUUID->"f0cea6a4-22ae-4a81-81a1-d30ce0c435d5",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[4685, 126, 182, 5, 69, "Subtitle",ExpressionUUID->"27ec6c59-b023-4478-a973-9184ab8e2bc3",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[4870, 133, 299, 10, 64, "Input",ExpressionUUID->"bb3275cd-5a90-4e78-b449-d52467b78d59",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

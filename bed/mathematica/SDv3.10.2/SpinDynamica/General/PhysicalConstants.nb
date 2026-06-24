@@ -1,0 +1,710 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     26614,        702]
+NotebookOptionsPosition[     21239,        575]
+NotebookOutlinePosition[     22081,        603]
+CellTagsIndexPosition[     22038,        600]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["General`PhysicalConstants`", "Title",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"9b0bfb5c-9547-45e3-9e1d-8b0c65ea2d0a"],
+
+Cell["Some simple abbreviations of physical constants", "Text",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"13aa7950-7933-4ed6-ad86-f77baffecdae"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<General`PhysicalConstants`\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Global`\>\"", ",", "\"\<SpinDynamica`\>\"", ",", "\"\<Units`\>\"", 
+      ",", "\"\<General`Miscellaneous`\>\""}], "}"}]}], "]"}], ";"}]], "Input",\
+
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4093206817949753`*^9, 3.409320689581889*^9}, {
+   3.409664917809009*^9, 3.4096649214541407`*^9}, 3.448289127780156*^9, {
+   3.5645981580715733`*^9, 3.564598158339521*^9}, {3.564598988427953*^9, 
+   3.56459898891257*^9}, 3.596886886056033*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"eb16fd01-c82a-44f0-8ec5-31c3e342fe86"],
+
+Cell[CellGroupData[{
+
+Cell["exports", "Subsubtitle",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"9d6cde50-098a-4650-8ef3-f89d061bd40a"],
+
+Cell[CellGroupData[{
+
+Cell["PhysicalConstantValues", "Section",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.574846292735124*^9, 3.574846293156372*^9}, {
+   3.5968846508132277`*^9, 3.5968846679313717`*^9}, 3.596971153478612*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"640ee6c3-b831-45a6-a4c3-c4a4c5014237"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhysicalConstantValues", "::", "usage"}], "=", 
+   "\"\<PhysicalConstantValues provides the substitution rules for the SI \
+numerical values of selected physical constants c, h, \[HBar], \[Mu]0, \
+\[Epsilon]0, kB, Nav, e, me, mp, mn\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409664342432128*^9, 3.409664473967806*^9}, {
+  3.49753401377826*^9, 3.497534043408074*^9}, {3.497534120027001*^9, 
+  3.497534148983921*^9}, {3.497534317024653*^9, 3.497534336889887*^9}, {
+  3.497543537556013*^9, 3.4975435393361683`*^9}, {3.5968861163226967`*^9, 
+  3.596886119216453*^9}, {3.59697129938723*^9, 3.5969713522753477`*^9}, {
+  3.596971791040243*^9, 3.596971799098721*^9}, {3.6395848718045464`*^9, 
+  3.6395849012642603`*^9}},ExpressionUUID->"7cf76098-c691-4f7c-bbd7-\
+34bc493e15b9"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["selected physical constants", "Section",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.574846292735124*^9, 3.574846293156372*^9}, {
+   3.5968846508132277`*^9, 3.5968846679313717`*^9}, {3.596971153478612*^9, 
+   3.596971187967535*^9}, 3.596971382882099*^9, {3.5969714375293016`*^9, 
+   3.5969714450164337`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"8d08843d-4f93-4958-b0d2-fc1ed0e7340f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "::", "usage"}], "=", 
+   "\"\<c is the speed of light. Obtain numerical value in SI units by \
+c/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.5969714017503233`*^9, 3.596971431564986*^9}, 
+   3.5969721389017477`*^9, {3.639584514130735*^9, 
+   3.6395845150520153`*^9}},ExpressionUUID->"6e4d0fc7-8593-4942-9ce1-\
+2d665baa1e6b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"h", "::", "usage"}], "=", 
+   "\"\<h is the Planck constant. Obtain numerical value in SI units by \
+h/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.5969714017503233`*^9, 3.596971467360702*^9}, 
+   3.596972143483508*^9, {3.639584528810872*^9, 
+   3.639584529950541*^9}},ExpressionUUID->"7ef7f1a6-cf63-47ea-87f7-\
+25a967a21417"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"hbar", "::", "usage"}], "=", 
+   "\"\<hbar is a synonym for \[HBar]\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971225798232*^9, 
+  3.596971255111455*^9}},ExpressionUUID->"44a5b4a5-8e14-4424-9ca9-\
+2466d53e0e0b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[HBar]", "::", "usage"}], "=", 
+   "\"\<\[HBar] is the Planck constant divided by 2\[Pi]. Obtain numerical \
+value in SI units by \[HBar]/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971063509656*^9, 3.596971131516868*^9}, {
+   3.5969712662100353`*^9, 3.596971286215942*^9}, 3.5969721469873962`*^9, {
+   3.639584535826652*^9, 
+   3.6395845367254963`*^9}},ExpressionUUID->"fbb047a3-487a-47e1-9b08-\
+1590f916cdd0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Mu]0", "::", "usage"}], "=", 
+   "\"\<Magnetic Constant. Obtain numerical value in SI units by \
+\[Mu]0/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971225798232*^9, 3.596971255111455*^9}, {
+  3.596971488714645*^9, 3.5969715082637167`*^9}, {3.5969723702668324`*^9, 
+  3.596972378577478*^9}, {3.6395845441150703`*^9, 3.6395845513677893`*^9}, {
+  3.6395845817328243`*^9, 
+  3.6395845877539253`*^9}},ExpressionUUID->"d8054436-26f3-4cb1-9cc7-\
+a9421d358f2a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Epsilon]0", "::", "usage"}], "=", 
+   "\"\<Electric constant. Obtain numerical value in SI units by \
+\[Epsilon]0/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971225798232*^9, 3.596971255111455*^9}, {
+  3.596971488714645*^9, 3.5969715082637167`*^9}, {3.59697154505123*^9, 
+  3.596971553225943*^9}, {3.596972387687941*^9, 3.596972390889872*^9}, {
+  3.639584558420238*^9, 
+  3.639584593588429*^9}},ExpressionUUID->"c5ab45e4-7d16-42bc-8bb0-\
+8d3049ea8a07"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"kB", "::", "usage"}], "=", 
+   "\"\<Boltzmann constant. Obtain numerical value in SI units by \
+kB/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971063509656*^9, 3.596971087699205*^9}, {
+  3.596972398019129*^9, 3.596972403703055*^9}, {3.6395845736351137`*^9, 
+  3.639584633008973*^9}},ExpressionUUID->"519188f1-566f-4efb-9d43-\
+d147333216b1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Nav", "::", "usage"}], "=", 
+   "\"\<Avogadro constant. Obtain numerical value by \
+Nav/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971063509656*^9, 3.596971087699205*^9}, {
+  3.596971594407737*^9, 3.596971612296886*^9}, {3.5969724113644667`*^9, 
+  3.5969724166119413`*^9}, {3.639584616477112*^9, 
+  3.639584637406509*^9}},ExpressionUUID->"176af2c1-8432-4a06-a2b9-\
+8e019a414f84"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"e", "::", "usage"}], "=", 
+   "\"\<e is the proton charge. Obtain numerical value in SI units by \
+e/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971063509656*^9, 3.596971131516868*^9}, {
+   3.5969716174939003`*^9, 3.596971668407127*^9}, 3.596972161641595*^9, {
+   3.639584643232582*^9, 
+   3.63958464423343*^9}},ExpressionUUID->"70897490-5940-4611-93a6-\
+7bd21f519154"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"me", "::", "usage"}], "=", 
+   "\"\<Electron mass. Obtain numerical value in SI units by \
+me/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971704818964*^9, 3.5969717183752317`*^9}, 
+   3.5969722104660254`*^9, {3.5969724267224503`*^9, 3.596972428396379*^9}, {
+   3.639584650063039*^9, 
+   3.63958466265967*^9}},ExpressionUUID->"1f982b26-1635-4420-bcbb-\
+0f0bc21e5ca8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"mp", "::", "usage"}], "=", 
+   "\"\<Proton mass. Obtain numerical value in SI units by \
+mp/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971704818964*^9, 3.596971731292803*^9}, 
+   3.5969722133265543`*^9, {3.596972442401896*^9, 3.596972443866879*^9}, {
+   3.639584678055146*^9, 
+   3.639584691994297*^9}},ExpressionUUID->"f97480fc-73c3-4c97-a715-\
+2ca1245367e7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"mn", "::", "usage"}], "=", 
+   "\"\<Neutron mass. Obtain numerical value in SI units by \
+mn/.PhysicalConstantValues\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596971704818964*^9, 3.5969717648997993`*^9}, 
+   3.596972217782151*^9, {3.596972451289583*^9, 3.596972452850833*^9}, {
+   3.639584697819078*^9, 
+   3.6395847179514914`*^9}},ExpressionUUID->"b463d8b7-4fbd-4c78-8384-\
+5db2d5ecf977"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["main", "Subsubtitle",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"4ad4d697-ebca-44ed-b40f-da22c7be6b67"],
+
+Cell[CellGroupData[{
+
+Cell["PhysicalConstantValues", "Section",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.574846292735124*^9, 3.574846293156372*^9}, {
+   3.5968846508132277`*^9, 3.5968846679313717`*^9}, 3.596971153478612*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"3934a1c0-b38d-4a21-b760-2ca9e574808d"],
+
+Cell[CellGroupData[{
+
+Cell["use \[OpenCurlyDoubleQuote]PhysicalConstants`\[CloseCurlyDoubleQuote] \
+package if less than Mathematica 9", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.574846292735124*^9, 3.574846293156372*^9}, {
+  3.5968846508132277`*^9, 3.5968846679313717`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"2bda5ed9-a6c1-41bd-90a7-ce5710f697a3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"$VersionNumber", "<", "9"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Needs", "[", "\"\<PhysicalConstants`\>\"", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PhysicalConstantValues", "=", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"c", " ", "\[Rule]", " ", 
+          RowBox[{"PhysicalConstants`SpeedOfLight", "/", 
+           RowBox[{"(", 
+            RowBox[{"Meter", "/", "Second"}], ")"}]}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"h", " ", "\[Rule]", 
+          RowBox[{"PhysicalConstants`PlanckConstant", "/", 
+           RowBox[{"(", 
+            RowBox[{"Joule", " ", "Second"}], ")"}]}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"\[HBar]", " ", "\[Rule]", " ", 
+          RowBox[{"PhysicalConstants`PlanckConstantReduced", "/", 
+           RowBox[{"(", 
+            RowBox[{"Joule", " ", "Second"}], ")"}]}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"\[Mu]0", "\[Rule]", 
+          RowBox[{"PhysicalConstants`VacuumPermeability", "/", 
+           RowBox[{"(", 
+            RowBox[{"Second", " ", 
+             RowBox[{"Volt", "/", 
+              RowBox[{"(", 
+               RowBox[{"Meter", " ", "Ampere"}], ")"}]}]}], ")"}]}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"\[Epsilon]0", "\[Rule]", 
+          RowBox[{"PhysicalConstants`VacuumPermittivity", "/", 
+           RowBox[{"(", 
+            RowBox[{"Ampere", " ", 
+             RowBox[{"Second", "/", 
+              RowBox[{"(", 
+               RowBox[{"Meter", " ", "Volt"}], ")"}]}]}], ")"}]}]}], ",", 
+         RowBox[{"kB", " ", "\[Rule]", " ", 
+          RowBox[{"PhysicalConstants`BoltzmannConstant", "/", 
+           RowBox[{"(", 
+            RowBox[{"Joule", "/", "Kelvin"}], ")"}]}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Nav", " ", "\[Rule]", " ", 
+          RowBox[{"PhysicalConstants`AvogadroConstant", "/", 
+           RowBox[{"(", 
+            RowBox[{"1", "/", "Mole"}], ")"}]}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"e", "\[Rule]", 
+          RowBox[{"PhysicalConstants`ElectronCharge", "/", "Coulomb"}]}], ",",
+          "\[IndentingNewLine]", 
+         RowBox[{"me", "\[Rule]", 
+          RowBox[{"PhysicalConstants`ElectronMass", "/", "Kilogram"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"mp", "\[Rule]", 
+          RowBox[{"PhysicalConstants`ProtonMass", "/", "Kilogram"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"mn", "\[Rule]", 
+          RowBox[{"PhysicalConstants`NeutronMass", "/", "Kilogram"}]}]}], 
+        "\[IndentingNewLine]", "}"}]}]}], ")"}]}], "\[IndentingNewLine]", 
+   "]"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596885685582542*^9, 3.596885690085359*^9}, {
+   3.596885758687698*^9, 3.596885774634112*^9}, 3.596886127262281*^9, {
+   3.5968867165280867`*^9, 3.596886724509384*^9}, 3.5968876498527603`*^9, {
+   3.596887784069169*^9, 3.5968877845859623`*^9}, {3.596887816422132*^9, 
+   3.596887828827874*^9}, {3.596887898244855*^9, 3.5968879471541767`*^9}, {
+   3.5969719839425583`*^9, 3.596972014216826*^9}, {3.639585149691033*^9, 
+   3.639585179666658*^9}},ExpressionUUID->"e9f503f8-d25e-4120-873e-\
+5074e5cf05e5"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["If Mathematica 9 or later, use explicit values", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.574846292735124*^9, 3.574846293156372*^9}, {
+  3.5968846508132277`*^9, 3.5968846679313717`*^9}, {3.5968857004136057`*^9, 
+  3.596885719716551*^9}, {3.596885793452066*^9, 3.596885813082447*^9}, {
+  3.5969720206382437`*^9, 3.59697202268213*^9}, {3.605545258305735*^9, 
+  3.605545262870179*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"a7e3fdd8-3604-4204-84c0-0413085f8885"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+this is the syntax used to determine the physical constants, when an internet \
+connection is available. \
+\>", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6055452679202023`*^9, 
+  3.60554531592157*^9}},ExpressionUUID->"d995c1a9-5976-4e69-9ee9-\
+18b6ed6556c3"],
+
+Cell[BoxData[
+ RowBox[{"{", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"c", " ", "\[Rule]", " ", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<speed of light\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"h", " ", "\[Rule]", " ", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<planck constant\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"\[HBar]", " ", "\[Rule]", " ", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<hbar\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"\[Mu]0", "\[Rule]", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<VacuumPermeability\>\"", "]"}]}]}]}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"\[Epsilon]0", "->", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<VacuumPermittivity\>\"", "]"}]}]}]}], ",", 
+   RowBox[{"kB", " ", "\[Rule]", " ", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<BoltzmannConstant\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Nav", " ", "\[Rule]", " ", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<AvogadroConstant\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"e", "\[Rule]", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<ElectronCharge\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"me", "\[Rule]", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<ElectronMass\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"mp", "\[Rule]", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<ProtonMass\>\"", "]"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"mn", "\[Rule]", 
+    RowBox[{"QuantityMagnitude", "@", 
+     RowBox[{"UnitConvert", "@", 
+      RowBox[{"Quantity", "[", "\"\<NeutronMass\>\"", "]"}]}]}]}]}], 
+  "\[IndentingNewLine]", "}"}]], "Input",
+ Evaluatable->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.6395847425002813`*^9, 
+  3.639584780132119*^9}},ExpressionUUID->"d338be7e-285e-4848-aeff-\
+ac02f325cf3b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["explicit values", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6055452679202023`*^9, 
+  3.60554527283047*^9}},ExpressionUUID->"1423b023-4c3b-46e8-b822-\
+b71b26f4bb31"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"$VersionNumber", "\[GreaterEqual]", "9"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"PhysicalConstantValues", "=", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"c", " ", "\[Rule]", " ", "299792458"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "h", " ", "\[Rule]", " ", 
+        "6.6260695699999995915614325125943122898228578`7.057827997854494*^-\
+34"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+       "\[HBar]", " ", "\[Rule]", " ", 
+        "1.0545717259999999496487072925965924455989191`7.049948269732947*^-\
+34"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"\[Mu]0", "\[Rule]", 
+        FractionBox["\[Pi]", "2500000"]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"\[Epsilon]0", "->", 
+        FractionBox["625000", 
+         RowBox[{"22468879468420441", " ", "\[Pi]"}]]}], ",", 
+       RowBox[{
+       "kB", " ", "\[Rule]", " ", 
+        "1.3806488000000000456839657751372779`5.725109871795768*^-23"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "Nav", " ", "\[Rule]", " ", 
+        "6.02214128999999968641024`7.047357180783781*^23"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "e", "\[Rule]", 
+        "1.60217656500000003606379190082454356534`7.359612335017222*^-19"}], 
+       ",", "\[IndentingNewLine]", 
+       RowBox[{
+       "me", "\[Rule]", 
+        "9.10938291707429769542081766`7.0617630921243855*^-31"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "mp", "\[Rule]", 
+        "1.672621776498276672145209052493`7.053283984852396*^-27"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "mn", "\[Rule]", 
+        "1.674927351890068511848978152322`7.053586622862399*^-27"}]}], 
+      "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.596885685582542*^9, 3.596885690085359*^9}, {
+   3.596885758687698*^9, 3.596885774634112*^9}, {3.596885831949872*^9, 
+   3.596885862599537*^9}, {3.596885893846609*^9, 3.596885982474936*^9}, {
+   3.596886022611806*^9, 3.5968860965153313`*^9}, {3.596886130725247*^9, 
+   3.596886141851309*^9}, 3.5968867340728207`*^9, {3.596971929185459*^9, 
+   3.596971969256853*^9}, {3.605545145274918*^9, 3.605545242260686*^9}, {
+   3.639584789572299*^9, 
+   3.639584844192395*^9}},ExpressionUUID->"0b20da51-b161-4eeb-8e59-\
+068f38ea1b50"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["protect from redefinition", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.574846292735124*^9, 3.574846293156372*^9}, {
+  3.5968846508132277`*^9, 3.5968846679313717`*^9}, {3.5968857004136057`*^9, 
+  3.596885719716551*^9}, {3.596885793452066*^9, 3.596885813082447*^9}, {
+  3.5969720206382437`*^9, 3.59697202268213*^9}, {3.605545258305735*^9, 
+  3.605545262870179*^9}, {3.639586552194942*^9, 3.63958655692679*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"c77473f9-fa1f-4a42-9434-8bfd066d6bc8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Protect", "/@", 
+   RowBox[{"(", 
+    RowBox[{"First", "/@", "PhysicalConstantValues"}], ")"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.639586561114472*^9, 
+  3.639586584880937*^9}},ExpressionUUID->"69aa5f2a-e883-4be6-80ed-\
+0e8f6f732a32"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Subtitle",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"d8bd63e8-fdee-45d1-8a68-2e45af1965d3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"EndPackage", "[", "]"}], ";"}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.456387832853599*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"5e87624d-3e0d-4a41-853c-e5acd3508429"]
+}, Closed]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{808, 715},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+DockedCells->(FrontEndExecute[{
+   FrontEnd`NotebookApply[
+    FrontEnd`InputNotebook[], #, Placeholder]}]& ),
+ShowCellLabel->True,
+ShowCellTags->False,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (June 19, 2021)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, 128}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False},
+CharacterEncoding -> "MacintoshAutomaticEncoding",
+ExpressionUUID->"335a5809-7425-4359-a8fc-14ad4dcf5094"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 227, 6, 98, "Title",ExpressionUUID->"9b0bfb5c-9547-45e3-9e1d-8b0c65ea2d0a",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[797, 30, 247, 6, 35, "Text",ExpressionUUID->"13aa7950-7933-4ed6-ad86-f77baffecdae",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1047, 38, 730, 17, 68, "Input",ExpressionUUID->"eb16fd01-c82a-44f0-8ec5-31c3e342fe86",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[1802, 59, 214, 6, 41, "Subsubtitle",ExpressionUUID->"9d6cde50-098a-4650-8ef3-f89d061bd40a",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[2041, 69, 318, 6, 36, "Section",ExpressionUUID->"640ee6c3-b831-45a6-a4c3-c4a4c5014237",
+ InitializationCell->True],
+Cell[2362, 77, 876, 16, 110, "Input",ExpressionUUID->"7cf76098-c691-4f7c-bbd7-34bc493e15b9",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3275, 98, 427, 8, 36, "Section",ExpressionUUID->"8d08843d-4f93-4958-b0d2-fc1ed0e7340f",
+ InitializationCell->True],
+Cell[3705, 108, 429, 10, 89, "Input",ExpressionUUID->"6e4d0fc7-8593-4942-9ce1-2d665baa1e6b",
+ InitializationCell->True],
+Cell[4137, 120, 426, 10, 89, "Input",ExpressionUUID->"7ef7f1a6-cf63-47ea-87f7-25a967a21417",
+ InitializationCell->True],
+Cell[4566, 132, 292, 8, 46, "Input",ExpressionUUID->"44a5b4a5-8e14-4424-9ca9-2466d53e0e0b",
+ InitializationCell->True],
+Cell[4861, 142, 516, 11, 89, "Input",ExpressionUUID->"fbb047a3-487a-47e1-9b08-1590f916cdd0",
+ InitializationCell->True],
+Cell[5380, 155, 559, 12, 89, "Input",ExpressionUUID->"d8054436-26f3-4cb1-9cc7-a9421d358f2a",
+ InitializationCell->True],
+Cell[5942, 169, 558, 12, 68, "Input",ExpressionUUID->"c5ab45e4-7d16-42bc-8bb0-8d3049ea8a07",
+ InitializationCell->True],
+Cell[6503, 183, 444, 10, 68, "Input",ExpressionUUID->"519188f1-566f-4efb-9d43-d147333216b1",
+ InitializationCell->True],
+Cell[6950, 195, 484, 11, 46, "Input",ExpressionUUID->"176af2c1-8432-4a06-a2b9-8e019a414f84",
+ InitializationCell->True],
+Cell[7437, 208, 473, 11, 68, "Input",ExpressionUUID->"70897490-5940-4611-93a6-7bd21f519154",
+ InitializationCell->True],
+Cell[7913, 221, 470, 11, 32, "Input",ExpressionUUID->"1f982b26-1635-4420-bcbb-0f0bc21e5ca8",
+ InitializationCell->True],
+Cell[8386, 234, 465, 11, 32, "Input",ExpressionUUID->"f97480fc-73c3-4c97-a715-2ca1245367e7",
+ InitializationCell->True],
+Cell[8854, 247, 468, 11, 32, "Input",ExpressionUUID->"b463d8b7-4fbd-4c78-8384-5db2d5ecf977",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[9371, 264, 211, 6, 41, "Subsubtitle",ExpressionUUID->"4ad4d697-ebca-44ed-b40f-da22c7be6b67",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[9607, 274, 318, 6, 34, "Section",ExpressionUUID->"3934a1c0-b38d-4a21-b760-2ca9e574808d",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[9950, 284, 382, 7, 44, "Subsection",ExpressionUUID->"2bda5ed9-a6c1-41bd-90a7-ce5710f697a3",
+ InitializationCell->True],
+Cell[10335, 293, 3338, 72, 284, "Input",ExpressionUUID->"e9f503f8-d25e-4120-873e-5074e5cf05e5",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[13710, 370, 518, 9, 36, "Subsection",ExpressionUUID->"a7e3fdd8-3604-4204-84c0-0413085f8885",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[14253, 383, 292, 7, 71, "Subsubsection",ExpressionUUID->"d995c1a9-5976-4e69-9ee9-18b6ed6556c3",
+ InitializationCell->True],
+Cell[14548, 392, 2534, 61, 283, "Input",ExpressionUUID->"d338be7e-285e-4848-aeff-ac02f325cf3b",
+ Evaluatable->False,
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[17119, 458, 194, 4, 45, "Subsubsection",ExpressionUUID->"1423b023-4c3b-46e8-b822-b71b26f4bb31",
+ InitializationCell->True],
+Cell[17316, 464, 2444, 58, 403, "Input",ExpressionUUID->"0b20da51-b161-4eeb-8e59-068f38ea1b50",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[19809, 528, 542, 9, 54, "Subsection",ExpressionUUID->"c77473f9-fa1f-4a42-9434-8bfd066d6bc8",
+ InitializationCell->True],
+Cell[20354, 539, 305, 9, 46, "Input",ExpressionUUID->"69aa5f2a-e883-4be6-80ed-0e8f6f732a32",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[20720, 555, 207, 6, 69, "Subtitle",ExpressionUUID->"d8bd63e8-fdee-45d1-8a68-2e45af1965d3",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[20930, 563, 281, 8, 46, "Input",ExpressionUUID->"5e87624d-3e0d-4a41-853c-e5acd3508429",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

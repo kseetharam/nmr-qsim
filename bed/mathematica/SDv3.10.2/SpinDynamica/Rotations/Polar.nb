@@ -1,0 +1,497 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     15522,        489]
+NotebookOptionsPosition[     10621,        358]
+NotebookOutlinePosition[     11298,        382]
+CellTagsIndexPosition[     11255,        379]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Rotations`Polar`", "Title",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"f7b61fe2-a1dd-4095-a397-e925da8679f5"],
+
+Cell[CellGroupData[{
+
+Cell["BeginPackage", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.605545641519261*^9, 3.745396768697843*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"82ca3c1e-ee6f-4d95-a107-4cf07104f7e2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<Rotations`Polar`\>\"", ",", "\n", "\t", 
+    RowBox[{"{", "\t", 
+     RowBox[{
+     "\"\<Global`\>\"", ",", "\n", "\t\t", "\"\<SpinDynamica`\>\"", ",", "\n",
+       "\t\t", "\"\<General`UserLevel`\>\"", ",", "\n", "\t\t", 
+      "\"\<General`General3D`\>\"", ",", "\n", "\t\t", 
+      "\"\<Rotations`Euler`\>\"", ",", "\n", "\t\t", 
+      "\"\<General`Miscellaneous`\>\""}], "\n", "\t\t", "}"}]}], "\n", "]"}], 
+  ";"}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4098303617375917`*^9, 3.4098303641047993`*^9}, {
+  3.40983049510982*^9, 3.409830505095295*^9}, {3.448289224394163*^9, 
+  3.4482892249594507`*^9}, {3.564598272193285*^9, 3.56459827534982*^9}, {
+  3.5645990910708857`*^9, 3.564599092297221*^9}, {3.682592574733604*^9, 
+  3.6825925762744827`*^9}, {3.745396743381317*^9, 3.745396761678581*^9}, {
+  3.777634523656185*^9, 3.777634528875422*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"2f7b827e-53ba-4a12-b795-943cb8db812e"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Exports", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"fcd09c35-04ee-4fc9-8a22-7595e83d5b52"],
+
+Cell[CellGroupData[{
+
+Cell["PolarRotationMatrix", "Section",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"cdcfe66f-ce96-4a9b-b966-09c47fe038a5"],
+
+Cell["\<\
+PolarRotationMatrix::usage =
+\t\"PolarRotationMatrix[{\[Xi],\[Theta],\[Phi]}] gives the 3D rotation matrix \
+for a rotation through xi around the axis with polar angles \
+{\[Theta],\[Phi]}.\";
+\t\
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409830390404861*^9, 3.409830413680032*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"a361cc05-a0ee-4c48-bac1-31a3bb4534f9"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["RotatePolar", "Section",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"81bedcbe-ad62-46c1-9075-cffa2df44d9c"],
+
+Cell["\<\
+RotatePolar::usage =
+\t\"RotatePolar[obj,{\[Xi],\[Theta],\[Phi]}] rotates the object by \[Xi] \
+around the axis with polar angles (\[Theta],\[Phi]).
+
+RotatePolar[obj,{\[Xi],vec}] rotates the object by xi around the vector vec.
+
+The object obj may be a 3-vector, or contain lines, polygons, and text.
+\";\
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409830425492941*^9, 3.409830460825782*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"1ce5fce6-9633-4d1f-9f01-33a03ef02e0c"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["main", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"58ccd97c-e84c-494b-b72a-049202097e2c"],
+
+Cell["Begin[\"`Private`\"];", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"dbfea755-c51a-4a12-a214-2a6a172c1a23"],
+
+Cell[CellGroupData[{
+
+Cell[" PolarRotationMatrix", "Section",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.4098304875847816`*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"e4e654a3-6696-4f5e-9d8c-44c2067b9a2b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PolarRotationMatrix", "[", 
+   RowBox[{"{", 
+    RowBox[{"\[Xi]_", ",", "\[Theta]_", ",", "\[Phi]_"}], "}"}], "]"}], ":=", 
+  
+  RowBox[{
+   RowBox[{"EulerRotationMatrix", "[", 
+    RowBox[{"{", 
+     RowBox[{"\[Phi]", ",", "\[Theta]", ",", "\[Xi]"}], "}"}], "]"}], ".", 
+   RowBox[{"EulerRotationMatrix", "[", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", 
+      RowBox[{"-", "\[Theta]"}], ",", 
+      RowBox[{"-", "\[Phi]"}]}], "}"}], "]"}]}]}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409830513163254*^9, 
+  3.409830607175077*^9}},ExpressionUUID->"bacfd3c7-74a2-494f-87f6-\
+69e09b2805cc"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["RotatePolar", "Section",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409830644737568*^9, 3.4098306454569473`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"cc14b9b4-19aa-40bf-8349-2fdf6a29ec88"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"RotatePolar", "[", 
+   RowBox[{"obj_", ",", 
+    RowBox[{"{", 
+     RowBox[{"\[Xi]_", ",", 
+      RowBox[{"vec", ":", 
+       RowBox[{"{", 
+        RowBox[{"_", ",", "_", ",", "_"}], "}"}]}]}], "}"}], ",", 
+    "opts___Rule"}], " ", "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"RotatePolar", "[", 
+   RowBox[{"obj", ",", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"{", 
+      RowBox[{"\[Xi]", ",", 
+       RowBox[{"Last", "@", 
+        RowBox[{"VectorToPolar", "[", "vec", "]"}]}]}], "}"}]}], ",", 
+    "opts"}], "]"}]}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409830747581408*^9, 
+  3.4098308276729183`*^9}},ExpressionUUID->"fb7431d2-112b-4ecb-9421-\
+f65f1dbe25c9"],
+
+Cell[CellGroupData[{
+
+Cell["rotate vectors", "Subsection",
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4098239328365393`*^9, 3.409823939240077*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"909caee1-5721-467e-b5c6-49f280364af3"],
+
+Cell[CellGroupData[{
+
+Cell["rotations of ordinary vector", "Subsubsection",
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"b99e45e5-5d70-490b-ac6e-32123e21609e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"RotatePolar", "[", 
+   RowBox[{
+    RowBox[{"vec", ":", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Except", "[", "_List", "]"}], ",", 
+       RowBox[{"Except", "[", "_List", "]"}], ",", 
+       RowBox[{"Except", "[", "_List", "]"}]}], "}"}]}], ",", "\n", "\t", 
+    RowBox[{"{", 
+     RowBox[{"\[Xi]_", ",", " ", "\[Theta]_", ",", " ", "\[Phi]_"}], "}"}], 
+    ",", "opts___Rule"}], " ", "]"}], ":=", "\n", "\t", 
+  RowBox[{
+   RowBox[{"PolarRotationMatrix", "[", 
+    RowBox[{"{", 
+     RowBox[{"\[Xi]", ",", " ", "\[Theta]", ",", " ", "\[Phi]"}], "}"}], 
+    "]"}], ".", "vec"}]}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409823353165832*^9, 3.409823364811503*^9}, {
+  3.409830652795816*^9, 
+  3.409830707290387*^9}},ExpressionUUID->"cb087e47-96da-4c34-8e11-\
+a782342aae2e"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["go into lists that are not vectors", "Subsection",
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409823987671809*^9, 3.409823994076367*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"8b5b4e59-46e0-4dff-a9e3-a59f2797fdbb"],
+
+Cell["\<\
+RotatePolar[obj_List,ang:{_, _, _},opts___]:=
+\t\tMap[ 
+\t\t\tRotatePolar[#,ang,opts]&, 
+\t\t\tobj 
+\t\t] \
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4098308497568207`*^9, 3.409830851180266*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"48b26465-bafa-4782-9317-bca3ff4cd38a"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["graphics3D", "Subsection",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.40982596546175*^9, 3.409825965940111*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"5d9508a7-fede-42a3-8a2e-f4fe2f30e0c0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"RotatePolar", "[", 
+   RowBox[{
+    RowBox[{"Graphics3D", "[", "obj___", "]"}], ",", 
+    RowBox[{"\[CapitalOmega]", ":", 
+     RowBox[{"{", 
+      RowBox[{"\[Xi]_", ",", "\[Theta]_", ",", "\[Phi]_"}], "}"}]}]}], "]"}], 
+  ":=", "\[IndentingNewLine]", 
+  RowBox[{"Graphics3D", "@", 
+   RowBox[{"GeometricTransformation", "[", 
+    RowBox[{
+     RowBox[{"Normal", "@", "obj"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"PolarRotationMatrix", "[", "\[CapitalOmega]", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
+    "]"}]}]}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409824992423657*^9, 3.40982510579807*^9}, {
+  3.4098251615081587`*^9, 3.409825170724739*^9}, {3.4098255305650673`*^9, 
+  3.409825546319705*^9}, {3.40982967914592*^9, 3.409829685290476*^9}, {
+  3.409830868662887*^9, 
+  3.4098308956576242`*^9}},ExpressionUUID->"bf1c8a61-5fe1-4dfa-b59f-\
+76600a058ac8"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["if object not known, and not a list, do nothing", "Subsection",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"c4ce3d3d-b27a-4a59-8866-0c5149c14054"],
+
+Cell["\<\
+RotatePolar[obj_,ang:{_, _, _},opts___ ]:=
+\tobj/; !TrueQ[ Head[obj]==List ]\
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.4098309070103197`*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"5c4ab8b5-e55f-479d-b53e-6cbf9446c772"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"610b675c-a991-4c8b-9541-aeb2f35a2a62"],
+
+Cell["\<\
+End[];
+EndPackage[];\
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"62c9a792-06ce-49d2-ba46-5412e5b17a41"]
+}, Closed]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{680, 604},
+WindowMargins->{{Automatic, 233}, {Automatic, 0}},
+ShowCellLabel->True,
+ShowCellTags->False,
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, 128}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False},
+CharacterEncoding -> "MacintoshAutomaticEncoding"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 192, 5, 98, "Title",ExpressionUUID->"f7b61fe2-a1dd-4095-a397-e925da8679f5",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[784, 31, 258, 6, 41, "Subsubtitle",ExpressionUUID->"82ca3c1e-ee6f-4d95-a107-4cf07104f7e2",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1045, 39, 1076, 22, 215, "Input",ExpressionUUID->"2f7b827e-53ba-4a12-b795-943cb8db812e",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2158, 66, 189, 5, 41, "Subsubtitle",ExpressionUUID->"fcd09c35-04ee-4fc9-8a22-7595e83d5b52",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[2372, 75, 197, 5, 31, "Section",ExpressionUUID->"cdcfe66f-ce96-4a9b-b966-09c47fe038a5",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[2572, 82, 449, 12, 100, "Input",ExpressionUUID->"a361cc05-a0ee-4c48-bac1-31a3bb4534f9",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3058, 99, 189, 5, 31, "Section",ExpressionUUID->"81bedcbe-ad62-46c1-9075-cffa2df44d9c",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[3250, 106, 557, 15, 208, "Input",ExpressionUUID->"1ce5fce6-9633-4d1f-9f01-33a03ef02e0c",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3856, 127, 186, 5, 41, "Subsubtitle",ExpressionUUID->"58ccd97c-e84c-494b-b72a-049202097e2c",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[4045, 134, 201, 5, 46, "Input",ExpressionUUID->"dbfea755-c51a-4a12-a214-2a6a172c1a23",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[4271, 143, 242, 6, 31, "Section",ExpressionUUID->"e4e654a3-6696-4f5e-9d8c-44c2067b9a2b",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[4516, 151, 667, 19, 52, "Input",ExpressionUUID->"bacfd3c7-74a2-494f-87f6-69e09b2805cc",
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5220, 175, 257, 6, 31, "Section",ExpressionUUID->"cc14b9b4-19aa-40bf-8349-2fdf6a29ec88",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[5480, 183, 750, 22, 52, "Input",ExpressionUUID->"fb7431d2-112b-4ecb-9421-f65f1dbe25c9",
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[6255, 209, 242, 5, 54, "Subsection",ExpressionUUID->"909caee1-5721-467e-b5c6-49f280364af3",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[6522, 218, 191, 4, 45, "Subsubsection",ExpressionUUID->"b99e45e5-5d70-490b-ac6e-32123e21609e",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[6716, 224, 864, 23, 73, "Input",ExpressionUUID->"cb087e47-96da-4c34-8e11-a782342aae2e",
+ InitializationGroup->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[7629, 253, 260, 5, 54, "Subsection",ExpressionUUID->"8b5b4e59-46e0-4dff-a9e3-a59f2797fdbb",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[7892, 260, 362, 12, 118, "Input",ExpressionUUID->"48b26465-bafa-4782-9317-bca3ff4cd38a",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[8291, 277, 256, 6, 54, "Subsection",ExpressionUUID->"5d9508a7-fede-42a3-8a2e-f4fe2f30e0c0",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[8550, 285, 1010, 26, 73, "Input",ExpressionUUID->"bf1c8a61-5fe1-4dfa-b59f-76600a058ac8",
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[9597, 316, 228, 5, 54, "Subsection",ExpressionUUID->"c4ce3d3d-b27a-4a59-8866-0c5149c14054",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[9828, 323, 308, 9, 64, "Input",ExpressionUUID->"5c4ab8b5-e55f-479d-b53e-6cbf9446c772",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[10197, 339, 185, 5, 41, "Subsubtitle",ExpressionUUID->"610b675c-a991-4c8b-9541-aeb2f35a2a62",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[10385, 346, 208, 8, 64, "Input",ExpressionUUID->"62c9a792-06ce-49d2-ba46-5412e5b17a41",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

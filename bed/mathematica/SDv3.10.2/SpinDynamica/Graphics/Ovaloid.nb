@@ -1,0 +1,886 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     36978,        885]
+NotebookOptionsPosition[     31820,        760]
+NotebookOutlinePosition[     32251,        777]
+CellTagsIndexPosition[     32208,        774]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Graphics`Ovaloid`", "Title",
+ PageWidth:>WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.409828764202869*^9, 3.409828768211138*^9}, {
+  3.409828897756048*^9, 3.40982889793928*^9}, {3.691410842809146*^9, 
+  3.691410842975648*^9}, {3.820329725107901*^9, 3.820329746734146*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"cfa9b29b-d516-4225-a5bf-cef4f3b6fb44"],
+
+Cell[CellGroupData[{
+
+Cell["begin", "Subtitle",
+ PageWidth:>WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"5aca9ec4-4c56-494c-b72c-22c44d7e2519"],
+
+Cell["\<\
+BeginPackage[ \"Graphics`Ovaloid`\",\t
+\t{\t\"Global`\",
+\t\t\"SpinDynamica`\",
+\t\t\"Tensors`IST`\",
+\t\t\"Tensors`CG`\",
+\t\t\"General`Miscellaneous`\"
+\t}\t
+];\
+\>", "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{
+  3.409326623379004*^9, {3.409828776492481*^9, 3.4098288099594603`*^9}, {
+   3.409828901046974*^9, 3.409828901206229*^9}, {3.4098289730630407`*^9, 
+   3.409828980615601*^9}, 3.4482891667465887`*^9, {3.564598182812778*^9, 
+   3.564598184895945*^9}, {3.5645990099512367`*^9, 3.564599013098145*^9}, {
+   3.6914108456073017`*^9, 3.691410845784051*^9}, {3.82032973364643*^9, 
+   3.820329734962823*^9}, 3.820329767654828*^9, {3.8203316579719677`*^9, 
+   3.820331673273395*^9}, {3.8203318659098253`*^9, 3.820331871609351*^9}},
+ AspectRatioFixed->True,
+ CellLabel->"In[60]:=",ExpressionUUID->"7499a9ca-9b8c-46eb-9829-1bb2816a2f99"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["exports", "Subtitle",
+ PageWidth:>WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"306b6c2a-7cc6-49b8-8056-4fccdbcf337d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "::", "usage"}], "=", 
+   "\"\<\!\(\*StyleBox[\"Ovaloid\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"[\
+\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"r\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\",\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"tensor\",FontSlant->\"\
+Italic\"]\)\!\(\*StyleBox[\",\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"opts\
+\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"]\",FontSlant->\"Italic\"]\) \
+generates a \!\(\*StyleBox[\"Graphics3D\",FontSlant->\"Italic\"]\) object \
+representing a rank-2 spherical tensor, centred  at position \
+\!\(\*StyleBox[\"r\",FontSlant->\"Italic\"]\). The \
+\!\(\*StyleBox[\"tensor\",FontSlant->\"Italic\"]\) may be a \
+\!\(\*StyleBox[\"SphericalTensor\",FontSlant->\"Italic\"]\) object of rank 2, \
+or a 3\[Times]3 real matrix. In the case of a 3\[Times]3 real matrix, the \
+traceless symmetric part of the matrix is extracted in order to define the \
+rank-2 spherical tensor. If the vector \
+\!\(\*StyleBox[\"r\",FontSlant->\"Italic\"]\) is omitted, the value \
+\!\(\*StyleBox[\"r\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\" \",FontSlant->\
+\"Italic\"]\)\!\(\*StyleBox[\"=\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\" \
+\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"{\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\"0\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\",\",FontSlant->\"\
+Italic\"]\)\!\(\*StyleBox[\"0\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\",\",\
+FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"0\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\"}\",FontSlant->\"Italic\"]\) is assumed. The options may include \
+rules for \
+\!\(\*StyleBox[\"OvaloidScale\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\",\",\
+FontSlant->\"Italic\"]\) \!\(\*StyleBox[\"OvaloidColors\",FontSlant->\"Italic\
+\"]\)\!\(\*StyleBox[\",\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\" \
+\",FontSlant->\"Italic\"]\)and\!\(\*StyleBox[\" \",FontSlant->\"Italic\"]\)\!\
+\(\*StyleBox[\"OvaloidIsotropicComponent\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\".\",FontSlant->\"Italic\"]\) The option \
+\!\(\*StyleBox[\"OvaloidIsotropicComponent\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\"\[Rule]\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"iso\",FontSlant-\
+>\"Italic\"]\), incorporates an isotropic component in the graphical \
+depiction of the tensor. See the usage messages for these options. The \
+ovaloid graphical representation is described by Len Mueller in \
+https://doi.org/10.1002/mrc.4793 and used in his program TensorView, \
+https://sites.google.com/ucr.edu/Mueller/home/tensorview\n\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820169073250615*^9, 3.8201692874384537`*^9}, {
+   3.8201693611663446`*^9, 3.820169422163175*^9}, {3.820170931112063*^9, 
+   3.820170978562566*^9}, {3.820329809783102*^9, 3.820330035619597*^9}, {
+   3.8203300744940968`*^9, 3.820330208411778*^9}, {3.820330242235446*^9, 
+   3.8203302445739937`*^9}, {3.82033027688137*^9, 3.8203303025653687`*^9}, 
+   3.820330532827957*^9, {3.82033283718963*^9, 3.820332842640563*^9}},
+ CellLabel->"In[61]:=",ExpressionUUID->"c234159c-ec28-48a2-b355-805cb81a99f4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OvaloidScale", "::", "usage"}], "=", 
+   "\"\<\!\(\*StyleBox[\"OvaloidScale\",FontSlant->\"Italic\"]\) defines the \
+ratio between the graphical coordinates and the tensor values in the \
+\!\(\*StyleBox[\"Ovaloid\",FontSlant->\"Italic\"]\) representation of a \
+second-rank spherical tensor.  For example, if the coordinates of a molecule \
+are specified in units of \[CapitalARing], and the tensor is specified in \
+units of ppm, then \!\(\*StyleBox[\"OvaloidScale\",FontSlant->\"Italic\"]\)\!\
+\(\*StyleBox[\"->\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"0.1\",FontSlant->\
+\"Italic\"]\)\!\(\*StyleBox[\" \",FontSlant->\"Italic\"]\)would generate an \
+ovaloid with a tensor value of 10ppm stretching a distance of \
+1\[CapitalARing] from the centre of the ovaloid. \n\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820169306625429*^9, 3.820169353516323*^9}, 
+   3.820169438776121*^9, {3.820330315498486*^9, 3.820330509064279*^9}},
+ CellLabel->"In[62]:=",ExpressionUUID->"852b0c15-7209-45ff-97e2-280186f32e75"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OvaloidColors", "::", "usage"}], "=", 
+   "\"\<\!\(\*StyleBox[\"OvaloidColors\",FontSlant->\"Italic\"]\) defines the \
+colouring of the \!\(\*StyleBox[\"OvaloidGraphics\",FontSlant->\"Italic\"]\) \
+representation of a 3\[Times]3 Cartesian matrix. \
+\!\(\*StyleBox[\"OvaloidColors\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"\
+\[Rule]\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"{\",FontSlant->\"Italic\"]\
+\)\!\(\*StyleBox[\"poscolor\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\",\",\
+FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"negcolor\",FontSlant->\"Italic\"]\)\!\
+\(\*StyleBox[\"}\",FontSlant->\"Italic\"]\) uses \
+\!\(\*StyleBox[\"poscolor\",FontSlant->\"Italic\"]\) for the colour of the \
+positive lobes and \!\(\*StyleBox[\"negcolor\",FontSlant->\"Italic\"]\) for \
+the colour of the negative lobes. \
+\!\(\*StyleBox[\"OvaloidColors\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"\
+\[Rule]\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"color\",FontSlant->\"\
+Italic\"]\)\!\(\*StyleBox[\" \",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"uses\
+\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\" \
+\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"color\",FontSlant->\"Italic\"]\) \
+for both lobes.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820169306625429*^9, 3.820169353516323*^9}, {
+  3.820169438776121*^9, 3.820169554325672*^9}},
+ CellLabel->"In[63]:=",ExpressionUUID->"f90b15b2-3a56-4245-9e43-620462daeb2e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OvaloidIsotropicComponent", "::", "usage"}], "=", 
+   "\"\<\!\(\*StyleBox[\"OvaloidIsotropicComponent\",FontSlant->\"Italic\"]\) \
+is an option for \
+\!\(\*StyleBox[\"Ovaloid\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\".\",\
+FontSlant->\"Italic\"]\) The default is \
+\!\(\*StyleBox[\"OvaloidIsotropicComponent\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\"\[Rule]\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"False\",\
+FontSlant->\"Italic\"]\), in which case no isotropic component is included in \
+the graphical representation. If \
+\!\(\*StyleBox[\"OvaloidIsotropicComponent\",FontSlant->\"Italic\"]\) equals \
+a number, that number is added to the second-rank tensor when calculating the \
+graphical representation. If \
+\!\(\*StyleBox[\"OvaloidIsotropicComponent\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\"\[Rule]\",FontSlant->\"Italic\"]\)\!\(\*StyleBox[\"Automatic\",\
+FontSlant->\"Italic\"]\)\!\(\*StyleBox[\",\",FontSlant->\"Italic\"]\)\!\(\*\
+StyleBox[\" \",FontSlant->\"Italic\"]\)and the second-rank tensor is \
+specified by a 3\[Times]3 Cartesian matrix, the isotropic component of the \
+matrix is used.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820169306625429*^9, 3.820169353516323*^9}, {
+  3.820169438776121*^9, 3.820169647737997*^9}, {3.8203305366783247`*^9, 
+  3.8203307010462646`*^9}},
+ CellLabel->"In[64]:=",ExpressionUUID->"ace29f5f-7e40-4d9e-a50d-bbc9d3162792"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["main", "Subtitle",
+ PageWidth:>WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"4241cf85-0cba-455c-93ad-b687f14f0876"],
+
+Cell["Begin[\"`Private`\"];", "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->True,
+ CellLabel->"In[65]:=",ExpressionUUID->"4326b365-cdb1-4eb1-813f-2a0dbf9ea773"],
+
+Cell[CellGroupData[{
+
+Cell["Ovaloid", "Chapter",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{
+  3.409372227704669*^9, {3.820330721183516*^9, 3.8203307260272293`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"89de57a3-cf8e-4b1e-a4ee-959f64ac33eb"],
+
+Cell[CellGroupData[{
+
+Cell["defaults", "Section",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.82017055345653*^9, 
+  3.820170554589695*^9}},ExpressionUUID->"7b7881f8-dbe5-4767-8289-\
+b9dbb1ee55b6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "Ovaloid", "]"}], "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"OvaloidScale", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"OvaloidColors", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Directive", "[", 
+         RowBox[{
+          RowBox[{"Opacity", "[", "0.5", "]"}], ",", "Orange"}], "]"}], ",", 
+        RowBox[{"Directive", "[", 
+         RowBox[{
+          RowBox[{"Opacity", "[", "0.5", "]"}], ",", "Blue"}], "]"}]}], 
+       "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Mesh", "\[Rule]", "False"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"OvaloidIsotropicComponent", "\[Rule]", "False"}]}], 
+    "\[IndentingNewLine]", "}"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.82015724200996*^9, 3.820157258857161*^9}, {
+   3.820157348461957*^9, 3.820157349727283*^9}, {3.820157451028219*^9, 
+   3.820157455410308*^9}, {3.8201576564648123`*^9, 3.820157764970901*^9}, {
+   3.82015811213795*^9, 3.8201581132263536`*^9}, {3.820158703615266*^9, 
+   3.82015875047863*^9}, {3.8201682570852823`*^9, 3.820168260947565*^9}, {
+   3.8201683609762383`*^9, 3.820168374065865*^9}, {3.820168448343483*^9, 
+   3.820168468558365*^9}, {3.820168527330364*^9, 3.820168541468824*^9}, {
+   3.8201712912734756`*^9, 3.8201712954454*^9}, {3.820207722281476*^9, 
+   3.820207722619712*^9}, {3.82020775839191*^9, 3.820207758555677*^9}, 
+   3.8202077999653883`*^9, {3.820207838946292*^9, 3.8202078391859407`*^9}, {
+   3.820208274849285*^9, 3.8202083439490633`*^9}, {3.820330772412342*^9, 
+   3.820330830372706*^9}},
+ CellLabel->"In[66]:=",ExpressionUUID->"0b5c07cd-dc7f-4f73-afb7-159dcb316bba"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["preparations", "Section",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.820330874390428*^9, 3.820330875977873*^9}, {3.820333974690846*^9, 
+  3.820333976915367*^9}, {3.820334109450141*^9, 
+  3.820334111216126*^9}},ExpressionUUID->"42dccbf7-e24e-4f8a-8d15-\
+e8dd5f45715d"],
+
+Cell[CellGroupData[{
+
+Cell["checks", "Subsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.820330874390428*^9, 3.820330875977873*^9}, {3.820333974690846*^9, 
+  3.820333976915367*^9}},ExpressionUUID->"18ea0525-241a-4e41-83d9-\
+7ca990d9a81c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "[", 
+    RowBox[{"tensor_", ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"Ovaloid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "tensor", ",", "opts"}], 
+    "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201569800015087`*^9, 3.820156995870422*^9}, 
+   3.8201572458351717`*^9, {3.820330897677702*^9, 3.8203309387453136`*^9}},
+ CellLabel->"In[67]:=",ExpressionUUID->"0cff27f1-906d-44f4-a151-d18503d49f1c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Ovaloid", "[", 
+     RowBox[{"r_", ",", "tensor_", ",", "opts___Rule"}], "]"}], "/;", 
+    RowBox[{"!", 
+     RowBox[{"MatchQ", "[", 
+      RowBox[{"r", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"_", "?", "NumericQ"}], ",", 
+         RowBox[{"_", "?", "NumericQ"}], ",", 
+         RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "]"}]}]}], ":=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{"Ovaloid", "::", "badr"}], "]"}], ";", "$Failed"}], ")"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.82033094311495*^9, 3.820330991884848*^9}, 
+   3.8203324293166533`*^9, {3.820333056399212*^9, 3.820333061942472*^9}},
+ CellLabel->"In[68]:=",ExpressionUUID->"b50d9dfa-6101-4814-a1c2-72d08eeb173a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Ovaloid", "[", 
+     RowBox[{"r_", ",", "tensor_", ",", "opts___Rule"}], "]"}], "/;", 
+    RowBox[{"!", 
+     RowBox[{"MatchQ", "[", 
+      RowBox[{"tensor", ",", 
+       RowBox[{"_SphericalTensor", "|", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"_", "?", "NumericQ"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"_", "?", "NumericQ"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"_", "?", "NumericQ"}], ",", 
+            RowBox[{"_", "?", "NumericQ"}]}], "}"}]}], "}"}]}]}], "]"}]}]}], ":=",
+    "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{"Ovaloid", "::", "badtensor"}], "]"}], ";", "$Failed"}], 
+    ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820331056414407*^9, 3.820331185622682*^9}, 
+   3.820332432045257*^9, {3.82033306929305*^9, 3.820333079934861*^9}, {
+   3.820334050650556*^9, 3.820334053495866*^9}},
+ CellLabel->"In[69]:=",ExpressionUUID->"c4fb9924-3968-4433-83df-a347e5b64e72"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Ovaloid", "[", 
+     RowBox[{"r_", ",", "tensor_SphericalTensor", ",", "opts___Rule"}], "]"}],
+     "/;", 
+    RowBox[{"!", 
+     RowBox[{"MatchQ", "[", 
+      RowBox[{"tensor", ",", 
+       RowBox[{"SphericalTensor", "[", 
+        RowBox[{"2", ",", "___"}], "]"}]}], "]"}]}]}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{"Ovaloid", "::", "badrank"}], "]"}], ";", "$Failed"}], ")"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820331056414407*^9, 3.820331185622682*^9}, 
+   3.820332432045257*^9, {3.82033306929305*^9, 3.820333079934861*^9}, {
+   3.820334050650556*^9, 3.82033408689601*^9}, 3.82033430564395*^9, {
+   3.8203344015969467`*^9, 
+   3.820334403483267*^9}},ExpressionUUID->"1bdddcfc-25cb-46c3-bc28-\
+dfa1fc5e6ec2"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Cartesian matrix form", "Subsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.820330874390428*^9, 3.820330875977873*^9}, {3.820333974690846*^9, 
+  3.820333976915367*^9}, {3.820334014277484*^9, 
+  3.820334019785708*^9}},ExpressionUUID->"22dfbaa4-0f95-4da6-9986-\
+a805b5cbb4b1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "[", 
+    RowBox[{"r_", ",", 
+     RowBox[{"mat_", "?", "MatrixQ"}], ",", "opts___Rule"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"oic", ",", "iso"}], "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"oic", "=", 
+        RowBox[{
+         RowBox[{"OvaloidIsotropicComponent", "/.", 
+          RowBox[{"{", "opts", "}"}]}], "/.", 
+         RowBox[{"Options", "[", "Ovaloid", "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"iso", "=", 
+        RowBox[{"Switch", "[", 
+         RowBox[{"oic", ",", 
+          RowBox[{"Automatic", "|", "True"}], ",", 
+          RowBox[{
+           RowBox[{"Plus", "@@", 
+            RowBox[{"Diagonal", "[", "mat", "]"}]}], "/", "3"}], ",", 
+          RowBox[{"_", "?", "NumericQ"}], ",", "oic", ",", "_", ",", "0"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Ovaloid", "[", 
+        RowBox[{"r", ",", 
+         RowBox[{"CartesianToSpherical", "[", 
+          RowBox[{"2", ",", "mat"}], "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"SimplifyRules", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"OvaloidIsotropicComponent", "\[Rule]", "iso"}], ",", 
+             "opts"}], "}"}], "]"}]}]}], "]"}]}], "\[IndentingNewLine]", 
+      ")"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820331265688251*^9, 3.8203313749299173`*^9}, {
+  3.8203314215369787`*^9, 3.8203314853739853`*^9}, {3.820331521827495*^9, 
+  3.820331523799932*^9}, {3.820333449089088*^9, 3.820333452047489*^9}, {
+  3.8203334872638617`*^9, 3.8203335729854593`*^9}, {3.820333814334708*^9, 
+  3.820333853639234*^9}, {3.820334026127246*^9, 3.820334027775444*^9}},
+ CellLabel->"In[70]:=",ExpressionUUID->"e5799375-3fb9-45ad-a1ae-4953d3a8b922"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["SphericalTensor form", "Subsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.820330874390428*^9, 3.820330875977873*^9}, {3.820333974690846*^9, 
+  3.820333976915367*^9}, {3.820334014277484*^9, 
+  3.820334037939581*^9}},ExpressionUUID->"db1fd948-f845-488e-a99b-\
+98486d6be85d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "[", 
+    RowBox[{"r_", ",", "tensor_SphericalTensor", ",", "opts___Rule"}], "]"}], 
+   ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "oic", "}"}], ",", 
+     RowBox[{
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{"Ovaloid", "[", 
+        RowBox[{"r", ",", "tensor", ",", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"SimplifyRules", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"OvaloidIsotropicComponent", "\[Rule]", "0"}], ",", 
+             "opts"}], "}"}], "]"}]}]}], "]"}], "\[IndentingNewLine]", ")"}], 
+      "/;", 
+      RowBox[{"(", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"oic", "=", 
+         RowBox[{
+          RowBox[{"OvaloidIsotropicComponent", "/.", 
+           RowBox[{"{", "opts", "}"}]}], "/.", 
+          RowBox[{"Options", "[", "Ovaloid", "]"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"!", 
+         RowBox[{"MatchQ", "[", 
+          RowBox[{"oic", ",", 
+           RowBox[{"_", "?", "NumericQ"}]}], "]"}]}]}], "\[IndentingNewLine]",
+        ")"}]}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8203326464803753`*^9, 3.820332658830605*^9}, {
+   3.8203327139803753`*^9, 3.820332783200231*^9}, 3.820333600147564*^9, {
+   3.820333648551057*^9, 3.820333711369175*^9}, {3.8203337860835953`*^9, 
+   3.8203337913853083`*^9}, {3.820334672934634*^9, 
+   3.820334743197981*^9}},ExpressionUUID->"01a7c983-495e-4c39-a57b-\
+691a3b571881"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["main", "Section",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.820330856359795*^9, 3.820330857631174*^9}, {3.8203328291014967`*^9, 
+  3.820332829527399*^9}},ExpressionUUID->"f22e6ac1-f9e0-40d0-ac3b-\
+1d62a6f91e78"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "[", 
+    RowBox[{"r_", ",", "\[Sigma]2_SphericalTensor", ",", "opts___Rule"}], 
+    "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\[Sigma]iso", ",", "radius", ",", "scale", ",", "poscolor", ",", 
+       "negcolor", ",", "colorfunc", ",", "iso"}], "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"scale", "=", 
+        RowBox[{
+         RowBox[{"OvaloidScale", "/.", 
+          RowBox[{"{", "opts", "}"}]}], "/.", 
+         RowBox[{"Options", "[", "Ovaloid", "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"poscolor", ",", "negcolor"}], "}"}], "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"MatchQ", "[", "#", "]"}], ",", 
+            RowBox[{"Except", "[", "_List", "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"#", ",", "#"}], "}"}], ",", "#"}], "]"}], "&"}], "@", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"OvaloidColors", "/.", 
+            RowBox[{"{", "opts", "}"}]}], "/.", 
+           RowBox[{"Options", "[", "Ovaloid", "]"}]}], ")"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"\[Sigma]iso", "=", 
+        RowBox[{
+         RowBox[{"OvaloidIsotropicComponent", "/.", 
+          RowBox[{"{", "opts", "}"}]}], "/.", 
+         RowBox[{"Options", "[", "Ovaloid", "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"radius", "[", 
+         RowBox[{"\[Theta]_", ",", "\[Phi]_"}], "]"}], "=", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"scale", "*", 
+           RowBox[{"(", "\[IndentingNewLine]", 
+            RowBox[{"\[Sigma]iso", "+", "\[IndentingNewLine]", 
+             RowBox[{"Sum", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"\[Sigma]2", "[", "m1", "]"}], 
+                RowBox[{
+                 RowBox[{"WignerD", "[", 
+                  RowBox[{"2", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"m1", ",", "m2"}], "}"}]}], "]"}], "[", 
+                 RowBox[{"{", 
+                  RowBox[{"\[Phi]", ",", "\[Theta]", ",", "0"}], "}"}], "]"}],
+                 " ", 
+                RowBox[{"CG", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"2", ",", "m2"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"1", ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"1", ",", "0"}], "}"}]}], "]"}]}], ",", 
+               RowBox[{"{", 
+                RowBox[{"m1", ",", 
+                 RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"m2", ",", 
+                 RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}]}], ")"}]}], "//",
+           "ExpToTrig"}], "//", "Simplify"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"colorfunc", "=", 
+        RowBox[{"Function", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"\[Theta]", ",", "\[Phi]"}], "}"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Evaluate", "@", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Chop", "[", 
+               RowBox[{"radius", "[", 
+                RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}], "]"}], ">", "0"}],
+              ",", "poscolor", ",", "negcolor"}], "]"}]}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Translate", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"First", "@", 
+            RowBox[{"SphericalPlot3D", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"radius", "[", 
+                RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"\[Theta]", ",", "0", ",", "\[Pi]"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"\[Phi]", ",", "0", ",", 
+                RowBox[{"2", "\[Pi]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Sequence", "@@", 
+                RowBox[{"FilterRules", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Join", "[", 
+                   RowBox[{
+                    RowBox[{"{", "opts", "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"ColorFunction", "\[Rule]", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"colorfunc", "[", 
+                    RowBox[{"#4", ",", "#5"}], "]"}], "&"}], ")"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"ColorFunctionScaling", "\[Rule]", "False"}]}], 
+                    "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"Options", "[", "Ovaloid", "]"}]}], 
+                   "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"Options", "[", "SphericalPlot3D", "]"}]}], 
+                 "\[IndentingNewLine]", "]"}]}], "]"}]}], 
+             "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+           "r"}], "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"Evaluate", "[", 
+          RowBox[{"Sequence", "@@", 
+           RowBox[{"FilterRules", "[", 
+            RowBox[{
+             RowBox[{"Join", "[", 
+              RowBox[{
+               RowBox[{"{", "opts", "}"}], ",", 
+               RowBox[{"Options", "[", "Ovaloid", "]"}]}], "]"}], ",", 
+             RowBox[{"Options", "[", "Graphics3D", "]"}]}], "]"}]}], "]"}]}], 
+        "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", ")"}]}], 
+    "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201556238482227`*^9, 3.820155682105895*^9}, {
+   3.820155771179942*^9, 3.8201558461446123`*^9}, {3.820155890208658*^9, 
+   3.8201559120869102`*^9}, {3.820155973828579*^9, 3.820156466021106*^9}, {
+   3.820156502622911*^9, 3.8201565598375483`*^9}, 3.820156596809733*^9, {
+   3.820156910293153*^9, 3.820156967352145*^9}, {3.8201572644671383`*^9, 
+   3.820157309521706*^9}, {3.820157355537372*^9, 3.820157358633657*^9}, {
+   3.820157593987565*^9, 3.820157603815201*^9}, {3.8201581884112186`*^9, 
+   3.8201583736213818`*^9}, {3.82015844964465*^9, 3.820158467087472*^9}, {
+   3.820158588257279*^9, 3.820158612852441*^9}, {3.82015866288789*^9, 
+   3.820158690243867*^9}, {3.820158736824881*^9, 3.820158817610836*^9}, {
+   3.8201588672203074`*^9, 3.8201588697289*^9}, {3.8201589122340517`*^9, 
+   3.820158946561105*^9}, {3.820159121768033*^9, 3.8201592110367126`*^9}, {
+   3.8201592808613977`*^9, 3.820159284143764*^9}, {3.820159315514677*^9, 
+   3.8201594495338907`*^9}, {3.820159495220702*^9, 3.820159530372451*^9}, {
+   3.820159643975799*^9, 3.820159650061471*^9}, {3.82015968832959*^9, 
+   3.8201597245719137`*^9}, {3.820159818139345*^9, 3.820159858186705*^9}, {
+   3.820159897293247*^9, 3.820159971515499*^9}, {3.820160003292835*^9, 
+   3.820160100529149*^9}, {3.820160147151375*^9, 3.820160228694895*^9}, {
+   3.8201602980992937`*^9, 3.82016032301403*^9}, {3.820160388339959*^9, 
+   3.8201604021890697`*^9}, {3.820160439688167*^9, 3.8201605633211613`*^9}, {
+   3.820160661733717*^9, 3.820160674948615*^9}, {3.8201607260061293`*^9, 
+   3.820160759877859*^9}, {3.820160795851136*^9, 3.820160948589592*^9}, {
+   3.8201609944091673`*^9, 3.8201610001306973`*^9}, {3.820161053558576*^9, 
+   3.820161083167426*^9}, {3.820161123576804*^9, 3.8201611336925077`*^9}, 
+   3.8201612167419252`*^9, {3.820167987756115*^9, 3.820167990308959*^9}, {
+   3.8201680466028557`*^9, 3.820168139877727*^9}, {3.8201681774633303`*^9, 
+   3.8201682134554977`*^9}, {3.820168485625327*^9, 3.820168638361594*^9}, {
+   3.820168894058507*^9, 3.8201689315351353`*^9}, {3.820171691509007*^9, 
+   3.8201716952650633`*^9}, {3.820207664216475*^9, 3.820207667273694*^9}, {
+   3.820207971004766*^9, 3.820207990173588*^9}, 3.820208621679709*^9, 
+   3.8202086529192657`*^9, {3.82033089768001*^9, 3.82033089769093*^9}, {
+   3.8203316937742853`*^9, 3.820331834514545*^9}, 3.820333214032649*^9, {
+   3.820333286029373*^9, 3.820333289319462*^9}, {3.820334444126498*^9, 
+   3.8203344471519823`*^9}},ExpressionUUID->"46717193-5780-44df-8acb-\
+6b9f9e17d966"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["messages", "Section",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8201696543537903`*^9, 3.820169670248342*^9}, {
+  3.820330856359795*^9, 
+  3.8203308672942743`*^9}},ExpressionUUID->"3cdaa58a-58bb-44f0-af65-\
+2d3df75c6ef6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "::", "badr"}], "=", 
+   "\"\<The centre of the ovaloid must be specified by a 3-vector.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820331013920879*^9, 3.820331036744052*^9}, 
+   3.8203324089476757`*^9},
+ CellLabel->"In[74]:=",ExpressionUUID->"919ac6c5-bcac-4611-b82b-dfd537f0cb1a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "::", "badtensor"}], "=", 
+   "\"\<The tensor argument of Ovaloid must be a SphericalTensor of rank 2, \
+or a 3\[Times]3 Cartesian matrix.\>\""}], ";"}]], "Code",
+ CellChangeTimes->{{3.820331192290123*^9, 3.8203312227100143`*^9}, 
+   3.820332412086513*^9, 3.820334160212015*^9},
+ CellLabel->"In[75]:=",ExpressionUUID->"7317ff73-0287-4760-981b-01d3c605944a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Ovaloid", "::", "badrank"}], "=", 
+   "\"\<The rank of the SphericalTensor must be 2\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.820334130198834*^9, 3.820334144784533*^9}, 
+   3.8203342221215467`*^9},
+ CellLabel->"In[76]:=",ExpressionUUID->"4cc87b51-468c-4fa0-bf03-adaa2c88bcdd"]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Subtitle",
+ PageWidth:>WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"56e1a194-dc45-4cb2-8342-cd95d09749e5"],
+
+Cell["End[];", "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->True,
+ CellLabel->"In[77]:=",ExpressionUUID->"22d397b5-ecd3-423c-8268-c340c2e44aea"],
+
+Cell["EndPackage[];", "Input",
+ PageWidth:>WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->True,
+ CellLabel->"In[78]:=",ExpressionUUID->"d700ca0a-22bd-42ce-8372-3cb9601b5a95"]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{973, 930},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (June 19, 2021)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+ExpressionUUID->"8555f1ca-7279-46d6-b9b5-3d50caf3d05d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[422, 15, 427, 9, 98, "Title",ExpressionUUID->"cfa9b29b-d516-4225-a5bf-cef4f3b6fb44",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[874, 28, 209, 6, 69, "Subtitle",ExpressionUUID->"5aca9ec4-4c56-494c-b72c-22c44d7e2519",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1086, 36, 911, 22, 172, "Input",ExpressionUUID->"7499a9ca-9b8c-46eb-9829-1bb2816a2f99",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2034, 63, 211, 6, 69, "Subtitle",ExpressionUUID->"306b6c2a-7cc6-49b8-8056-4fccdbcf337d",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[2248, 71, 3132, 47, 278, "Input",ExpressionUUID->"c234159c-ec28-48a2-b355-805cb81a99f4",
+ InitializationCell->True],
+Cell[5383, 120, 1085, 17, 173, "Input",ExpressionUUID->"852b0c15-7209-45ff-97e2-280186f32e75",
+ InitializationCell->True],
+Cell[6471, 139, 1466, 24, 131, "Input",ExpressionUUID->"f90b15b2-3a56-4245-9e43-620462daeb2e",
+ InitializationCell->True],
+Cell[7940, 165, 1459, 25, 173, "Input",ExpressionUUID->"ace29f5f-7e40-4d9e-a50d-bbc9d3162792",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[9436, 195, 208, 6, 69, "Subtitle",ExpressionUUID->"4241cf85-0cba-455c-93ad-b687f14f0876",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[9647, 203, 222, 5, 46, "Input",ExpressionUUID->"4326b365-cdb1-4eb1-813f-2a0dbf9ea773",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[9894, 212, 282, 7, 69, "Chapter",ExpressionUUID->"89de57a3-cf8e-4b1e-a4ee-959f64ac33eb",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[10201, 223, 230, 5, 36, "Section",ExpressionUUID->"7b7881f8-dbe5-4767-8289-b9dbb1ee55b6",
+ InitializationCell->True],
+Cell[10434, 230, 1724, 33, 152, "Input",ExpressionUUID->"0b5c07cd-dc7f-4f73-afb7-159dcb316bba",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[12195, 268, 330, 6, 36, "Section",ExpressionUUID->"42dccbf7-e24e-4f8a-8d15-e8dd5f45715d",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[12550, 278, 278, 5, 54, "Subsection",ExpressionUUID->"18ea0525-241a-4e41-83d9-7ca990d9a81c",
+ InitializationCell->True],
+Cell[12831, 285, 540, 13, 46, "Input",ExpressionUUID->"0cff27f1-906d-44f4-a151-d18503d49f1c",
+ InitializationCell->True],
+Cell[13374, 300, 820, 22, 89, "Input",ExpressionUUID->"b50d9dfa-6101-4814-a1c2-72d08eeb173a",
+ InitializationCell->True],
+Cell[14197, 324, 1420, 37, 131, "Input",ExpressionUUID->"c4fb9924-3968-4433-83df-a347e5b64e72",
+ InitializationCell->True],
+Cell[15620, 363, 877, 24, 89, "Input",ExpressionUUID->"1bdddcfc-25cb-46c3-bc28-dfa1fc5e6ec2",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[16534, 392, 342, 6, 38, "Subsection",ExpressionUUID->"22dfbaa4-0f95-4da6-9986-a805b5cbb4b1",
+ InitializationCell->True],
+Cell[16879, 400, 1942, 45, 173, "Input",ExpressionUUID->"e5799375-3fb9-45ad-a1ae-4953d3a8b922",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[18858, 450, 341, 6, 38, "Subsection",ExpressionUUID->"db1fd948-f845-488e-a99b-98486d6be85d",
+ InitializationCell->True],
+Cell[19202, 458, 1564, 39, 173, "Input",ExpressionUUID->"01a7c983-495e-4c39-a57b-691a3b571881",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[20815, 503, 275, 5, 36, "Section",ExpressionUUID->"f22e6ac1-f9e0-40d0-ac3b-1d62a6f91e78",
+ InitializationCell->True],
+Cell[21093, 510, 8582, 178, 677, "Input",ExpressionUUID->"46717193-5780-44df-8acb-6b9f9e17d966",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[29712, 693, 233, 5, 36, "Section",ExpressionUUID->"3cdaa58a-58bb-44f0-af65-2d3df75c6ef6",
+ InitializationCell->True],
+Cell[29948, 700, 373, 9, 46, "Input",ExpressionUUID->"919ac6c5-bcac-4611-b82b-dfd537f0cb1a",
+ InitializationCell->True],
+Cell[30324, 711, 414, 8, 52, "Code",ExpressionUUID->"7317ff73-0287-4760-981b-01d3c605944a"],
+Cell[30741, 721, 356, 8, 46, "Input",ExpressionUUID->"4cc87b51-468c-4fa0-bf03-adaa2c88bcdd",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[31158, 736, 207, 6, 69, "Subtitle",ExpressionUUID->"56e1a194-dc45-4cb2-8342-cd95d09749e5",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[31368, 744, 207, 5, 46, "Input",ExpressionUUID->"22d397b5-ecd3-423c-8268-c340c2e44aea",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[31578, 751, 214, 5, 46, "Input",ExpressionUUID->"d700ca0a-22bd-42ce-8372-3cb9601b5a95",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

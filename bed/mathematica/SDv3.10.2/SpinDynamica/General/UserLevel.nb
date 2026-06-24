@@ -1,0 +1,2042 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     82469,       2034]
+NotebookOptionsPosition[     67768,       1730]
+NotebookOutlinePosition[     68501,       1755]
+CellTagsIndexPosition[     68458,       1752]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["General`UserLevel`", "Title",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ CellChangeTimes->{{3.7453909765245543`*^9, 3.7453909788956347`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"ccdf2f5e-7c0c-4a8a-9127-780d552cf039"],
+
+Cell[CellGroupData[{
+
+Cell["BeginPackage", "Chapter",
+ CellChangeTimes->{{3.745396392166553*^9, 
+  3.745396395610304*^9}},ExpressionUUID->"ed303f4d-74be-4d13-a721-\
+1e666bbcc4f8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<General`UserLevel`\>\"", ",", " ", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Global`\>\"", ",", "\[IndentingNewLine]", "\"\<SpinDynamica`\>\""}],
+      " ", "\n", "}"}]}], "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.448289111243003*^9, {3.564598149680191*^9, 3.5645981500517883`*^9}, {
+   3.564598979811647*^9, 3.564598980703816*^9}, {3.7453909832743807`*^9, 
+   3.74539099404867*^9}, {3.74539638352796*^9, 3.745396385919859*^9}, {
+   3.745400239894683*^9, 3.74540024219394*^9}, {3.749127136878355*^9, 
+   3.749127164918014*^9}, {3.749129130000969*^9, 3.749129132243024*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"fbb6e143-f361-431b-aaa1-fcb18d2cabaf"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["exports", "Chapter",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"14fb9dc7-a001-4a0e-8697-f8fa03faf416"],
+
+Cell[CellGroupData[{
+
+Cell["SetUserLevel", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.5439440623642693`*^9, 3.5439440686566153`*^9}, 
+   3.6803284442681837`*^9, {3.683118683518105*^9, 3.6831187154919024`*^9}, {
+   3.728124543086989*^9, 3.7281245462551575`*^9}, 3.728126134854698*^9, {
+   3.745391430477339*^9, 
+   3.7453914610544167`*^9}},ExpressionUUID->"ff939ad4-b524-4ee0-aec8-\
+f33ce4ee87dd"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "::", "usage"}], "=", 
+   "\"\<SetUserLevel[n] sets the user level of SpinDynamica. The minimum user \
+level of 1 implements a high degree of error trapping and reporting, but may \
+have a slow execution speed for some routines. High user levels have fewer \
+syntax checks and error traps, but run faster.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118704723757*^9, 3.6831188253620872`*^9}, {
+  3.728124564880349*^9, 3.728124566625264*^9}, {3.7281247320878363`*^9, 
+  3.7281247598681793`*^9}, {3.728126134877759*^9, 3.7281261348802657`*^9}, {
+  3.744637638704335*^9, 3.744637649537505*^9}, {3.745391435731456*^9, 
+  3.7453914761613827`*^9}, {3.745391577663834*^9, 3.745391588803142*^9}, {
+  3.745391619435525*^9, 3.7453916208341017`*^9}},
+ CellLabel->"In[55]:=",ExpressionUUID->"fd9b1cdf-5fff-4405-8ad5-1987719d98ad"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevel", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.5439440623642693`*^9, 3.5439440686566153`*^9}, 
+   3.6803284442681837`*^9, {3.683118683518105*^9, 3.6831187154919024`*^9}, {
+   3.728124543086989*^9, 3.7281245462551575`*^9}, 3.728126134854698*^9, {
+   3.745391430477339*^9, 
+   3.745391432339594*^9}},ExpressionUUID->"1653c52e-8c25-4800-88c0-\
+00b85d8e1d17"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevel", "::", "usage"}], "=", 
+   "\"\<UserLevel[] returns the current UserLevel of SpinDynamica. The \
+minimum user level of 1 implements a high degree of error trapping and \
+reporting, but may have a slow execution speed for some routines. High user \
+levels have fewer syntax checks and error traps, but run faster.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118704723757*^9, 3.6831188253620872`*^9}, {
+  3.728124564880349*^9, 3.728124566625264*^9}, {3.7281247320878363`*^9, 
+  3.7281247598681793`*^9}, {3.728126134877759*^9, 3.7281261348802657`*^9}, {
+  3.744637638704335*^9, 3.744637649537505*^9}, {3.745391435731456*^9, 
+  3.745391568053143*^9}},
+ CellLabel->"In[56]:=",ExpressionUUID->"346f6836-0a16-483a-badf-7e2ae10da216"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["MaximumUserLevel", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.5439440623642693`*^9, 3.5439440686566153`*^9}, 
+   3.6803284442681837`*^9, {3.683118683518105*^9, 3.6831187154919024`*^9}, {
+   3.728124543086989*^9, 3.7281245462551575`*^9}, 3.728126134854698*^9, {
+   3.745391430477339*^9, 3.745391432339594*^9}, {3.745391949282106*^9, 
+   3.745391950432835*^9}},ExpressionUUID->"c5cb3520-4c66-4e40-a456-\
+68807531c47b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MaximumUserLevel", "::", "usage"}], "=", 
+   "\"\<MaximumUserLevel is the maximum allowable user level for the current \
+SpinDynamica version.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118704723757*^9, 3.6831188253620872`*^9}, {
+  3.728124564880349*^9, 3.728124566625264*^9}, {3.7281247320878363`*^9, 
+  3.7281247598681793`*^9}, {3.728126134877759*^9, 3.7281261348802657`*^9}, {
+  3.744637638704335*^9, 3.744637649537505*^9}, {3.745391435731456*^9, 
+  3.745391568053143*^9}, {3.745391953443985*^9, 3.745391985948619*^9}, {
+  3.745467663584306*^9, 
+  3.745467666084992*^9}},ExpressionUUID->"a948c1fb-0661-4b3e-a167-\
+d2c8cd28ea99"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["MinimumRecommendedUserLevel", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.5439440623642693`*^9, 3.5439440686566153`*^9}, 
+   3.6803284442681837`*^9, {3.683118683518105*^9, 3.6831187154919024`*^9}, {
+   3.728124543086989*^9, 3.7281245462551575`*^9}, 3.728126134854698*^9, {
+   3.745391430477339*^9, 3.745391432339594*^9}, {3.745391949282106*^9, 
+   3.745391950432835*^9}, {3.745467674872257*^9, 3.745467692084037*^9}, {
+   3.745506544308154*^9, 
+   3.745506545568771*^9}},ExpressionUUID->"a067e04d-fddd-40b1-8ef2-\
+60fe17b863ce"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MinimumRecommendedUserLevel", "::", "usage"}], "=", 
+   "\"\<MinimumRecommendedUserLevel is an option setting for some \
+SpinDynamica routines which indicates the minimum recommended user level for \
+that routine.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745467695504759*^9, 3.7454677341309423`*^9}, {
+  3.745506548718334*^9, 
+  3.745506550213079*^9}},ExpressionUUID->"a2589fe2-7bcc-4b01-a4dc-\
+eee3301dbb69"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevelDependentDefinition, UserLevelDependentDefinitions", \
+"Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.5439440623642693`*^9, 3.5439440686566153`*^9}, 
+   3.6803284442681837`*^9, {3.683118683518105*^9, 3.6831187154919024`*^9}, {
+   3.728124543086989*^9, 3.7281245462551575`*^9}, 3.728126134854698*^9, {
+   3.745391430477339*^9, 3.745391432339594*^9}, {3.745391949282106*^9, 
+   3.745391950432835*^9}, {3.745397468597958*^9, 3.7453974760292273`*^9}, {
+   3.745397703050095*^9, 3.745397703556394*^9}, {3.745402135671749*^9, 
+   3.745402136228402*^9}},ExpressionUUID->"da32a7d7-f579-4005-b910-\
+3957e672571f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinition", "::", "usage"}], "=", 
+   "\"\<UserLevelDependentDefinition is used internally by SpinDynamica. \
+UserLevelDependentDefinition[symb,level,code] sets up definitions associated \
+with symb which are only active when the UserLevel is given by level or \
+below. These definitions are inactivated when the UserLevel is set higher \
+than level.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745397488185357*^9, 3.7453976345783978`*^9}, {
+  3.745397675101475*^9, 3.745397679497604*^9}},
+ CellLabel->"In[58]:=",ExpressionUUID->"76a08b65-a333-491a-8e8d-04e65e524801"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinitions", "::", "usage"}], "=", 
+   "\"\<UserLevelDependentDefinitions is used internally by SpinDynamica. \
+UserLevelDependentDefinitions[symb,level] returns the definitions associated \
+with symb which are only active when the UserLevel is given by level or \
+below. These definitions are inactivated when the UserLevel is set higher \
+than level. UserLevelDependentDefinitions[symb,{level}]  returns all \
+definitions for symb active at user level level and above, and \
+UserLevelDependentDefinitions[symb] returns all definitions for symb active \
+in the current user level environment. \>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745397488185357*^9, 3.7453976345783978`*^9}, {
+  3.745397675101475*^9, 3.745397679497604*^9}, {3.745402144534951*^9, 
+  3.745402162484394*^9}, {3.745413435072736*^9, 
+  3.74541360156304*^9}},ExpressionUUID->"268f64e4-74ae-425a-9c95-\
+733bcbfde277"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevelDependentSymbols", "Subsection",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ CellChangeTimes->{{3.5439440623642693`*^9, 3.5439440686566153`*^9}, 
+   3.6803284442681837`*^9, {3.683118683518105*^9, 3.6831187154919024`*^9}, {
+   3.728124543086989*^9, 3.7281245462551575`*^9}, 3.728126134854698*^9, {
+   3.745391430477339*^9, 3.745391432339594*^9}, {3.745391949282106*^9, 
+   3.745391950432835*^9}, {3.745397468597958*^9, 3.7453974760292273`*^9}, {
+   3.745397703050095*^9, 3.745397703556394*^9}, 
+   3.7454021314663363`*^9},ExpressionUUID->"39a0af63-76aa-4382-9082-\
+36bbbc77b068"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentSymbols", "::", "usage"}], "=", 
+   "\"\<UserLevelDependentSymbols is used internally by SpinDynamica. \
+UserLevelDependentSymbols[level] lists the symbols which possess \
+user-level-dependent definitions at the user level given by level. \
+UserLevelDependentSymbols[{level}] lists all symbols which possess \
+user-level-dependent definitions at all levels higher and equal to level. \
+UserLevelDependentSymbols[] lists all symbols with currently active \
+user-level-dependent definitions.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745397687631233*^9, 3.745397836107189*^9}, {
+  3.745412624038818*^9, 
+  3.7454126962411833`*^9}},ExpressionUUID->"53ec9f7f-f516-41d3-abda-\
+9efdc2d1f0b5"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["main", "Chapter",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"f4c109ea-d07c-49c4-931f-91bbc8a3ff27"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->True,
+ CellLabel->"In[61]:=",ExpressionUUID->"e957a6a0-52bf-45ad-aeaf-5ec47ac8dbed"],
+
+Cell[CellGroupData[{
+
+Cell["MaximumUserLevel", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.74540149539965*^9, 
+   3.745401521589079*^9}},ExpressionUUID->"8a7b328a-85a1-4ec1-bf90-\
+31268c44c31f"],
+
+Cell[CellGroupData[{
+
+Cell["set value", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398066573557*^9}, {
+   3.7453982943598633`*^9, 3.745398295423398*^9}, {3.7454015090957947`*^9, 
+   3.745401510448083*^9}},ExpressionUUID->"e2e7efdd-88dd-4d2e-8658-\
+70ce57f1394a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MaximumUserLevel", "=", "3"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745401513522855*^9, 3.745401515246504*^9}},
+ CellLabel->"In[62]:=",ExpressionUUID->"df52757f-6c23-4869-ac3a-35c15b576903"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevel", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 
+   3.745391633418516*^9}},ExpressionUUID->"800f52cf-7102-483e-9ddd-\
+578d932a6531"],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398066573557*^9}, {
+   3.7453982943598633`*^9, 
+   3.745398295423398*^9}},ExpressionUUID->"bb907ee4-f210-4267-8890-\
+04db88c55502"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "UserLevel", "]"}], "=", 
+   RowBox[{"{", 
+    RowBox[{"UserLevel", "\[Rule]", "Undefined"}], "}"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745391662195992*^9, 3.7453916851796513`*^9}, 
+   3.745401001448904*^9, {3.745403492690894*^9, 3.745403494128901*^9}},
+ CellLabel->"In[63]:=",ExpressionUUID->"4e9d5511-4ed4-4a52-a3e0-b30fbc60a3e4"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["current UserLevel", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398066573557*^9}, {
+   3.7453982943598633`*^9, 
+   3.745398307879923*^9}},ExpressionUUID->"875baab5-9a26-4a5d-a0c6-\
+2d2322101d8a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevel", "[", "opts___Rule", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"UserLevel", "/.", 
+     RowBox[{"{", "opts", "}"}]}], "/.", 
+    RowBox[{"Options", "[", "UserLevel", "]"}]}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118899845406*^9, 3.683118971652049*^9}, {
+   3.683119159782485*^9, 3.68311916578039*^9}, {3.6831192671395607`*^9, 
+   3.683119271328342*^9}, 3.744637696194119*^9, {3.7453916940439157`*^9, 
+   3.745391718212502*^9}},
+ CellLabel->"In[64]:=",ExpressionUUID->"2e39b7f3-8eff-48dd-82f5-4f99872bfedf"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["messages", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 
+   3.745398066573557*^9}},ExpressionUUID->"af2afb93-b9f1-4030-9c7d-\
+1a24b3f971e3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"UserLevel", "::", "badul"}], "=", 
+    "\"\<The user level must be an integer between 1 and `1`.\>\""}], ";"}], 
+  " "}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745391873522133*^9, 3.745391927596273*^9}, {
+   3.745398048774851*^9, 3.745398054501546*^9}, 3.7453982563760633`*^9, 
+   3.7453983133774633`*^9},
+ CellLabel->"In[65]:=",ExpressionUUID->"9163773a-3782-4614-aca6-4a9c9f83347c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"UserLevel", "::", "toolow"}], "=", 
+    "\"\<A user level of `2` is recommended for this calculation. The current \
+user level of `1` is too low. Execution speed may be slow. Set a higher user \
+level using SetUserLevel[..].\>\""}], ";"}], " "}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745391873522133*^9, 3.745391927596273*^9}, {
+   3.745398048774851*^9, 3.745398054501546*^9}, 3.7453982563760633`*^9, 
+   3.7453983133774633`*^9, {3.7454680149457617`*^9, 3.745468110719386*^9}, {
+   3.745507341538808*^9, 
+   3.745507355927582*^9}},ExpressionUUID->"c48e47f4-42e0-4219-84ea-\
+b448933b9cdf"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["SetUserLevel", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}},ExpressionUUID->"edd11ba3-d6ec-47c8-a7d6-\
+2435d7816526"],
+
+Cell[CellGroupData[{
+
+Cell["defaults", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745391835003313*^9, 
+   3.745391836303471*^9}},ExpressionUUID->"1579caf9-02b8-4910-b0cf-\
+b94f0559b301"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Options", "[", "SetUserLevel", "]"}], "=", 
+   RowBox[{"{", "}"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745391662195992*^9, 3.7453916851796513`*^9}, {
+  3.745391739764398*^9, 3.745391741579274*^9}},
+ CellLabel->"In[66]:=",ExpressionUUID->"3129949d-719c-4e4a-baf4-840746cdda8b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["checks", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745391835003313*^9, 3.745391842211892*^9}, {
+   3.745392212229456*^9, 
+   3.745392213233004*^9}},ExpressionUUID->"4131a481-3819-403d-8b80-\
+7f1043a81dbe"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "[", 
+    RowBox[{"Infinity", ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"SetUserLevel", "[", 
+    RowBox[{"MaximumUserLevel", ",", "opts"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392341832337*^9, 3.745392363367618*^9}},
+ CellLabel->"In[67]:=",ExpressionUUID->"8294cd4e-8a66-409b-a42e-72697c11817a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetUserLevel", "[", 
+     RowBox[{"ul_", ",", "opts___Rule"}], "]"}], "/;", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"!", 
+       RowBox[{"IntegerQ", "[", "ul", "]"}]}], ")"}], "||", 
+     RowBox[{"ul", "<", "1"}], "||", 
+     RowBox[{"ul", ">", "MaximumUserLevel"}]}]}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{
+       RowBox[{"UserLevel", "::", "badul"}], ",", "MaximumUserLevel"}], "]"}],
+      ";", "\[IndentingNewLine]", "$Failed"}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118899845406*^9, 3.683118971652049*^9}, {
+   3.683119159782485*^9, 3.68311916578039*^9}, {3.6831192671395607`*^9, 
+   3.683119271328342*^9}, 3.744637696194119*^9, {3.7453916940439157`*^9, 
+   3.745391718212502*^9}, {3.745391755283382*^9, 3.745391827035778*^9}, 
+   3.745392081042202*^9, {3.745392412379635*^9, 3.7453924922188883`*^9}, 
+   3.7453983357814207`*^9, {3.745401268089888*^9, 3.7454012810340443`*^9}, {
+   3.7454250041164217`*^9, 
+   3.745425017159997*^9}},ExpressionUUID->"6d76f8a6-94df-458b-a6e2-\
+316bc74d2f11"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetUserLevel", "[", 
+     RowBox[{"ul_", ",", "opts___Rule"}], "]"}], "/;", 
+    RowBox[{"MatchQ", "[", 
+     RowBox[{"ul", ",", 
+      RowBox[{"UserLevel", "[", "opts", "]"}]}], "]"}]}], ":=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{
+       RowBox[{"SetUserLevel", "::", "nochge"}], ",", "ul"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"UserLevel", "[", "]"}]}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392172033462*^9, 3.7453922677396917`*^9}, {
+   3.745392300313817*^9, 3.745392301466557*^9}, {3.745392513273366*^9, 
+   3.745392529075122*^9}, 3.745401264295265*^9},
+ CellLabel->"In[69]:=",ExpressionUUID->"be5cf204-e738-444c-9fb6-4039b0a3485b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["execution", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745391835003313*^9, 3.745391842211892*^9}, {
+   3.745392160680408*^9, 
+   3.745392167783928*^9}},ExpressionUUID->"1475f20a-5a09-4670-8c94-\
+08ef0fd7ba8a"],
+
+Cell["distribute to any parallel kernels", "Text",
+ CellChangeTimes->{{3.745510529652583*^9, 
+  3.745510538420903*^9}},ExpressionUUID->"4a0349fc-d351-4c17-9b68-\
+97ae91b9a25c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "[", 
+    RowBox[{"ul_", ",", "opts___Rule"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ulstodelete", ",", "ulstoimplement"}], "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"SetOptions", "[", 
+        RowBox[{"UserLevel", ",", 
+         RowBox[{"UserLevel", "\[Rule]", "ul"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"DeleteUserLevelDependentDefinitions", "[", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"ImplementUserLevelDependentDefinitions", "@", 
+        RowBox[{"Range", "[", 
+         RowBox[{"ul", ",", "MaximumUserLevel"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"$KernelID", "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Switch", "[", 
+            RowBox[{"ul", ",", "\[IndentingNewLine]", "1", ",", 
+             RowBox[{"Message", "[", 
+              RowBox[{
+               RowBox[{"SetUserLevel", "::", "minul"}], ",", 
+               "MaximumUserLevel"}], "]"}], ",", "\[IndentingNewLine]", 
+             "MaximumUserLevel", ",", 
+             RowBox[{"Message", "[", 
+              RowBox[{
+               RowBox[{"SetUserLevel", "::", "maxul"}], ",", " ", "ul"}], 
+              "]"}], ",", "\[IndentingNewLine]", "_", ",", 
+             RowBox[{"Message", "[", 
+              RowBox[{
+               RowBox[{"SetUserLevel", "::", "ul"}], ",", " ", "ul"}], 
+              "]"}]}], "\[IndentingNewLine]", "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Message", "[", 
+            RowBox[{
+             RowBox[{"SetUserLevel", "::", "modsymbs"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Select", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"UserLevelDependentSymbols", "[", 
+                RowBox[{"{", "ul", "}"}], "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"MemberQ", "[", 
+                 RowBox[{
+                  RowBox[{"Attributes", "[", "#", "]"}], ",", "Protected"}], 
+                 "]"}], "&"}]}], "\[IndentingNewLine]", "]"}]}], 
+            "\[IndentingNewLine]", "]"}]}], ")"}]}], "\[IndentingNewLine]", 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"$KernelID", "\[Equal]", "0"}], "&&", 
+          RowBox[{"$KernelCount", ">", "0"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"ParallelEvaluate", "[", 
+          RowBox[{"Quiet", "@", 
+           RowBox[{"SetUserLevel", "[", "ul", "]"}]}], "]"}]}], 
+        "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"UserLevel", "[", "]"}]}], "\[IndentingNewLine]", ")"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392631581895*^9, 3.745392699126649*^9}, {
+   3.745392858869808*^9, 3.7453928663207083`*^9}, {3.74539302937077*^9, 
+   3.7453930996803703`*^9}, {3.745393199729122*^9, 3.745393229307685*^9}, {
+   3.7453934945076017`*^9, 3.745393508504127*^9}, {3.745393608507516*^9, 
+   3.7453936087112007`*^9}, 3.745393859455822*^9, {3.745403686880755*^9, 
+   3.7454038941704197`*^9}, {3.745403925682609*^9, 3.74540392799652*^9}, {
+   3.745403967308797*^9, 3.7454040255624857`*^9}, {3.74540408227188*^9, 
+   3.7454041081150923`*^9}, {3.7454041489565163`*^9, 3.745404161104053*^9}, {
+   3.745404227046936*^9, 3.745404240826836*^9}, {3.74540431883823*^9, 
+   3.7454043190529537`*^9}, {3.74540565383245*^9, 3.7454057232925663`*^9}, 
+   3.7454115643419933`*^9, {3.745411932358152*^9, 3.745411965048671*^9}, {
+   3.7454120220498867`*^9, 3.7454120779475107`*^9}, {3.745412230392912*^9, 
+   3.7454122565083637`*^9}, {3.7454123212889357`*^9, 3.745412335967123*^9}, 
+   3.74541243368679*^9, {3.745412476132244*^9, 3.745412493095792*^9}, {
+   3.745412526735516*^9, 3.7454125528883944`*^9}, {3.745510223800749*^9, 
+   3.7455102368617973`*^9}, {3.7455102872310257`*^9, 3.745510368626421*^9}, {
+   3.7455795378027897`*^9, 3.745579550288598*^9}, 
+   3.749126137791959*^9},ExpressionUUID->"08d9f85b-4fc7-41ac-ad81-\
+ef894f3638bc"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["messages", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745391835003313*^9, 
+   3.745391848461588*^9}},ExpressionUUID->"66175921-2c5c-4e09-be22-\
+3fd74ab6b74b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetUserLevel", "::", "ini"}], "=", 
+    "\"\<The user level is being initialized to `1`. The user level may be \
+set to an integer between 1 and `2` by using SetUserLevel[level]. Low user \
+levels provide strong syntax trapping at the expense of slow execution for \
+some routines. High user levels relax the syntax trapping in order to provide \
+better execution speeds.\>\""}], ";"}], " "}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745391873522133*^9, 3.745391927596273*^9}, {
+   3.745398048774851*^9, 3.745398054501546*^9}, 3.7453982563760633`*^9, 
+   3.7453983133774633`*^9, {3.7454680149457617`*^9, 3.745468110719386*^9}, {
+   3.7454833490601473`*^9, 3.745483356059718*^9}, {3.745483387742721*^9, 
+   3.745483522077537*^9}, {3.7454841170136127`*^9, 
+   3.745484117427145*^9}},ExpressionUUID->"2050f3d3-464c-4d1a-9916-\
+99387e077733"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "::", "nochge"}], "=", 
+   "\"\<The user level is already set to `1`. No action has been \
+taken.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392279044149*^9, 3.745392294432461*^9}},
+ CellLabel->"In[71]:=",ExpressionUUID->"16d43a1d-892c-4b54-9097-0816af4adec0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "::", "minul"}], "=", 
+   "\"\<The user level has been set to the minimum value of 1. Syntax \
+trapping is strong, but execution speed may be compromised.\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392711274597*^9, 3.745392821829176*^9}, {
+  3.745392944631547*^9, 3.745392945020081*^9}, {3.745393657412231*^9, 
+  3.745393669258971*^9}, {3.745483617972774*^9, 3.7454836188695917`*^9}, {
+  3.7454839968651733`*^9, 
+  3.7454840102771463`*^9}},ExpressionUUID->"6e595416-3e54-4d66-923e-\
+ace56f48341e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "::", "ul"}], "=", 
+   "\"\<The user level has been set to `1`.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392711274597*^9, 3.745392821829176*^9}, {
+  3.745392899064839*^9, 3.7453930132288237`*^9}, {3.745393076173366*^9, 
+  3.7453930959789877`*^9}, {3.745393530461635*^9, 3.745393586762285*^9}, {
+  3.7453936967570047`*^9, 3.745393699455007*^9}},
+ CellLabel->"In[73]:=",ExpressionUUID->"cfd3b487-03ea-4d2e-87cd-29b829cbd86b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "::", "maxul"}], "=", 
+   "\"\<The user level has been set to `1`, which is the maximum level \
+available. Some syntax traps have been weakened for the sake of speed \
+improvements.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745392711274597*^9, 3.745392821829176*^9}, {
+  3.745392899064839*^9, 3.7453930132288237`*^9}, {3.745393076173366*^9, 
+  3.7453930959789877`*^9}, {3.745393530461635*^9, 3.745393586762285*^9}, {
+  3.7453936967570047`*^9, 3.745393699455007*^9}, {3.745393786067526*^9, 
+  3.74539379803415*^9}, {3.745483972028228*^9, 3.745483979163226*^9}, {
+  3.7454840236724377`*^9, 
+  3.745484079062907*^9}},ExpressionUUID->"cac18255-9951-4b53-8822-\
+120b7d733600"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetUserLevel", "::", "modsymbs"}], "=", 
+   "\"\<Additional definitions have been given to the following symbols: \
+`1`\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454122671239347`*^9, 3.74541234063934*^9}, {
+  3.749126148586557*^9, 
+  3.749126151223207*^9}},ExpressionUUID->"67a68a78-fff2-485d-ae48-\
+d1696da5bc9d"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevelDependentDefinition", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 
+   3.745397888466495*^9},ExpressionUUID->"e1775d1f-aef1-485c-ab9f-\
+9a2126aeeb18"],
+
+Cell[CellGroupData[{
+
+Cell["attributes", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398060672543*^9}, {
+   3.7453982293089247`*^9, 
+   3.74539823155628*^9}},ExpressionUUID->"b84ccafa-e130-46f2-9a1e-\
+498f4ae2548d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetAttributes", "[", 
+   RowBox[{"UserLevelDependentDefinition", ",", "HoldAll"}], "]"}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683119194653672*^9, 3.683119226216505*^9}, 
+   3.74539792867526*^9},
+ CellLabel->"In[75]:=",ExpressionUUID->"b2662cee-348d-474a-a284-ad0aac572853"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["standardization", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398075716638*^9}, {
+   3.745398629327325*^9, 3.745398630821759*^9}, {3.7453986856259947`*^9, 
+   3.745398689572257*^9}},ExpressionUUID->"18e5696b-0ce9-43ce-9b9b-\
+c934cb2ff112"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinition", "[", 
+    RowBox[{"symb_Symbol", ",", 
+     RowBox[{"code", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{"_Integer", "|", "_Rule", "|", "Undefined"}], "]"}]}], ",", 
+     "opts___Rule"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"UserLevelDependentDefinition", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"Evaluate", "@", 
+      RowBox[{"UserLevel", "[", "]"}]}], ",", "code", ",", "opts"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.74539864637047*^9, 3.7453987293799133`*^9}, {
+   3.745400727081159*^9, 3.745400728735149*^9}, 3.74540157079803*^9},
+ CellLabel->"In[76]:=",ExpressionUUID->"3905d5a7-600a-4c3f-81fc-c2c6a6063fe4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinition", "[", 
+    RowBox[{"symb_Symbol", ",", "Infinity", ",", 
+     RowBox[{"code", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{"_Integer", "|", "_Rule", "|", "Undefined"}], "]"}]}], ",", 
+     "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"UserLevelDependentDefinition", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"Evaluate", "@", "MaximumUserLevel"}], ",", "code", ",", 
+     "opts"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745399017900937*^9, 3.745399051020857*^9}, 
+   3.745400740152142*^9},
+ CellLabel->"In[77]:=",ExpressionUUID->"11cbbd6f-7ffd-49b3-aef6-3796ca124644"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["checks", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 
+   3.745398075716638*^9}},ExpressionUUID->"b1d682e7-5b25-4ac4-a287-\
+24f9eaa28c0d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"UserLevelDependentDefinition", "[", 
+     RowBox[{"symb_Symbol", ",", "ul_", ",", 
+      RowBox[{"code", ":", 
+       RowBox[{"Except", "[", 
+        RowBox[{"_Integer", "|", "_Rule", "|", "Undefined"}], "]"}]}], ",", 
+      "opts___Rule"}], "]"}], "/;", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"!", 
+       RowBox[{"IntegerQ", "[", "ul", "]"}]}], ")"}], "||", 
+     RowBox[{"ul", "<", "1"}], "||", 
+     RowBox[{"ul", ">", "MaximumUserLevel"}]}]}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Print", "[", 
+       RowBox[{"{", 
+        RowBox[{"UserLevelDependentDefinition", ",", "symb", ",", "ul"}], 
+        "}"}], "]"}], ";"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{
+       RowBox[{"UserLevel", "::", "badul"}], ",", "MaximumUserLevel"}], "]"}],
+      ";", "$Failed"}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118899845406*^9, 3.683118971652049*^9}, {
+   3.683119159782485*^9, 3.68311916578039*^9}, {3.6831192671395607`*^9, 
+   3.683119271328342*^9}, 3.744637696194119*^9, {3.7453916940439157`*^9, 
+   3.745391718212502*^9}, {3.745391755283382*^9, 3.745391827035778*^9}, 
+   3.745392081042202*^9, {3.745392412379635*^9, 3.7453924922188883`*^9}, {
+   3.745398112320063*^9, 3.745398125660234*^9}, {3.745398251573619*^9, 
+   3.745398253423664*^9}, 3.7453983537679996`*^9, {3.745398458891994*^9, 
+   3.7453984856672077`*^9}, 3.745398758528111*^9, {3.745401289596504*^9, 
+   3.7454013344500237`*^9}, {3.7491287390491543`*^9, 
+   3.749128742282288*^9}},ExpressionUUID->"b9d6e9fa-f8dc-4175-8309-\
+2cbb825d5325"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["implementation", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398075716638*^9}, {
+   3.7453984192767143`*^9, 3.7453984197774*^9}, {3.745402310076764*^9, 
+   3.7454023121852007`*^9}},ExpressionUUID->"d99e8416-84cd-4b9e-81d1-\
+5ce59e798fdf"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinition", "[", 
+    RowBox[{"symb_Symbol", ",", "ul_Integer", ",", 
+     RowBox[{"code", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{"_Integer", "|", "_Rule", "|", "Undefined"}], "]"}]}], ",", 
+     "opts___Rule"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "newdef", "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"UserLevelDependentDefinitions", "[", 
+         RowBox[{"symb", ",", "ul", ",", "opts"}], "]"}], "=", 
+        "\[IndentingNewLine]", 
+        RowBox[{"AppendTo", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"UserLevelDependentDefinitions", "[", 
+           RowBox[{"symb", ",", "ul", ",", "opts"}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Hold", "[", "code", "]"}]}], "\[IndentingNewLine]", 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"UserLevelDependentSymbols", "[", "ul", "]"}], "=", 
+        RowBox[{"Union", "@", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{
+           RowBox[{"UserLevelDependentSymbols", "[", "ul", "]"}], ",", 
+           "symb"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", ")"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7453985400725937`*^9, 3.745398581424026*^9}, {
+   3.74539877097117*^9, 3.745398781281736*^9}, {3.745398841205841*^9, 
+   3.745398906076087*^9}, {3.745399303024885*^9, 3.745399305718112*^9}, {
+   3.745399345052153*^9, 3.745399379807843*^9}, {3.745400913288609*^9, 
+   3.7454009154836273`*^9}, 3.745401234158578*^9, {3.745401602994529*^9, 
+   3.745401661593547*^9}, 3.7454018355676317`*^9, {3.74540232233683*^9, 
+   3.7454023496438704`*^9}, {3.745402463986871*^9, 3.745402480480131*^9}, {
+   3.745402790148382*^9, 3.7454028012980824`*^9}, {3.745402900984424*^9, 
+   3.7454029567298193`*^9}, {3.745403005510171*^9, 3.745403062718218*^9}, {
+   3.745403183246365*^9, 3.745403216593253*^9}, {3.745403254948327*^9, 
+   3.745403264123345*^9}, {3.7454033565791473`*^9, 3.745403360225583*^9}, {
+   3.745411581417211*^9, 3.745411583965596*^9}, 
+   3.74912588762858*^9},ExpressionUUID->"893eeb20-202c-46a7-8595-\
+db0a90a99208"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["messages", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 
+   3.745398066573557*^9}},ExpressionUUID->"21512ca6-4852-4049-a7f3-\
+6dc9c288934c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"UserLevelDependentDefinition", "::", "badul"}], "=", 
+    "\"\<The user level must be an integer between 1 and `1`.\>\""}], ";"}], 
+  " "}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745391873522133*^9, 3.745391927596273*^9}, {
+   3.745398048774851*^9, 3.745398054501546*^9}, 3.7453982563760633`*^9},
+ CellLabel->"In[80]:=",ExpressionUUID->"e1fd0642-d2e1-49c1-8ae8-1ef5de4de2f3"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevelDependentSymbols", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 3.745397888466495*^9, 
+   3.7453979623199263`*^9},ExpressionUUID->"79166e7e-e39e-4263-9692-\
+0d21f55d0f88"],
+
+Cell[CellGroupData[{
+
+Cell["standardization", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398075716638*^9}, {
+   3.745406109752047*^9, 
+   3.7454061135443373`*^9}},ExpressionUUID->"586e4a8a-b47c-4762-8f7e-\
+147e5f5a1738"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentSymbols", "[", "opts___Rule", "]"}], ":=", 
+   RowBox[{"UserLevelDependentSymbols", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"UserLevel", "[", "]"}], "}"}], ",", "opts"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7453979700351686`*^9, 3.7453979935540648`*^9}, {
+  3.745406134799272*^9, 3.745406137096589*^9}},
+ CellLabel->"In[81]:=",ExpressionUUID->"fb3a2a44-c529-47a6-9f3b-8f2fe69f2adc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentSymbols", "[", 
+    RowBox[{"{", "ul_", "}"}], "]"}], ":=", 
+   RowBox[{"UserLevelDependentSymbols", "[", 
+    RowBox[{"{", 
+     RowBox[{"ul", ",", "MaximumUserLevel"}], "}"}], "]"}]}], ";"}]], "Input",\
+
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.745405948250435*^9, 
+   3.745405961449811*^9}, {3.745406149395585*^9, 3.745406153355085*^9}},
+ CellLabel->"In[82]:=",ExpressionUUID->"344983fd-25ad-4a80-9dd4-ea01c0e8a474"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentSymbols", "[", 
+    RowBox[{"{", 
+     RowBox[{"ulmin_", ",", "ulmax_"}], "}"}], "]"}], ":=", 
+   RowBox[{"Union", "@", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{"UserLevelDependentSymbols", "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"ulmin", ",", "ulmax"}], "]"}]}], "]"}]}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.7454061603070583`*^9, 
+   3.7454061854594297`*^9}, {3.7454116718645144`*^9, 
+   3.745411673540762*^9}},ExpressionUUID->"077d0e7d-ddfd-43b2-aab7-\
+e3acd55d2d3e"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["checks", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 
+   3.745398075716638*^9}},ExpressionUUID->"246b522b-825c-4bca-8705-\
+a81f4b527ce8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"UserLevelDependentSymbols", "[", 
+     RowBox[{"ul_", ",", "opts___Rule"}], "]"}], "/;", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"!", 
+       RowBox[{"IntegerQ", "[", "ul", "]"}]}], ")"}], "||", 
+     RowBox[{"ul", "<", "1"}], "||", 
+     RowBox[{"ul", ">", "MaximumUserLevel"}]}]}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{
+       RowBox[{"UserLevel", "::", "badul"}], ",", "MaximumUserLevel"}], "]"}],
+      ";", "$Failed"}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118899845406*^9, 3.683118971652049*^9}, {
+   3.683119159782485*^9, 3.68311916578039*^9}, {3.6831192671395607`*^9, 
+   3.683119271328342*^9}, 3.744637696194119*^9, {3.7453916940439157`*^9, 
+   3.745391718212502*^9}, {3.745391755283382*^9, 3.745391827035778*^9}, 
+   3.745392081042202*^9, {3.745392412379635*^9, 3.7453924922188883`*^9}, {
+   3.745398112320063*^9, 3.745398125660234*^9}, 3.745398360412717*^9},
+ CellLabel->"In[84]:=",ExpressionUUID->"dc48924b-44c9-4cb9-8dd9-065f74d77a6d"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["initialization", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398060672543*^9}, {
+   3.745398158564639*^9, 
+   3.745398161483058*^9}},ExpressionUUID->"32b8e73b-553d-4cb5-9131-\
+8bfae8f701dc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentSymbols", "[", 
+    RowBox[{"ul_", ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"{", "}"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7453981737493477`*^9, 3.745398190691822*^9}, {
+  3.7454018028448143`*^9, 3.74540183019732*^9}},
+ CellLabel->"In[85]:=",ExpressionUUID->"31b5c56d-bdc4-4751-affa-589c9eb65d3f"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["UserLevelDependentDefinitions", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 3.745397888466495*^9, 3.7453979623199263`*^9, 
+   3.7454022122884083`*^9},ExpressionUUID->"29aaf92d-4cd4-4fdb-a019-\
+0775a3121068"],
+
+Cell[CellGroupData[{
+
+Cell["standardization", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398060672543*^9}, {
+   3.7454136237610607`*^9, 
+   3.745413626710853*^9}},ExpressionUUID->"2acc7df9-1c74-4950-a7dd-\
+4c3cb63f90f0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"UserLevelDependentDefinitions", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"{", 
+      RowBox[{"UserLevel", "[", "]"}], "}"}], ",", "opts"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7453979700351686`*^9, 3.7453979935540648`*^9}, {
+  3.74540222714748*^9, 3.745402228448889*^9}, {3.745402265686853*^9, 
+  3.745402272836033*^9}, {3.745413629564636*^9, 
+  3.745413631563526*^9}},ExpressionUUID->"84ae33ba-436d-4a46-ba2f-\
+44026ae30ab2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", 
+     RowBox[{"{", "ul_", "}"}], ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"UserLevelDependentDefinitions", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"{", 
+      RowBox[{"ul", ",", "MaximumUserLevel"}], "}"}], ",", "opts"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.745405948250435*^9, 
+   3.745405961449811*^9}, {3.745406149395585*^9, 3.745406153355085*^9}, {
+   3.7454136457648907`*^9, 3.7454136577665777`*^9}, {3.745413755829256*^9, 
+   3.745413760263177*^9}},ExpressionUUID->"0ee69b4d-5652-4667-ae6b-\
+2a0c4e54985d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", 
+     RowBox[{"{", 
+      RowBox[{"ulmin_", ",", "ulmax_"}], "}"}], ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"Union", "@", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"UserLevelDependentDefinitions", "[", 
+        RowBox[{"symb", ",", "#", ",", "opts"}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"ulmin", ",", "ulmax"}], "]"}]}], "]"}]}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.7454061603070583`*^9, 
+   3.7454061854594297`*^9}, {3.7454116718645144`*^9, 3.745411673540762*^9}, {
+   3.745413661414329*^9, 3.7454136802774277`*^9}, {3.745413765013735*^9, 
+   3.7454137702131147`*^9}},ExpressionUUID->"b0e65272-09d3-4531-a593-\
+a6a34b3a5410"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["checks", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 
+   3.745398075716638*^9}},ExpressionUUID->"23c77fca-f1d6-4fe1-a738-\
+668ea493d396"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"UserLevelDependentDefinitions", "[", 
+     RowBox[{"symb_Symbol", ",", "ul_", ",", "opts___Rule"}], "]"}], "/;", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"!", 
+       RowBox[{"IntegerQ", "[", "ul", "]"}]}], ")"}], "||", 
+     RowBox[{"ul", "<", "1"}], "||", 
+     RowBox[{"ul", ">", "MaximumUserLevel"}]}]}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{
+       RowBox[{"UserLevel", "::", "badul"}], ",", "MaximumUserLevel"}], "]"}],
+      ";", "$Failed"}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683118899845406*^9, 3.683118971652049*^9}, {
+   3.683119159782485*^9, 3.68311916578039*^9}, {3.6831192671395607`*^9, 
+   3.683119271328342*^9}, 3.744637696194119*^9, {3.7453916940439157`*^9, 
+   3.745391718212502*^9}, {3.745391755283382*^9, 3.745391827035778*^9}, 
+   3.745392081042202*^9, {3.745392412379635*^9, 3.7453924922188883`*^9}, {
+   3.745398112320063*^9, 3.745398125660234*^9}, 3.745398360412717*^9, 
+   3.745402237287787*^9, {3.745402280337511*^9, 3.7454022809854937`*^9}},
+ CellLabel->"In[87]:=",ExpressionUUID->"a7298367-971e-4869-8bc2-b1fc0fc58c34"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["initialization", "Section",
+ CellChangeTimes->{
+  3.605545643975979*^9, {3.745398059261209*^9, 3.745398060672543*^9}, {
+   3.745398158564639*^9, 
+   3.745398161483058*^9}},ExpressionUUID->"da51c96c-25a8-45fe-a3de-\
+c70cc2772a4e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"UserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", "ul_", ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"{", "}"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7453981737493477`*^9, 3.745398190691822*^9}, {
+   3.7454018028448143`*^9, 3.74540183019732*^9}, 3.745402245335452*^9, {
+   3.745402287945695*^9, 3.7454022887915287`*^9}},
+ CellLabel->"In[88]:=",ExpressionUUID->"5d23522b-e3ac-4a99-8d50-f4fb85d8db5b"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["local routines", "Subchapter",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 3.745397888466495*^9, 3.7453979623199263`*^9, 
+   3.7454022122884083`*^9, {3.745404389863516*^9, 3.745404390758357*^9}, {
+   3.745405020647629*^9, 3.745405029735806*^9}, {3.745412413535449*^9, 
+   3.7454124154387817`*^9}},ExpressionUUID->"e1007973-ce81-443b-9884-\
+064bfa740b29"],
+
+Cell[CellGroupData[{
+
+Cell["implement and delete UserLevel-dependent definitions", "Subsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 3.745397888466495*^9, 3.7453979623199263`*^9, 
+   3.7454022122884083`*^9, {3.745404389863516*^9, 3.745404390758357*^9}, {
+   3.749129182386639*^9, 3.7491291924000053`*^9}, {3.7491293839502087`*^9, 
+   3.749129385555334*^9}},ExpressionUUID->"48323b01-4120-4296-a5ec-\
+acaf61462aaf"],
+
+Cell["\<\
+the syntax in these routines differs from the others. A specified list of ul\
+\[CloseCurlyQuote]s is given, rather than the min & max limits.\
+\>", "Text",
+ CellChangeTimes->{{3.745579577614044*^9, 
+  3.745579602926153*^9}},ExpressionUUID->"a0455d53-7a47-47af-8eba-\
+b70bd8a6348e"],
+
+Cell[CellGroupData[{
+
+Cell["DeleteUserLevelDependentDefinitions", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 3.745397888466495*^9, 3.7453979623199263`*^9, 
+   3.7454022122884083`*^9, {3.745404389863516*^9, 
+   3.745404390758357*^9}},ExpressionUUID->"d790419c-ef0a-4138-830c-\
+1ef714be1132"],
+
+Cell["\<\
+deletes  user-level-dependent definitions, at the specified level, or set of \
+levels, retaining any definitions in force at other levels.\
+\>", "Text",
+ CellChangeTimes->{{3.745404441274197*^9, 3.7454045109868307`*^9}, {
+  3.7454047579111958`*^9, 3.745404800966897*^9}, {3.745579022456932*^9, 
+  3.7455790408168163`*^9}},ExpressionUUID->"8d072ab9-3322-43a0-8fed-\
+e3d30b68cbb7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", "]"}], ":=", 
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"Range", "[", 
+     RowBox[{"1", ",", "MaximumUserLevel"}], "]"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454057448985853`*^9, 3.7454057573092327`*^9}, 
+   3.745405970550748*^9, {3.745578963284729*^9, 
+   3.7455789743076563`*^9}},ExpressionUUID->"493b54e3-be4e-45dd-9ab1-\
+cfb68032e410"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"ul", ":", 
+     RowBox[{"Except", "[", 
+      RowBox[{"_Symbol", "|", "_List"}], "]"}]}], "]"}], ":=", 
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"{", "ul", "}"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.745405948250435*^9, 
+   3.745405961449811*^9}, {3.7455789945596647`*^9, 
+   3.745579006910314*^9}},ExpressionUUID->"349dd75a-0632-4e6b-bb14-\
+d5abb76e5f10"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", "uls_List", "]"}], ":=",
+    "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "symbs", "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"symbs", "=", 
+        RowBox[{"Union", "@", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{"UserLevelDependentSymbols", "/@", "uls"}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+          RowBox[{"#", ",", "uls"}], "]"}], "&"}], "/@", "symbs"}]}], 
+      "\[IndentingNewLine]", ")"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745579324004369*^9, 
+  3.745579396566731*^9}},ExpressionUUID->"5cda43cd-a2aa-48ae-b936-\
+740f4588bc26"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", "symb_Symbol", "]"}], ":=",
+    "\[IndentingNewLine]", 
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", "MaximumUserLevel"}], "]"}]}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454050776025476`*^9, 3.7454051021984663`*^9}, {
+   3.74541168588384*^9, 3.745411687753825*^9}, 3.7454248327840652`*^9, {
+   3.745578371675397*^9, 3.74557838597331*^9}, 
+   3.745579069709302*^9},ExpressionUUID->"6e4d8ec2-6e35-403f-b245-\
+9d8787921136"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", 
+     RowBox[{"ul", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{"_Symbol", "|", "_List"}], "]"}]}]}], "]"}], ":=", 
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"{", "ul", "}"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.745405948250435*^9, 
+   3.745405961449811*^9}, {3.7455784020638847`*^9, 3.745578408361833*^9}, {
+   3.7455790792621326`*^9, 
+   3.745579083759544*^9}},ExpressionUUID->"cd367564-db1c-462d-8141-\
+9f45df1ba8e6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DeleteUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", "uls_List"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "protected", "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"protected", "=", 
+        RowBox[{"MemberQ", "[", 
+         RowBox[{
+          RowBox[{"Attributes", "[", "symb", "]"}], ",", "Protected"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{"protected", ",", 
+         RowBox[{"Unprotect", "[", "symb", "]"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"BuiltInDefinitionsSavedQ", "[", "symb", "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Clear", "[", "symb", "]"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+             RowBox[{"Print", "[", 
+              RowBox[{"\"\<clearing definitions for \>\"", ",", "symb"}], 
+              "]"}], ";"}], "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"RestoreBuiltInDefinitions", "[", "symb", "]"}]}], ")"}]}],
+         "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+        RowBox[{"symb", ",", 
+         RowBox[{"Complement", "[", 
+          RowBox[{
+           RowBox[{"Range", "[", 
+            RowBox[{"1", ",", "MaximumUserLevel"}], "]"}], ",", "uls"}], 
+          "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{"protected", ",", 
+         RowBox[{"Protect", "[", "symb", "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ")"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454043957247543`*^9, 3.745404415986648*^9}, {
+   3.745404560588491*^9, 3.745404587225275*^9}, {3.745404656441921*^9, 
+   3.7454047142575073`*^9}, {3.745404928888421*^9, 3.74540500171933*^9}, 
+   3.745405038499235*^9, 3.745424835273473*^9, {3.745578625603395*^9, 
+   3.745578715881733*^9}, {3.7455788523810472`*^9, 3.745578858861142*^9}, {
+   3.74557909285*^9, 3.745579137478009*^9}, {3.7455807374401207`*^9, 
+   3.745580740723124*^9}, 3.749125922005128*^9, {3.749127897735188*^9, 
+   3.749127901837377*^9}, {3.749128456260152*^9, 3.749128469386791*^9}, {
+   3.749128545436389*^9, 3.749128558218669*^9}, {3.749128747600123*^9, 
+   3.749128753165443*^9}},ExpressionUUID->"b00157a7-a2c6-45ce-b7e4-\
+35687949171d"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ImplementUserLevelDependentDefinitions", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.7453917345992393`*^9, 
+   3.745391735015596*^9}, 3.745397888466495*^9, 3.7453979623199263`*^9, 
+   3.7454022122884083`*^9, {3.745404389863516*^9, 3.745404390758357*^9}, 
+   3.745405171038031*^9},ExpressionUUID->"8018a033-a254-447b-ac75-\
+abd59ee587f0"],
+
+Cell["\<\
+implements user-level-dependent definitions for a particular symbol,  at a \
+particular user level or set of levels\
+\>", "Text",
+ CellChangeTimes->{{3.745405178135405*^9, 3.7454052003701*^9}, {
+  3.745406052206853*^9, 3.7454060755446587`*^9}, {3.745579162308528*^9, 
+  3.745579165557519*^9}},ExpressionUUID->"86b40a07-b76a-402b-aab8-\
+f39a11bd4810"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", "]"}], ":=", 
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"Range", "[", 
+     RowBox[{"1", ",", "MaximumUserLevel"}], "]"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454057448985853`*^9, 3.7454057573092327`*^9}, {
+   3.745405970550748*^9, 3.745405993685563*^9}, 
+   3.745579184460988*^9},ExpressionUUID->"da397d55-49a8-46a1-a68e-\
+c3ab707798aa"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"ul", ":", 
+     RowBox[{"Except", "[", 
+      RowBox[{"_Symbol", "|", "_List"}], "]"}]}], "]"}], ":=", 
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"{", "ul", "}"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.745405948250435*^9, 
+   3.745405961449811*^9}, {3.7455789945596647`*^9, 3.745579006910314*^9}, {
+   3.7455792055199947`*^9, 
+   3.7455792069601393`*^9}},ExpressionUUID->"d1b6e511-573c-4853-a8a1-\
+81d3980097da"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", "uls_List", "]"}], ":=",
+    "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "symbs", "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"symbs", "=", 
+        RowBox[{"Union", "@", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{"UserLevelDependentSymbols", "/@", "uls"}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+          RowBox[{"#", ",", "uls"}], "]"}], "&"}], "/@", "symbs"}]}], 
+      "\[IndentingNewLine]", ")"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745579324004369*^9, 3.745579396566731*^9}, {
+  3.745579433322999*^9, 
+  3.745579434706202*^9}},ExpressionUUID->"d5b9b5e3-42c5-4c54-91c0-\
+73b328b94a6e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "ImplementUserLevelDependentDefinitions", "[", "symb_Symbol", "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", "MaximumUserLevel"}], "]"}]}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454050776025476`*^9, 3.7454051021984663`*^9}, {
+   3.74541168588384*^9, 3.745411687753825*^9}, 3.7454248327840652`*^9, {
+   3.745578371675397*^9, 3.74557838597331*^9}, 3.745579069709302*^9, {
+   3.745579209783926*^9, 
+   3.745579211235042*^9}},ExpressionUUID->"f55c7617-3cc9-4399-b5c4-\
+720f9df132dc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", 
+     RowBox[{"ul", ":", 
+      RowBox[{"Except", "[", 
+       RowBox[{"_Symbol", "|", "_List"}], "]"}]}]}], "]"}], ":=", 
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb", ",", 
+     RowBox[{"{", "ul", "}"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.745404519248871*^9, 3.745404553293346*^9}, 
+   3.7454049065970783`*^9, 3.745405112196801*^9, 3.7454054905640182`*^9, {
+   3.745405526639885*^9, 3.745405551025476*^9}, {3.745405948250435*^9, 
+   3.745405961449811*^9}, {3.7455784020638847`*^9, 3.745578408361833*^9}, {
+   3.7455790792621326`*^9, 3.745579083759544*^9}, {3.745579214036613*^9, 
+   3.745579215286077*^9}},ExpressionUUID->"afc39d8c-bea4-48f0-9c2d-\
+f620a0bbdb95"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ImplementUserLevelDependentDefinitions", "[", 
+    RowBox[{"symb_Symbol", ",", "uls_List"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Unprotect", "[", "symb", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"BuiltInDefinitionsSavedQ", "[", "symb", "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"SaveBuiltInDefinitions", "[", "symb", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"ReleaseHold", "@", 
+        RowBox[{"UserLevelDependentDefinitions", "[", 
+         RowBox[{"symb", ",", "#"}], "]"}]}], "&"}], "/@", "uls"}], ";", 
+     RowBox[{"Protect", "[", "symb", "]"}]}], "\[IndentingNewLine]", ")"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7454052053827868`*^9, 3.7454052847995*^9}, {
+   3.745424872322113*^9, 3.745424878489366*^9}, {3.745484301760786*^9, 
+   3.7454843275590057`*^9}, {3.745484818402379*^9, 3.7454848611504*^9}, {
+   3.745484989406026*^9, 3.7454850000050793`*^9}, {3.7454850837985363`*^9, 
+   3.745485111095069*^9}, {3.745485189797742*^9, 3.745485197595483*^9}, {
+   3.74548639023295*^9, 3.7454863921740627`*^9}, {3.7454864832745743`*^9, 
+   3.745486498222982*^9}, {3.745486571673562*^9, 3.745486587972024*^9}, {
+   3.74548721661465*^9, 3.745487219112278*^9}, {3.745577731841208*^9, 
+   3.745577734032885*^9}, {3.745577807270885*^9, 3.745577816607594*^9}, {
+   3.7455788397924347`*^9, 3.7455788434125967`*^9}, {3.745579480933015*^9, 
+   3.7455795050643663`*^9}, {3.745580745438519*^9, 3.7455807490029593`*^9}, 
+   3.749125907490862*^9, {3.74912778937156*^9, 
+   3.749127838338541*^9}},ExpressionUUID->"8c26c650-89ac-419b-9f6c-\
+74f6e171037a"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["handle built-in definitions", "Subsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.74540149539965*^9, 
+   3.745401521589079*^9}, {3.74912699314748*^9, 3.749126993734638*^9}, 
+   3.7491273213814297`*^9, 3.749127653436862*^9, {3.749129214297141*^9, 
+   3.749129219741095*^9}},ExpressionUUID->"aa4dea48-57ef-4d4a-bf0e-\
+21a148926df0"],
+
+Cell["\<\
+this code ensures that any upvalues and downvalues of a built-in symbol are \
+stored before any changes are made and restored in the case that the symbol \
+definition needs to be cleared while resetting the UserLevel. \
+\>", "Text",
+ CellChangeTimes->{{3.74912922198787*^9, 3.749129293383915*^9}, {
+  3.7491293647947607`*^9, 
+  3.749129365207527*^9}},ExpressionUUID->"3f2f4793-58f2-472e-b339-\
+1f0363f874b1"],
+
+Cell[CellGroupData[{
+
+Cell["BuiltInDefinitionsSavedQ", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.74540149539965*^9, 
+   3.745401521589079*^9}, {3.74912699314748*^9, 3.749126993734638*^9}, 
+   3.7491273213814297`*^9, 
+   3.749127653436862*^9},ExpressionUUID->"af1e3ed5-ff08-40fa-8393-\
+49656c95e790"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"BuiltInDefinitionsSavedQ", "[", "symb_Symbol", "]"}], ":=", 
+   "False"}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7491276574822483`*^9, 
+  3.749127667028294*^9}},ExpressionUUID->"61c2da97-ef26-4389-96b4-\
+0509766d3265"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["SaveBuiltInDefinitions", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.74540149539965*^9, 
+   3.745401521589079*^9}, {3.74912699314748*^9, 3.749126993734638*^9}, 
+   3.7491273213814297`*^9},ExpressionUUID->"4c383f58-718e-4474-a300-\
+ed9722c0b034"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SaveBuiltInDefinitions", "[", "symb_Symbol", "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<Storing down & upvalues for \>\"", ",", "symb"}], "]"}], 
+      ";"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"BuiltInDownValues", "[", "symb", "]"}], "=", 
+      RowBox[{"DownValues", "[", "symb", "]"}]}], ";", "\[IndentingNewLine]", 
+     
+     RowBox[{
+      RowBox[{"BuiltInUpValues", "[", "symb", "]"}], "=", 
+      RowBox[{"UpValues", "[", "symb", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"BuiltInDefinitionsSavedQ", "[", "symb", "]"}], "=", "True"}], 
+     ";"}], "\[IndentingNewLine]", ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.749127324157898*^9, 3.7491273841082172`*^9}, {
+  3.7491276795262003`*^9, 3.749127691939458*^9}, {3.749128335540914*^9, 
+  3.749128357074375*^9}, {3.749128774535551*^9, 
+  3.7491287774454517`*^9}},ExpressionUUID->"32e7a3ee-ea6f-4ece-bc6b-\
+6e2006fd0113"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["RestoreBuiltInDefinitions", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.680327112167769*^9, 3.680327123246787*^9}, {
+   3.680327381094358*^9, 3.680327382490943*^9}, 3.683118886274929*^9, {
+   3.745391631123479*^9, 3.745391633418516*^9}, {3.74540149539965*^9, 
+   3.745401521589079*^9}, {3.74912699314748*^9, 3.749126993734638*^9}, 
+   3.7491273213814297`*^9, 
+   3.749129104832697*^9},ExpressionUUID->"635a4f2d-f8f6-4b10-9d11-\
+a3f26df2dbb2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"RestoreBuiltInDefinitions", "[", "symb_Symbol", "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "protected", "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"protected", "=", 
+        RowBox[{"MemberQ", "[", 
+         RowBox[{
+          RowBox[{"Attributes", "[", "symb", "]"}], ",", "Protected"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"BuiltInDefinitionsSavedQ", "[", "symb", "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"(", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{"protected", ",", 
+             RowBox[{"Unprotect", "[", "symb", "]"}]}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+             RowBox[{"Print", "[", 
+              RowBox[{"\"\<Restoring down & upvalues for \>\"", ",", "symb"}],
+               "]"}], ";"}], "*)"}], "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"DownValues", "[", "symb", "]"}], "=", 
+            RowBox[{"BuiltInDownValues", "[", "symb", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"UpValues", "[", "symb", "]"}], "=", 
+            RowBox[{"BuiltInUpValues", "[", "symb", "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{"protected", ",", 
+             RowBox[{"Protect", "[", "symb", "]"}]}], "]"}]}], 
+          "\[IndentingNewLine]", ")"}]}], "]"}], ";"}], "\[IndentingNewLine]",
+       ")"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.749127324157898*^9, 3.749127480669887*^9}, {
+  3.7491279465080757`*^9, 3.749127992454281*^9}, {3.749128035481557*^9, 
+  3.749128041216691*^9}, {3.749128167103434*^9, 3.749128200749682*^9}, {
+  3.7491283094578133`*^9, 3.7491283259999027`*^9}, {3.749128781785224*^9, 
+  3.749128784493829*^9}},ExpressionUUID->"78961168-72a5-4ba6-947b-\
+32fd5a6f3164"]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Chapter",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ InitializationCell->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"b79ae73e-f84d-4e04-a02c-63803cd3f0cb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->True,
+ CellLabel->
+  "In[101]:=",ExpressionUUID->"d191f86c-e25a-4188-90b1-75f4f8199f52"],
+
+Cell[BoxData[
+ RowBox[{"EndPackage", "[", "]"}]], "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ AspectRatioFixed->True,
+ CellLabel->
+  "In[102]:=",ExpressionUUID->"010a9cbf-355a-48e1-b9d8-2fde7154ab26"]
+}, Closed]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{808, 751},
+WindowMargins->{{186, Automatic}, {Automatic, 2}},
+ShowCellLabel->True,
+ShowCellTags->False,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (June 19, 2021)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, 128}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False},
+CharacterEncoding -> "MacintoshAutomaticEncoding",
+ExpressionUUID->"db6031cf-be98-41aa-b096-3c3a861ced92"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 261, 6, 98, "Title",ExpressionUUID->"ccdf2f5e-7c0c-4a8a-9127-780d552cf039",
+ Evaluatable->False,
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[853, 32, 157, 3, 69, "Chapter",ExpressionUUID->"ed303f4d-74be-4d13-a721-1e666bbcc4f8"],
+Cell[1013, 37, 833, 17, 131, "Input",ExpressionUUID->"fbb6e143-f361-431b-aaa1-fcb18d2cabaf",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1883, 59, 161, 4, 58, "Chapter",ExpressionUUID->"14fb9dc7-a001-4a0e-8697-f8fa03faf416",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[2069, 67, 419, 8, 54, "Subsection",ExpressionUUID->"ff939ad4-b524-4ee0-aec8-f33ce4ee87dd",
+ InitializationCell->True],
+Cell[2491, 77, 913, 15, 131, "Input",ExpressionUUID->"fd9b1cdf-5fff-4405-8ad5-1987719d98ad",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3441, 97, 414, 8, 38, "Subsection",ExpressionUUID->"1653c52e-8c25-4800-88c0-00b85d8e1d17",
+ InitializationCell->True],
+Cell[3858, 107, 820, 15, 131, "Input",ExpressionUUID->"346f6836-0a16-483a-badf-7e2ae10da216",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[4715, 127, 467, 8, 38, "Subsection",ExpressionUUID->"c5cb3520-4c66-4e40-a456-68807531c47b",
+ InitializationCell->True],
+Cell[5185, 137, 712, 14, 89, "Input",ExpressionUUID->"a948c1fb-0661-4b3e-a167-d2c8cd28ea99",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5934, 156, 578, 10, 38, "Subsection",ExpressionUUID->"a067e04d-fddd-40b1-8ef2-60fe17b863ce",
+ InitializationCell->True],
+Cell[6515, 168, 489, 11, 110, "Input",ExpressionUUID->"a2589fe2-7bcc-4b01-a4dc-eee3301dbb69",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[7041, 184, 660, 11, 38, "Subsection",ExpressionUUID->"da32a7d7-f579-4005-b910-3957e672571f",
+ InitializationCell->True],
+Cell[7704, 197, 664, 12, 152, "Input",ExpressionUUID->"76a08b65-a333-491a-8e8d-04e65e524801",
+ InitializationCell->True],
+Cell[8371, 211, 983, 17, 236, "Input",ExpressionUUID->"268f64e4-74ae-425a-9c95-733bcbfde277",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[9391, 233, 602, 10, 38, "Subsection",ExpressionUUID->"39a0af63-76aa-4382-9082-36bbbc77b068",
+ InitializationCell->True],
+Cell[9996, 245, 783, 15, 194, "Input",ExpressionUUID->"53ec9f7f-f516-41d3-abda-9efdc2d1f0b5",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[10828, 266, 179, 5, 58, "Chapter",ExpressionUUID->"f4c109ea-d07c-49c4-931f-91bbc8a3ff27",
+ Evaluatable->False,
+ InitializationCell->True],
+Cell[11010, 273, 276, 7, 46, "Input",ExpressionUUID->"e957a6a0-52bf-45ad-aeaf-5ec47ac8dbed",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[11311, 284, 359, 6, 65, "Subchapter",ExpressionUUID->"8a7b328a-85a1-4ec1-bf90-31268c44c31f",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[11695, 294, 280, 5, 36, "Section",ExpressionUUID->"e2e7efdd-88dd-4d2e-8658-70ce57f1394a"],
+Cell[11978, 301, 254, 5, 46, "Input",ExpressionUUID->"df52757f-6c23-4869-ac3a-35c15b576903",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[12281, 312, 307, 6, 49, "Subchapter",ExpressionUUID->"800f52cf-7102-483e-9ddd-578d932a6531",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[12613, 322, 230, 5, 36, "Section",ExpressionUUID->"bb907ee4-f210-4267-8890-04db88c55502"],
+Cell[12846, 329, 427, 9, 46, "Input",ExpressionUUID->"4e9d5511-4ed4-4a52-a3e0-b30fbc60a3e4",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[13310, 343, 240, 5, 36, "Section",ExpressionUUID->"875baab5-9a26-4a5d-a0c6-2d2322101d8a"],
+Cell[13553, 350, 594, 13, 46, "Input",ExpressionUUID->"2e39b7f3-8eff-48dd-82f5-4f99872bfedf",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[14184, 368, 179, 4, 36, "Section",ExpressionUUID->"af2afb93-b9f1-4030-9c7d-1a24b3f971e3"],
+Cell[14366, 374, 465, 11, 46, "Input",ExpressionUUID->"9163773a-3782-4614-aca6-4a9c9f83347c",
+ InitializationCell->True],
+Cell[14834, 387, 670, 14, 110, "Input",ExpressionUUID->"c48e47f4-42e0-4219-84ea-b448933b9cdf",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[15553, 407, 358, 6, 49, "Subchapter",ExpressionUUID->"edd11ba3-d6ec-47c8-a7d6-2435d7816526",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[15936, 417, 179, 4, 36, "Section",ExpressionUUID->"1579caf9-02b8-4910-b0cf-b94f0559b301"],
+Cell[16118, 423, 355, 8, 46, "Input",ExpressionUUID->"3129949d-719c-4e4a-baf4-840746cdda8b",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[16510, 436, 227, 5, 36, "Section",ExpressionUUID->"4131a481-3819-403d-8b80-7f1043a81dbe"],
+Cell[16740, 443, 405, 9, 46, "Input",ExpressionUUID->"8294cd4e-8a66-409b-a42e-72697c11817a",
+ InitializationCell->True],
+Cell[17148, 454, 1171, 27, 89, "Input",ExpressionUUID->"6d76f8a6-94df-458b-a6e2-316bc74d2f11",
+ InitializationCell->True],
+Cell[18322, 483, 795, 20, 89, "Input",ExpressionUUID->"be5cf204-e738-444c-9fb6-4039b0a3485b",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[19154, 508, 230, 5, 36, "Section",ExpressionUUID->"1475f20a-5a09-4670-8c94-08ef0fd7ba8a"],
+Cell[19387, 515, 176, 3, 35, "Text",ExpressionUUID->"4a0349fc-d351-4c17-9b68-97ae91b9a25c"],
+Cell[19566, 520, 4322, 87, 530, "Input",ExpressionUUID->"08d9f85b-4fc7-41ac-ad81-ef894f3638bc",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[23925, 612, 179, 4, 36, "Section",ExpressionUUID->"66175921-2c5c-4e09-be22-3fd74ab6b74b"],
+Cell[24107, 618, 917, 17, 152, "Input",ExpressionUUID->"2050f3d3-464c-4d1a-9916-99387e077733",
+ InitializationCell->True],
+Cell[25027, 637, 356, 8, 68, "Input",ExpressionUUID->"16d43a1d-892c-4b54-9097-0816af4adec0",
+ InitializationCell->True],
+Cell[25386, 647, 596, 13, 89, "Input",ExpressionUUID->"6e595416-3e54-4d66-923e-ace56f48341e",
+ InitializationCell->True],
+Cell[25985, 662, 521, 10, 46, "Input",ExpressionUUID->"cfd3b487-03ea-4d2e-87cd-29b829cbd86b",
+ InitializationCell->True],
+Cell[26509, 674, 765, 15, 110, "Input",ExpressionUUID->"cac18255-9951-4b53-8822-120b7d733600",
+ InitializationCell->True],
+Cell[27277, 691, 394, 10, 68, "Input",ExpressionUUID->"67a68a78-fff2-485d-ae48-d1696da5bc9d",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[27720, 707, 400, 7, 49, "Subchapter",ExpressionUUID->"e1775d1f-aef1-485c-ab9f-9a2126aeeb18",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[28145, 718, 232, 5, 36, "Section",ExpressionUUID->"b84ccafa-e130-46f2-9a1e-498f4ae2548d"],
+Cell[28380, 725, 341, 8, 46, "Input",ExpressionUUID->"b2662cee-348d-474a-a284-ad0aac572853",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[28758, 738, 284, 5, 36, "Section",ExpressionUUID->"18e5696b-0ce9-43ce-9b9b-c934cb2ff112"],
+Cell[29045, 745, 756, 17, 89, "Input",ExpressionUUID->"3905d5a7-600a-4c3f-81fc-c2c6a6063fe4",
+ InitializationCell->True],
+Cell[29804, 764, 687, 16, 89, "Input",ExpressionUUID->"11cbbd6f-7ffd-49b3-aef6-3796ca124644",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[30528, 785, 177, 4, 36, "Section",ExpressionUUID->"b1d682e7-5b25-4ac4-a287-24f9eaa28c0d"],
+Cell[30708, 791, 1716, 39, 152, "Input",ExpressionUUID->"b9d6e9fa-f8dc-4175-8309-2cbb825d5325",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[32461, 835, 283, 5, 36, "Section",ExpressionUUID->"d99e8416-84cd-4b9e-81d1-5ce59e798fdf"],
+Cell[32747, 842, 2315, 47, 278, "Input",ExpressionUUID->"893eeb20-202c-46a7-8595-db0a90a99208",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[35099, 894, 179, 4, 36, "Section",ExpressionUUID->"21512ca6-4852-4049-a7f3-6dc9c288934c"],
+Cell[35281, 900, 456, 10, 68, "Input",ExpressionUUID->"e1fd0642-d2e1-49c1-8ae8-1ef5de4de2f3",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[35786, 916, 421, 7, 49, "Subchapter",ExpressionUUID->"79166e7e-e39e-4263-9692-0d21f55d0f88",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[36232, 927, 238, 5, 36, "Section",ExpressionUUID->"586e4a8a-b47c-4762-8f7e-147e5f5a1738"],
+Cell[36473, 934, 501, 12, 68, "Input",ExpressionUUID->"fb3a2a44-c529-47a6-9f3b-8f2fe69f2adc",
+ InitializationCell->True],
+Cell[36977, 948, 662, 14, 68, "Input",ExpressionUUID->"344983fd-25ad-4a80-9dd4-ea01c0e8a474",
+ InitializationCell->True],
+Cell[37642, 964, 749, 17, 68, "Input",ExpressionUUID->"077d0e7d-ddfd-43b2-aab7-e3acd55d2d3e",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[38428, 986, 177, 4, 36, "Section",ExpressionUUID->"246b522b-825c-4bca-8705-a81f4b527ce8"],
+Cell[38608, 992, 1123, 25, 110, "Input",ExpressionUUID->"dc48924b-44c9-4cb9-8dd9-065f74d77a6d",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[39768, 1022, 235, 5, 36, "Section",ExpressionUUID->"32b8e73b-553d-4cb5-9131-8bfae8f701dc"],
+Cell[40006, 1029, 401, 9, 46, "Input",ExpressionUUID->"31b5c56d-bdc4-4751-affa-589c9eb65d3f",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[40456, 1044, 449, 7, 49, "Subchapter",ExpressionUUID->"29aaf92d-4cd4-4fdb-a019-0775a3121068",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[40930, 1055, 238, 5, 36, "Section",ExpressionUUID->"2acc7df9-1c74-4950-a7dd-4c3cb63f90f0"],
+Cell[41171, 1062, 632, 15, 68, "Input",ExpressionUUID->"84ae33ba-436d-4a46-ba2f-44026ae30ab2",
+ InitializationCell->True],
+Cell[41806, 1079, 852, 18, 68, "Input",ExpressionUUID->"0ee69b4d-5652-4667-ae6b-2a0c4e54985d",
+ InitializationCell->True],
+Cell[42661, 1099, 1014, 22, 89, "Input",ExpressionUUID->"b0e65272-09d3-4531-a593-a6a34b3a5410",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[43712, 1126, 177, 4, 36, "Section",ExpressionUUID->"23c77fca-f1d6-4fe1-a738-668ea493d396"],
+Cell[43892, 1132, 1221, 26, 110, "Input",ExpressionUUID->"a7298367-971e-4869-8bc2-b1fc0fc58c34",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[45150, 1163, 235, 5, 36, "Section",ExpressionUUID->"da51c96c-25a8-45fe-a3de-c70cc2772a4e"],
+Cell[45388, 1170, 500, 10, 46, "Input",ExpressionUUID->"5d23522b-e3ac-4a99-8d50-f4fb85d8db5b",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[45937, 1186, 582, 9, 49, "Subchapter",ExpressionUUID->"e1007973-ce81-443b-9884-064bfa740b29",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[46544, 1199, 622, 9, 54, "Subsection",ExpressionUUID->"48323b01-4120-4296-a5ec-acaf61462aaf",
+ InitializationCell->True],
+Cell[47169, 1210, 291, 6, 58, "Text",ExpressionUUID->"a0455d53-7a47-47af-8eba-b70bd8a6348e"],
+Cell[CellGroupData[{
+Cell[47485, 1220, 508, 8, 45, "Subsubsection",ExpressionUUID->"d790419c-ef0a-4138-830c-1ef714be1132",
+ InitializationCell->True],
+Cell[47996, 1230, 389, 7, 58, "Text",ExpressionUUID->"8d072ab9-3322-43a0-8fed-e3d30b68cbb7"],
+Cell[48388, 1239, 496, 11, 68, "Input",ExpressionUUID->"493b54e3-be4e-45dd-9ab1-cfb68032e410",
+ InitializationCell->True],
+Cell[48887, 1252, 695, 15, 68, "Input",ExpressionUUID->"349dd75a-0632-4e6b-bb14-d5abb76e5f10",
+ InitializationCell->True],
+Cell[49585, 1269, 867, 23, 131, "Input",ExpressionUUID->"5cda43cd-a2aa-48ae-b936-740f4588bc26",
+ InitializationCell->True],
+Cell[50455, 1294, 641, 15, 68, "Input",ExpressionUUID->"6e4d8ec2-6e35-403f-b245-9d8787921136",
+ InitializationCell->True],
+Cell[51099, 1311, 814, 18, 68, "Input",ExpressionUUID->"cd367564-db1c-462d-8141-9f45df1ba8e6",
+ InitializationCell->True],
+Cell[51916, 1331, 2549, 56, 278, "Input",ExpressionUUID->"b00157a7-a2c6-45ce-b7e4-35687949171d",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[54502, 1392, 533, 8, 37, "Subsubsection",ExpressionUUID->"8018a033-a254-447b-ac75-abd59ee587f0",
+ InitializationCell->True],
+Cell[55038, 1402, 360, 7, 58, "Text",ExpressionUUID->"86b40a07-b76a-402b-aab8-f39a11bd4810"],
+Cell[55401, 1411, 500, 11, 68, "Input",ExpressionUUID->"da397d55-49a8-46a1-a68e-c3ab707798aa",
+ InitializationCell->True],
+Cell[55904, 1424, 755, 16, 68, "Input",ExpressionUUID->"d1b6e511-573c-4853-a8a1-81d3980097da",
+ InitializationCell->True],
+Cell[56662, 1442, 922, 24, 131, "Input",ExpressionUUID->"d5b9b5e3-42c5-4c54-91c0-73b328b94a6e",
+ InitializationCell->True],
+Cell[57587, 1468, 701, 17, 68, "Input",ExpressionUUID->"f55c7617-3cc9-4399-b5c4-720f9df132dc",
+ InitializationCell->True],
+Cell[58291, 1487, 866, 18, 68, "Input",ExpressionUUID->"afc39d8c-bea4-48f0-9c2d-f620a0bbdb95",
+ InitializationCell->True],
+Cell[59160, 1507, 1838, 37, 194, "Input",ExpressionUUID->"8c26c650-89ac-419b-9f6c-74f6e171037a",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[61047, 1550, 515, 8, 38, "Subsection",ExpressionUUID->"aa4dea48-57ef-4d4a-bf0e-21a148926df0",
+ InitializationCell->True],
+Cell[61565, 1560, 418, 8, 58, "Text",ExpressionUUID->"3f2f4793-58f2-472e-b339-1f0363f874b1"],
+Cell[CellGroupData[{
+Cell[62008, 1572, 469, 8, 45, "Subsubsection",ExpressionUUID->"af1e3ed5-ff08-40fa-8393-49656c95e790",
+ InitializationCell->True],
+Cell[62480, 1582, 293, 8, 46, "Input",ExpressionUUID->"61c2da97-ef26-4389-96b4-0509766d3265",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[62810, 1595, 441, 7, 37, "Subsubsection",ExpressionUUID->"4c383f58-718e-4474-a300-ed9722c0b034",
+ InitializationCell->True],
+Cell[63254, 1604, 1136, 27, 173, "Input",ExpressionUUID->"32e7a3ee-ea6f-4ece-bc6b-6e2006fd0113",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[64427, 1636, 470, 8, 37, "Subsubsection",ExpressionUUID->"635a4f2d-f8f6-4b10-9d11-a3f26df2dbb2",
+ InitializationCell->True],
+Cell[64900, 1646, 2108, 49, 278, "Input",ExpressionUUID->"78961168-72a5-4ba6-947b-32fd5a6f3164",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[67081, 1703, 178, 5, 58, "Chapter",ExpressionUUID->"b79ae73e-f84d-4e04-a02c-63803cd3f0cb",
+ Evaluatable->False,
+ InitializationCell->True],
+Cell[67262, 1710, 257, 8, 46, "Input",ExpressionUUID->"d191f86c-e25a-4188-90b1-75f4f8199f52",
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[67522, 1720, 218, 6, 46, "Input",ExpressionUUID->"010a9cbf-355a-48e1-b9d8-2fde7154ab26",
+ InitializationCell->True]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

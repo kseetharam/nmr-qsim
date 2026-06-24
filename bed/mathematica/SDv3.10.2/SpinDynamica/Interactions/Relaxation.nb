@@ -1,0 +1,798 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     30178,        790]
+NotebookOptionsPosition[     24590,        660]
+NotebookOutlinePosition[     25303,        684]
+CellTagsIndexPosition[     25260,        681]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Interactions`Relaxation`", "Title",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.4526855795508213`*^9, 3.452685580972721*^9}, 
+   3.682593449496829*^9, {3.683108316372006*^9, 3.683108316618305*^9}, 
+   3.683108496382702*^9, {3.6922554416781282`*^9, 3.6922554756081467`*^9}, {
+   3.692255870451057*^9, 3.69225587071301*^9}, 3.692256421907013*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"606b1c62-8150-42b6-9744-bf5f4a4bf466"],
+
+Cell["\<\
+this package contains predefined relaxation superoperators and associated \
+routines. \
+\>", "Text",
+ InitializationCell->True,
+ CellChangeTimes->{{3.614934233307365*^9, 3.614934285396604*^9}, {
+  3.692255494145166*^9, 
+  3.692255524598576*^9}},ExpressionUUID->"c3cc5454-c8cd-4b21-97d6-\
+6b426c7d8ea2"],
+
+Cell[CellGroupData[{
+
+Cell["BeginPackage", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.605545641519261*^9, 3.605546445799432*^9, 
+  3.629385531775414*^9, 3.683109016913093*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"64106688-7656-464a-9b6c-5ed986613738"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", 
+   RowBox[{"\"\<Interactions`Relaxation`\>\"", ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Global`\>\"", ",", "\[IndentingNewLine]", "\"\<SpinDynamica`\>\"", 
+      ",", "\[IndentingNewLine]", "\"\<General`UserLevel`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<General`Matrices`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<General`Miscellaneous`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`Hilbert`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`SpinOperators`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<QM`Liouville`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Generators`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<SD`Approximations`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Rotations`Wigner`\>\"", ",", 
+      "\[IndentingNewLine]", "\"\<Units`\>\"", ",", "\[IndentingNewLine]", 
+      "\"\<General`PhysicalConstants`\>\""}], "}"}]}], "]"}], ";"}]], "Input",\
+
+ InitializationCell->True,
+ CellChangeTimes->{{3.682597329576949*^9, 3.682597339617495*^9}, {
+   3.682611681453899*^9, 3.682611690204586*^9}, 3.682611819113118*^9, {
+   3.6826128177214537`*^9, 3.682612818096237*^9}, {3.6831083938005047`*^9, 
+   3.68310839584037*^9}, {3.683108457078102*^9, 3.683108458420087*^9}, {
+   3.683108860481447*^9, 3.683108865855433*^9}, 3.6831102927632017`*^9, 
+   3.683111933228162*^9, {3.684039407787024*^9, 3.684039436010972*^9}, {
+   3.692255452268602*^9, 3.6922554801241693`*^9}, {3.692255604695547*^9, 
+   3.692255606438252*^9}, {3.6922556693428*^9, 3.692255672284628*^9}, 
+   3.692255875253681*^9, {3.692256425713888*^9, 3.6922564395275087`*^9}, 
+   3.701151496415702*^9, 3.745397024961854*^9, 
+   3.789286287470539*^9},ExpressionUUID->"5350fc16-64ab-46e8-ae1e-\
+53a74842e590"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["exports", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{3.605545641519261*^9, 3.605546445799432*^9, 
+  3.629385531775414*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"be8233b0-ad68-4312-8717-c329be473018"],
+
+Cell[CellGroupData[{
+
+Cell["PhenomenologicalRelaxationSuperoperator", "Section",
+ InitializationCell->True,
+ CellChangeTimes->{{3.464960392986411*^9, 3.4649603952229023`*^9}, 
+   3.4649606985178003`*^9, 3.5031057515835857`*^9, {3.5068630444608307`*^9, 
+   3.5068630490583477`*^9}, {3.541487798118299*^9, 3.541487799577826*^9}, {
+   3.68320394768118*^9, 
+   3.683203954624584*^9}},ExpressionUUID->"fcc54d79-6d75-44b9-9caf-\
+fc89b8c2d801"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "::", "usage"}], "=", 
+   "\[IndentingNewLine]", 
+   "\"\<PhenomenologicalRelaxationSuperoperator generates a relaxation \
+superoperator according to a simple phenomenological relaxation model in \
+which the uncorrelated relaxations of individual spins are characterised by \
+relaxation time constants T1 and T2. \
+PhenomenologicalRelaxationSuperoperator[T] uses the same relaxation time \
+constant T for all spins, with T1=T2=T. \
+PhenomenologicalRelaxationSuperoperator[T1,T2] uses the same relaxation time \
+constants T1 and T2 for all spins. The syntax \
+PhenomenologicalRelaxationSuperoperator[{{j,Tj},{k,Tk}..}] specifies an \
+individual relaxation time constant T1=T2=Tj for spin j, and similar for spin \
+k, etc. PhenomenologicalRelaxationSuperoperator[{{j,T1j,T2j},{k,T1k,T2k}..}] \
+specifies individual relaxation time constants T1j and T2j for spin j, and \
+similar for spin k, etc.\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6832039727338133`*^9, 3.6832043409019127`*^9}, {
+  3.6832043994393578`*^9, 3.6832043999252033`*^9}, {3.683206210061222*^9, 
+  3.68320621071498*^9}},ExpressionUUID->"3706152a-ad62-4306-9102-\
+0326d40f4f26"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["start", "Subsubtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"2da75d3f-389c-4688-8aca-e408525a27ee"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$Chronology", "=", "\"\<LeftToRight\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.545050393596538*^9, 3.5450503995208893`*^9}, {
+  3.545050732985859*^9, 
+  3.545050735366548*^9}},ExpressionUUID->"d9b57a1e-248a-4ab9-8e0f-\
+f99b4e11e656"],
+
+Cell["Begin[\"`Private`\"];", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"e3a4132f-21a5-4068-9de7-efd08162331f"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["PhenomenologicalRelaxationSuperoperator", "Subtitle",
+ InitializationCell->True,
+ CellChangeTimes->{{3.452690479112947*^9, 3.452690506563347*^9}, {
+   3.4526906425151577`*^9, 3.452690675101125*^9}, {3.452712675169849*^9, 
+   3.452712685532673*^9}, {3.452770736612377*^9, 3.452770745914432*^9}, {
+   3.4528340628299294`*^9, 3.4528340639240847`*^9}, 3.4975736975953903`*^9, {
+   3.5028403677196217`*^9, 3.502840372078033*^9}, {3.504204304171247*^9, 
+   3.5042043103134203`*^9}, 3.5069309517835827`*^9, {3.5414885345095863`*^9, 
+   3.54148853944915*^9}, {3.683203928618372*^9, 3.683203935665477*^9}, 
+   3.6922555548085546`*^9},ExpressionUUID->"8996f984-abeb-4998-a803-\
+c1d19a2b67da"],
+
+Cell[CellGroupData[{
+
+Cell["$Failed", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204437400052*^9, 
+  3.6832044386086082`*^9}},ExpressionUUID->"c4429c7e-1371-4d11-9f42-\
+9ab66e2ee4d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", "args___", "]"}], "/;", 
+   RowBox[{"!", 
+    RowBox[{"FreeQ", "[", 
+     RowBox[{
+      RowBox[{"{", "args", "}"}], ",", "$Failed"}], "]"}]}]}], ":=", 
+  "$Failed"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6832044075481358`*^9, 
+  3.6832044334962254`*^9}},ExpressionUUID->"92059680-1b67-4f55-89c9-\
+2db47cc78230"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["generalize syntax", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204437400052*^9, 3.6832044696045437`*^9}, {
+  3.683204504326599*^9, 
+  3.68320450836325*^9}},ExpressionUUID->"43c0d7da-30fa-4885-84ea-\
+3c81a7503f1f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"T", ":", 
+      RowBox[{"Except", "[", "_List", "]"}]}], ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{"T", ",", "T", ",", "opts"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6832044752664413`*^9, 3.6832045157175426`*^9}, {
+  3.683206452530637*^9, 
+  3.683206457737233*^9}},ExpressionUUID->"6fd36d34-1faf-4961-a99f-\
+06ea6d0dc7fc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"T1", ":", 
+      RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+     RowBox[{"T2", ":", 
+      RowBox[{"Except", "[", "_List", "]"}]}], ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"#", ",", "T1", ",", "T2"}], "}"}], "&"}], "/@", 
+      RowBox[{"(", 
+       RowBox[{"First", "/@", 
+        RowBox[{"SpinSystem", "[", "]"}]}], ")"}]}], ",", "opts"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6832045270449553`*^9, 3.683204534987576*^9}, {
+  3.6832045763005342`*^9, 3.683204613640723*^9}, {3.6832047127677393`*^9, 
+  3.6832047135505657`*^9}, {3.683206467522595*^9, 
+  3.683206470034623*^9}},ExpressionUUID->"5bf1549b-b2df-4ae7-b949-\
+465b246ceafe"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"jTspec", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Except", "[", "_List", "]"}], ".."}], "}"}]}], ",", 
+     "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"{", "jTspec", "}"}], ",", " ", "opts"}], "]"}]}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6832045270449553`*^9, 3.683204534987576*^9}, {
+  3.6832045763005342`*^9, 3.683204707398991*^9}, {3.683206482156211*^9, 
+  3.683206567812312*^9}},ExpressionUUID->"86a956e3-13f4-4437-b5a8-\
+bd3e1f3c9f82"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"jTspec", ":", 
+      RowBox[{"{", 
+       RowBox[{"a___", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"j", ":", 
+           RowBox[{"Except", "[", "_List", "]"}]}], ",", 
+          RowBox[{"T", ":", 
+           RowBox[{"Except", "[", "_List", "]"}]}]}], "}"}], ",", "b___"}], 
+       "}"}]}], ",", "opts___Rule"}], "]"}], ":=", 
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "T", ",", "T"}], "}"}], ",", "b"}], "}"}], ",", 
+     "opts"}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683206627467311*^9, 
+  3.683206687681205*^9}},ExpressionUUID->"9c325676-2ca9-43ad-8135-\
+7b83c3d9fc14"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["test validity of spins", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204437400052*^9, 3.6832044696045437`*^9}, {
+  3.683204504326599*^9, 3.68320450836325*^9}, {3.68320475928788*^9, 
+  3.683204773003031*^9}, {3.683206049536325*^9, 
+  3.683206055627796*^9}},ExpressionUUID->"76dc824f-462c-4524-90cb-\
+22940f2fd512"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+     RowBox[{
+      RowBox[{"jT1T2list", ":", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}], ",", 
+      "opts___Rule"}], "]"}], "/;", 
+    RowBox[{"!", 
+     RowBox[{"ValidSpinQ", "[", 
+      RowBox[{
+       RowBox[{"First", "/@", "jT1T2list"}], ",", 
+       RowBox[{"SpinSystem", "[", "]"}]}], "]"}]}]}], ":=", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"Message", "[", 
+      RowBox[{"PhenomenologicalRelaxationSuperoperator", "::", "invalspin"}], 
+      "]"}], ";", "$Failed"}], ")"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204835575943*^9, 
+  3.683204897972288*^9}},ExpressionUUID->"fa7750f9-86c8-42c1-8420-\
+5713cdc3557b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["test validity of T2", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204437400052*^9, 3.6832044696045437`*^9}, {
+  3.683204504326599*^9, 3.68320450836325*^9}, {3.68320475928788*^9, 
+  3.683204773003031*^9}, {3.68320686593974*^9, 
+  3.683206872081667*^9}},ExpressionUUID->"2a544cac-55eb-486f-a772-\
+c1de60942c31"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"jT1T2list", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}], ",", 
+     "opts___Rule"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Message", "[", 
+       RowBox[{"PhenomenologicalRelaxationSuperoperator", "::", "invalT2"}], 
+       "]"}], ";", "$Failed"}], ")"}], "/;", 
+    RowBox[{"Or", "@@", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"TrueQ", "[", 
+         RowBox[{
+          RowBox[{"Part", "[", 
+           RowBox[{"#", ",", "3"}], "]"}], ">", 
+          RowBox[{"2", 
+           RowBox[{"Part", "[", 
+            RowBox[{"#", ",", "2"}], "]"}]}]}], "]"}], "&"}], "/@", 
+       "jT1T2list"}], ")"}]}]}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.68320689532974*^9, 
+  3.683206984526058*^9}},ExpressionUUID->"db2e930f-1488-4617-b965-\
+f6a11b4c6e16"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["construct relaxation superoperator", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204437400052*^9, 3.6832044696045437`*^9}, {
+  3.683204504326599*^9, 3.68320450836325*^9}, {3.68320475928788*^9, 
+  3.683204773003031*^9}},ExpressionUUID->"0ccb3e74-535d-41b0-b670-\
+748221ef48d1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "[", 
+    RowBox[{
+     RowBox[{"jT1T2list", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_", ",", "_", ",", "_"}], "}"}], ".."}], "}"}]}], ",", 
+     "opts___Rule"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "bops", ",", "counts", ",", "spins", ",", "spinsmissing", ",", 
+       "jT1T2list$", ",", "R1", ",", "R2", ",", "diagels"}], "}"}], ",", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"bops", "=", 
+        RowBox[{"BasisOperators", "[", 
+         RowBox[{"ShiftAndZOperatorBasis", "[", "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"spins", "=", 
+        RowBox[{"First", "/@", 
+         RowBox[{"SpinSystem", "[", "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"spinsmissing", "=", 
+        RowBox[{"Complement", "[", 
+         RowBox[{"spins", ",", 
+          RowBox[{"jT1T2list", "\[LeftDoubleBracket]", 
+           RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}]}], "]"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"jT1T2list$", "=", 
+        RowBox[{"Join", "[", 
+         RowBox[{"jT1T2list", ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"#", ",", "\[Infinity]", ",", "\[Infinity]"}], "}"}], 
+            "&"}], "/@", "spinsmissing"}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"counts", "=", 
+        RowBox[{
+         RowBox[{"Function", "[", 
+          RowBox[{"op", ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"#", ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<z\>\"", ",", 
+                 RowBox[{"Count", "[", 
+                  RowBox[{
+                   RowBox[{"{", "op", "}"}], ",", 
+                   RowBox[{"HoldPattern", "@", 
+                    RowBox[{"opI", "[", 
+                    RowBox[{"#", ",", "\"\<z\>\"", ",", "___"}], "]"}]}], ",",
+                    "Infinity"}], "]"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<+\>\"", ",", 
+                 RowBox[{"Count", "[", 
+                  RowBox[{
+                   RowBox[{"{", "op", "}"}], ",", 
+                   RowBox[{"HoldPattern", "@", 
+                    RowBox[{"opI", "[", 
+                    RowBox[{"#", ",", "\"\<+\>\"", ",", "___"}], "]"}]}], ",",
+                    "Infinity"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+               
+               RowBox[{"{", 
+                RowBox[{"\"\<-\>\"", ",", 
+                 RowBox[{"Count", "[", 
+                  RowBox[{
+                   RowBox[{"{", "op", "}"}], ",", 
+                   RowBox[{"HoldPattern", "@", 
+                    RowBox[{"opI", "[", 
+                    RowBox[{"#", ",", "\"\<-\>\"", ",", "___"}], "]"}]}], ",",
+                    "Infinity"}], "]"}]}], "}"}]}], "}"}], "&"}], "/@", 
+            "\[IndentingNewLine]", "spins"}]}], "\[IndentingNewLine]", "]"}], 
+         "/@", "bops"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"R1", "[", "j_", "]"}], ":=", 
+        RowBox[{"1", "/", 
+         RowBox[{
+          RowBox[{"Cases", "[", 
+           RowBox[{"jT1T2list$", ",", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", "_", ",", "_"}], "}"}]}], "]"}], 
+          "\[LeftDoubleBracket]", 
+          RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"R2", "[", "j_", "]"}], ":=", 
+        RowBox[{"1", "/", 
+         RowBox[{
+          RowBox[{"Cases", "[", 
+           RowBox[{"jT1T2list$", ",", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", "_", ",", "_"}], "}"}]}], "]"}], 
+          "\[LeftDoubleBracket]", 
+          RowBox[{"1", ",", "3"}], "\[RightDoubleBracket]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"diagels", "=", 
+        RowBox[{"-", 
+         RowBox[{"Apply", "[", "\[IndentingNewLine]", 
+          RowBox[{"Plus", ",", "\[IndentingNewLine]", 
+           RowBox[{"counts", "/.", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"j_", ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<z\>\"", ",", "nz_"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<+\>\"", ",", "np_"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<-\>\"", ",", "nm_"}], "}"}]}], "}"}], 
+             "\[RuleDelayed]", 
+             RowBox[{
+              RowBox[{"nz", "*", 
+               RowBox[{"R1", "[", "j", "]"}]}], "+", 
+              RowBox[{"np", "*", 
+               RowBox[{"R2", "[", "j", "]"}]}], "+", 
+              RowBox[{"nm", "*", 
+               RowBox[{"R2", "[", "j", "]"}]}]}]}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", "1", "}"}]}], "\[IndentingNewLine]", "]"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Superoperator", "[", 
+        RowBox[{
+         RowBox[{"SparseArray", "[", 
+          RowBox[{"DiagonalMatrix", "[", "diagels", "]"}], "]"}], ",", 
+         RowBox[{"ShiftAndZOperatorBasis", "[", "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", ")"}]}], "]"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204785842185*^9, 3.683204826112575*^9}, {
+   3.683204967004055*^9, 3.683204987106071*^9}, {3.6832059909401484`*^9, 
+   3.6832060213634243`*^9}, {3.683206110896839*^9, 3.683206157987269*^9}, {
+   3.683206274404245*^9, 3.683206307526867*^9}, {3.683207768261526*^9, 
+   3.683207800602748*^9}, {3.7011530731908493`*^9, 3.701153076733705*^9}, {
+   3.701161012210546*^9, 3.701161066799335*^9}, {3.7011613262331543`*^9, 
+   3.701161342137932*^9}, {3.7011615197904673`*^9, 3.701161582573962*^9}, {
+   3.701161770713883*^9, 3.70116178062391*^9}, {3.701161965990385*^9, 
+   3.70116196865158*^9}, {3.701162457153924*^9, 3.7011624597974854`*^9}, 
+   3.701162642239242*^9, {3.70116284615364*^9, 3.7011628495271072`*^9}, 
+   3.701162887800254*^9, {3.712147148125327*^9, 3.712147151188168*^9}, {
+   3.7121473613429956`*^9, 
+   3.712147366529591*^9}},ExpressionUUID->"46f5b13f-999d-49d1-8aa5-\
+16b046e6eb0b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["messages", "Subsubsection",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204437400052*^9, 3.6832044696045437`*^9}, {
+  3.683204504326599*^9, 3.68320450836325*^9}, {3.68320475928788*^9, 
+  3.683204773003031*^9}, {3.683204906261582*^9, 
+  3.683204908731599*^9}},ExpressionUUID->"230dd265-5881-49ee-b90c-\
+0078468e3b6e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "::", "invalspin"}], 
+   "=", "\"\<One or more spins is not valid in the current \
+SpinSystem[]\>\""}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683204924356865*^9, 
+  3.68320494973983*^9}},ExpressionUUID->"125636b4-fe23-4273-af14-\
+4e80a1c03c1c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PhenomenologicalRelaxationSuperoperator", "::", "invalT2"}], "=", 
+   "\"\<The T2 for a particular spin cannot exceed 2\[Times]T1\>\""}], 
+  ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.683206807173752*^9, 
+  3.683206838491543*^9}},ExpressionUUID->"52838dd0-4934-428f-b02f-\
+0a9743816757"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["end", "Subtitle",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True,
+ AspectRatioFixed->
+  True,ExpressionUUID->"9ed0d299-a677-497e-a165-a50ccce1aa99"],
+
+Cell["\<\
+End[];
+EndPackage[];\
+\>", "Input",
+ PageWidth->WindowWidth,
+ InitializationCell->True,
+ InitializationGroup->True,
+ CellChangeTimes->{{3.51238794480797*^9, 3.512387952205147*^9}, 
+   3.513231730353488*^9},
+ AspectRatioFixed->
+  True,ExpressionUUID->"16c2745b-3d5b-47ae-8eaa-d4cea4760bfa"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["history", "Title",
+ PageWidth->WindowWidth,
+ Evaluatable->False,
+ CellChangeTimes->{
+  3.682593334636269*^9, {3.69926171587668*^9, 3.69926172886936*^9}, {
+   3.69926187929764*^9, 3.6992618809832497`*^9}},
+ AspectRatioFixed->
+  True,ExpressionUUID->"e93dadef-1541-498a-a204-a9a8c14fc418"],
+
+Cell[CellGroupData[{
+
+Cell["1703406-170414 changes incorporated into v3.0.0b12", "Subsection",
+ CellChangeTimes->{{3.6992617377127457`*^9, 3.699261750424902*^9}, 
+   3.699261872727805*^9, {3.699261961052656*^9, 3.699261967080655*^9}, {
+   3.699267263610918*^9, 3.699267264970158*^9}, 3.6995424563123937`*^9, {
+   3.699545398748596*^9, 3.6995453990235744`*^9}, {3.699598420679057*^9, 
+   3.6995984207889843`*^9}, {3.699623620808276*^9, 3.699623620919536*^9}, {
+   3.699684596084985*^9, 3.699684596623074*^9}, {3.699685713789143*^9, 
+   3.699685784922206*^9}, {3.6999571421771107`*^9, 3.6999571579260406`*^9}, {
+   3.700484912077015*^9, 3.700484926388489*^9}, {3.7011629765259542`*^9, 
+   3.7011629828840637`*^9}},ExpressionUUID->"d7818386-0612-4f59-a708-\
+527382d5cea3"],
+
+Cell["\<\
+loading of SpinSuperoperators removed. SpinSuperoperators has been absorbed \
+in QM`Liouville\
+\>", "Text",
+ CellChangeTimes->{{3.701151390974813*^9, 
+  3.701151409840228*^9}},ExpressionUUID->"d60a20e5-434b-4b27-a8c0-\
+cbceff698953"],
+
+Cell["changes to PhenomenologicalRelaxationSuperoperator", "Text",
+ CellChangeTimes->{{3.701162956562275*^9, 
+  3.70116296595816*^9}},ExpressionUUID->"8de2035d-9d62-4cfa-9df0-\
+48c1803fc8b5"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["170819 changes incorporated into v3.0.0b18 [CB]", "Subsection",
+ CellChangeTimes->{{3.6992617377127457`*^9, 3.699261750424902*^9}, 
+   3.699261872727805*^9, {3.699261961052656*^9, 3.699261967080655*^9}, {
+   3.699267263610918*^9, 3.699267264970158*^9}, 3.6995424563123937`*^9, {
+   3.699545398748596*^9, 3.6995453990235744`*^9}, {3.699598420679057*^9, 
+   3.6995984207889843`*^9}, {3.699623620808276*^9, 3.699623620919536*^9}, {
+   3.699684596084985*^9, 3.699684596623074*^9}, {3.699685713789143*^9, 
+   3.699685784922206*^9}, {3.6999571421771107`*^9, 3.6999571579260406`*^9}, {
+   3.700484912077015*^9, 3.700484926388489*^9}, {3.7011629765259542`*^9, 
+   3.7011629828840637`*^9}, {3.7121474787714324`*^9, 
+   3.7121475168419037`*^9}},ExpressionUUID->"06ff5473-1551-4a95-ada2-\
+e15f6f50df41"],
+
+Cell["\<\
+Adjusted PhenomenologicalRelaxationSuperoperator so it allows for missing \
+spins in the jT1T2list. \
+\>", "Text",
+ CellChangeTimes->{{3.701151390974813*^9, 3.701151409840228*^9}, {
+  3.712147523343268*^9, 
+  3.7121475668212442`*^9}},ExpressionUUID->"cb0d4dd0-e0df-4095-8055-\
+421fd5552d18"]
+}, Closed]]
+}, Closed]]
+},
+AutoGeneratedPackage->Automatic,
+WindowToolbars->{},
+CellGrouping->Automatic,
+WindowSize->{769, 751},
+WindowMargins->{{Automatic, 109}, {Automatic, 21}},
+ShowCellLabel->True,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (June 19, 2021)",
+StyleDefinitions->"MHL-StyleSheet.nb",
+PrivateNotebookOptions -> {"ColorPalette" -> {RGBColor, 128}},
+RenderingOptions -> {"ObjectDithering" -> True},
+RenderingOptions -> {"RasterDithering" -> False},
+CharacterEncoding -> "MacintoshAutomaticEncoding",
+ExpressionUUID->"07f15ff6-f127-4018-b3dd-da6562c2ed39"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 487, 9, 98, "Title",ExpressionUUID->"606b1c62-8150-42b6-9744-bf5f4a4bf466",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1057, 33, 312, 8, 35, "Text",ExpressionUUID->"c3cc5454-c8cd-4b21-97d6-6b426c7d8ea2",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[1394, 45, 305, 7, 41, "Subsubtitle",ExpressionUUID->"64106688-7656-464a-9b6c-5ed986613738",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[1702, 54, 1784, 31, 320, "Input",ExpressionUUID->"5350fc16-64ab-46e8-ae1e-53a74842e590",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3523, 90, 278, 7, 41, "Subsubtitle",ExpressionUUID->"be8233b0-ad68-4312-8717-c329be473018",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[CellGroupData[{
+Cell[3826, 101, 415, 7, 36, "Section",ExpressionUUID->"fcc54d79-6d75-44b9-9caf-fc89b8c2d801",
+ InitializationCell->True],
+Cell[4244, 110, 1262, 22, 341, "Input",ExpressionUUID->"3706152a-ad62-4306-9102-0326d40f4f26",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5555, 138, 187, 5, 41, "Subsubtitle",ExpressionUUID->"2da75d3f-389c-4688-8aca-e408525a27ee",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[5745, 145, 299, 7, 46, "Input",ExpressionUUID->"d9b57a1e-248a-4ab9-8e0f-f99b4e11e656",
+ InitializationCell->True],
+Cell[6047, 154, 201, 5, 46, "Input",ExpressionUUID->"e3a4132f-21a5-4068-9de7-efd08162331f",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[6285, 164, 688, 10, 69, "Subtitle",ExpressionUUID->"8996f984-abeb-4998-a803-c1d19a2b67da",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[6998, 178, 187, 4, 45, "Subsubsection",ExpressionUUID->"c4429c7e-1371-4d11-9f42-9ab66e2ee4d7",
+ InitializationCell->True],
+Cell[7188, 184, 428, 12, 68, "Input",ExpressionUUID->"92059680-1b67-4f55-89c9-2db47cc78230",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[7653, 201, 245, 5, 37, "Subsubsection",ExpressionUUID->"43c0d7da-30fa-4885-84ea-3c81a7503f1f",
+ InitializationCell->True],
+Cell[7901, 208, 548, 13, 68, "Input",ExpressionUUID->"6fd36d34-1faf-4961-a99f-06ea6d0dc7fc",
+ InitializationCell->True],
+Cell[8452, 223, 935, 24, 89, "Input",ExpressionUUID->"5bf1549b-b2df-4ae7-b949-465b246ceafe",
+ InitializationCell->True],
+Cell[9390, 249, 687, 18, 68, "Input",ExpressionUUID->"86a956e3-13f4-4437-b5a8-bd3e1f3c9f82",
+ InitializationCell->True],
+Cell[10080, 269, 877, 25, 89, "Input",ExpressionUUID->"9c325676-2ca9-43ad-8135-7b83c3d9fc14",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[10994, 299, 344, 6, 37, "Subsubsection",ExpressionUUID->"76dc824f-462c-4524-90cb-22940f2fd512",
+ InitializationCell->True],
+Cell[11341, 307, 854, 25, 104, "Input",ExpressionUUID->"fa7750f9-86c8-42c1-8420-5713cdc3557b",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[12232, 337, 340, 6, 37, "Subsubsection",ExpressionUUID->"2a544cac-55eb-486f-a772-c1de60942c31",
+ InitializationCell->True],
+Cell[12575, 345, 1041, 32, 85, "Input",ExpressionUUID->"db2e930f-1488-4617-b965-f6a11b4c6e16",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[13653, 382, 307, 5, 37, "Subsubsection",ExpressionUUID->"0ccb3e74-535d-41b0-b670-748221ef48d1",
+ InitializationCell->True],
+Cell[13963, 389, 6282, 146, 530, "Input",ExpressionUUID->"46f5b13f-999d-49d1-8aa5-16b046e6eb0b",
+ InitializationCell->True]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[20282, 540, 330, 6, 37, "Subsubsection",ExpressionUUID->"230dd265-5881-49ee-b90c-0078468e3b6e",
+ InitializationCell->True],
+Cell[20615, 548, 361, 9, 68, "Input",ExpressionUUID->"125636b4-fe23-4273-af14-4e80a1c03c1c",
+ InitializationCell->True],
+Cell[20979, 559, 357, 9, 68, "Input",ExpressionUUID->"52838dd0-4934-428f-b02f-0a9743816757",
+ InitializationCell->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[21385, 574, 182, 5, 69, "Subtitle",ExpressionUUID->"9ed0d299-a677-497e-a165-a50ccce1aa99",
+ Evaluatable->False,
+ InitializationCell->True,
+ InitializationGroup->True],
+Cell[21570, 581, 299, 10, 64, "Input",ExpressionUUID->"16c2745b-3d5b-47ae-8eaa-d4cea4760bfa",
+ InitializationCell->True,
+ InitializationGroup->True]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[21918, 597, 293, 7, 72, "Title",ExpressionUUID->"e93dadef-1541-498a-a204-a9a8c14fc418",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[22236, 608, 747, 10, 54, "Subsection",ExpressionUUID->"d7818386-0612-4f59-a708-527382d5cea3"],
+Cell[22986, 620, 243, 6, 30, "Text",ExpressionUUID->"d60a20e5-434b-4b27-a8c0-cbceff698953"],
+Cell[23232, 628, 191, 3, 30, "Text",ExpressionUUID->"8de2035d-9d62-4cfa-9df0-48c1803fc8b5"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[23460, 636, 798, 11, 38, "Subsection",ExpressionUUID->"06ff5473-1551-4a95-ada2-e15f6f50df41"],
+Cell[24261, 649, 301, 7, 30, "Text",ExpressionUUID->"cb0d4dd0-e0df-4095-8055-421fd5552d18"]
+}, Closed]]
+}, Closed]]
+}
+]
+*)
+
