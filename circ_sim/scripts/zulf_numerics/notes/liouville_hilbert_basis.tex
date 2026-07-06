@@ -500,9 +500,9 @@ in an Irreducible Spherical Tensor (IST) basis can be written as
 H_{DD}(t)=\sum_{k,m=-2}^{2}D_{k,m}^{(2)}(\Omega(t))\hat{Q}_{k,m}
 \]
 where 
-\[
-\hat{Q}_{k,m}=\sum_{i,j}\left(-\frac{\mu_{0}}{4\pi}\frac{\gamma_{i}\gamma_{j}}{r_{ij}^{3}}a_{2,m}^{ij}T_{2,k}^{i,j}\right)
-\]
+\begin{equation}
+\hat{Q}_{k,m}=\sum_{i,j}\left(-\frac{\mu_{0}}{4\pi}\frac{\gamma_{i}\gamma_{j}}{r_{ij}^{3}}a_{2,m}^{ij}T_{2,k}^{i,j}\right),\label{col_IST}
+\end{equation}
 $D_{k,m}^{(2)}(\Omega(t))$ being rank-2 Wigner functions time-modulated
 by the function $\Omega(t)$, $T_{2,k}^{i,j}$ being the rank-2 two-body
 IST operators for the dipolarly connected spins $i,j$; $a_{2,m}^{ij}$
@@ -537,7 +537,7 @@ and $(\hat{Q}_{\alpha})_{j}=\text{Tr}\{\sigma_{j}^{\dagger}\hat{Q}_{\alpha}\}$.
 Plugging this in Eq. (\ref{eq:gen_Red}) we get
 \begin{align}
 \dot{\rho} & =-i[H,\rho]-\frac{1}{4}\sum_{i,j}\left(\Gamma_{ij}(\omega_{j})-\Gamma_{ij}(\omega_{i})\right)[\sigma_{i}^{\dagger}\sigma_{j},\rho]\label{eq:Red_Gamma}\\
- & +\frac{1}{4}\sum_{i,j}\left(\Gamma_{ij}(\omega_{j})+\Gamma_{ij}(\omega_{i})\right)\left(-\{\sigma_{i}^{\dagger}\sigma_{j},\rho\}+2\sigma_{j}\rho\sigma_{i}^{\dagger}\right)\nonumber 
+ & +\frac{1}{4}\sum_{i,j}\left(\Gamma_{ij}(\omega_{j})+\Gamma_{ij}(\omega_{i})\right)\left(-\{\sigma_{i}^{\dagger}\sigma_{j},\rho\}+2\sigma_{j}\rho\sigma_{i}^{\dagger}\right)\nonumber
 \end{align}
 where for completeness in this section $\sigma_{i}=|n_{i}\rangle\langle m_{i}|$,
 $|n_{i}\rangle,|m_{i}\rangle$ being eigenstates of $H_{0}$ , and
@@ -550,7 +550,15 @@ Hamiltonian $H_{0}$. More precisely, for
 \hat{Q}_{k,m}|J,M\rangle=\sum_{K,L}c_{KL}^{(k,m)}|K,L\rangle
 \]
 the question is to find which amplitudes$c_{KL}^{(k,m)}$ are not
-vanishing.
+vanishing.\\
+Notice that in a a limiting case $\Gamma_{ij}(\omega_{ij})=\Gamma_{ij}(0)$ for a sufficiently flat spectral density we can write
+\begin{align}
+\frac{1}{4}\sum_{ij}\left(\Gamma_{ij}(\omega_{j})+\Gamma_{ij}(\omega_{i})\right)\left(-\{\sigma_{i}^{\dagger}\sigma_{j},\rho\}+2\sigma_{j}\rho\sigma_{i}^{\dagger}\right)&\rightarrow\frac{1}{2}\sum_{ij}\Gamma_{ij}(0)\left(-\{\sigma_{i}^{\dagger}\sigma_{j},\rho\}+2\sigma_{j}\rho\sigma_{i}^{\dagger}\right)\\&=J(0)\sum_{ij}\sum_{\alpha}(\hat{Q}_{\alpha})_{i}^{*}(\hat{Q}_{\alpha})_{j}\left(-\{\sigma_{i}^{\dagger}\sigma_{j},\rho\}+2\sigma_{j}\rho\sigma_{i}^{\dagger}\right)\\&=\sum_{\alpha}\left(-\{L_{\alpha}^{\dagger}L_{\alpha},\rho\}+2L_{\alpha}\rho L_{\alpha}^{\dagger}\right)\label{diag_ops}
+\end{align}
+where we defined 
+\begin{equation}
+L_{\alpha}=\sqrt{J(0)}\sum_{i}(\hat{Q}_{\alpha})_{i}\sigma_{i}\label{can_en_domain}
+\end{equation}
 
 \subsection{Fermi's Golden Rule}
 
@@ -839,12 +847,28 @@ Intuitively, the matrix $\mathcal{N}^{(l,m)}$ encodes the \textit{noise power co
     \mathcal{N}^{l,m}_{\mu\nu} = \left(\frac{\mu_{0}}{4\pi}\right)^{2}\left(\frac{\gamma_{\mu_{i}}\gamma_{\mu_{j}}}{r^{3}_{\mu}}\right)\left(\frac{\gamma_{\nu_{i}}\gamma_{\nu_{j}}}{r^{3}_{\nu}}\right)a^{(\mu)}_{l,m}a^{(\nu)}_{l,m}
     \end{equation}
     where $\mu,\nu$ are composite indices that label spin pairs, the orientational factors $a^{(\mu)}_{l,m}$ are defined in \ref{eq:alm_end}, where we note that they vanish unless $l=2$, and $r_{\mu} = |r_{\mu_{i}}-r_{\mu_{j}}|$ is the distance between spin pairs $\mu_{i},\mu_{j}$. \\
-    Skipping the details of derivation, and ignoring operator dressing due to the Heisenberg couplings, it turns out that the jump operators that enter into a Linbladian master equation description of dipolar coupled spins is 
+The Lindblad operators read
+\begin{align}
+        L_\alpha^{(l,m)} &= \frac{\gamma^{(l,m)}_{\alpha}}{\sqrt{(2l+1)\tau_c}}\, \sum_\mu \phi_\alpha^{(l,m)}(\mu) \int_0^\infty dt \, K_0(t/\tau_c)\, e^{i H_0(J^H)\, t} T^{(2,m)}_\mu e^{-i H_0(J^H) \, t} \\
+        &= \gamma_\alpha^{(l,m)} \sqrt{\frac{\tau_c}{2l+1}}
+         \sum_\mu \phi_\alpha^{(m)}(\mu) \, \int_0^\infty du \, K_0(u) e^{i H_0(J^H) \tau_2 u} T_\mu^{(2,m)} e^{-i H_0(J^H) \tau_2 u} \\
+        &=\sqrt{\frac{\left(\gamma_\alpha^{(l,m)}\right)^2\tau_c}{2l+1}} \sum_\mu \phi_\alpha^{(m)}(\mu) \bar{T}^{(2,m)}_\mu(J^H \tau_2)\label{TD_jumps}
+\end{align}
+where $\phi^{m}_{\alpha}(\mu)$ correspond to the coefficients of the $\alpha$th eigenvector of $\mathcal{N}^{2,m}$, and $\tau_c$ as defined above, is the correlation time of the solvent; and $K_{0}(u)$ is a modified Bessel function of the second kind.\\
+Intuitively the dimensionless jump operator $\bar{T}^{(2,m)}_\mu(J_H)$ captures how much the $J$-couplings dress the tensor operator initially localized at bond $\mu$.\\
+    This dressing can be calculated perturbatively by computing the Krylov subspace $T_{\mu,k}^{(l,m)} = \mathcal{L}^{k}_0 T_\mu^{(l,m)}=\mathcal{O}((J_H\tau_2)^k)$ where $\mathcal{L}_0=i\lbrack \tau_2 H_0, \cdot\rbrack$.\\
+    Using this Krylov subspace, the dressed jump operator is 
+    \begin{align}
+        \overline{T}_\mu^{(2,m)}(\tau_c) &= \sum_{k=0}^{\infty} \frac{1}{k!} \left(\int_0^{\infty} du K_0(u)u^{k}\right) T_{\mu,k}^{(l,m)}(\tau_2) \\
+        &= \sum_{k=0}^{\infty} \frac{1}{k!} 2^{k-1} \Gamma^2\left(\frac{k+1}{2}\right) T_{\mu,k}^{(l,m)}(\tau_2)\label{trunc_order}
+    \end{align}
+%\\
+%    Skipping the details of derivation, and ignoring operator dressing due to the Heisenberg couplings, it turns out that the jump operators that enter into a Linbladian master equation description of dipolar coupled spins is 
 
-\begin{equation}
-L_\alpha^{(2,m)} &\equiv \sqrt{\frac{\left(\gamma_\alpha^{(l,m)}\right)^2\tau_c}{5}} \sum_\mu \phi_\alpha^{(m)}(\mu) T^{(2,m)}_\mu
-\end{equation}    
-where $\phi^{m}_{\alpha}(\mu)$ correspond to the coefficients of the $\alpha$th eigenvector of $\mathcal{N}^{2,m}$, and $\tau_c$ as defined above, is the correlation time of the solvent.
+%\begin{equation}
+%L_\alpha^{(2,m)} &\equiv \sqrt{\frac{\left(\gamma_\alpha^{(l,m)}\right)^2\tau_c}{5}} \sum_\mu \phi_\alpha^{(m)}(\mu) T^{(2,m)}_\mu
+%\end{equation}    
+%where $\phi^{m}_{\alpha}(\mu)$ correspond to the coefficients of the $\alpha$th eigenvector of $\mathcal{N}^{2,m}$, and $\tau_c$ as defined above, is the correlation time of the solvent.
     
 
 
