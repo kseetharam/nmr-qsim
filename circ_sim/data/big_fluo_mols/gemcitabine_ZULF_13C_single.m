@@ -27,9 +27,9 @@ end
 
 % Basis set
 bas.formalism='sphten-liouv';
-%bas.approximation='none';
-bas.approximation = 'IK-0';
-bas.level = 4;
+bas.approximation='none';
+%bas.approximation = 'IK-0';
+%bas.level = 4;
 %bas.connectivity='scalar_couplings';
 
 % Relaxation theory parameters
@@ -85,6 +85,9 @@ parameters.axis_units='Hz';
 
 fid=liquid(spin_system,@acquire,parameters,'labframe');
 
+% Save raw FID before post-processing
+fid_raw = fid;
+
 % Apodization
 % fid=apodization(fid,'exp-1d',3);
 fid=apodisation(spin_system,fid,{{'exp',3}});
@@ -92,10 +95,21 @@ fid=apodisation(spin_system,fid,{{'exp',3}});
 % Fourier transform
 spectrum(k,:)=fftshift(fft(fid,parameters.zerofill));
 
+% Frequency axis (Hz), centered at 0
+freq = (-parameters.zerofill/2 : parameters.zerofill/2-1) * (parameters.sweep/parameters.zerofill);
+
 %Saving spin system data for post-processing...
 filename = sprintf('./gemcitabine_spin_system_IK0_4.mat');
 
 save(filename,'spin_system');
+
+% Save FID and spectrum for Python post-processing (scipy.io.loadmat / h5py compatible)
+zulf_data_path = '../../scripts/zulf_numerics/data/gemcitabine_ZULF_13C_fid_spectrum.mat';
+spec_real = real(spectrum(k,:));
+spec_imag = imag(spectrum(k,:));
+fid_raw_real = real(fid_raw);
+fid_raw_imag = imag(fid_raw);
+save(zulf_data_path, 'fid_raw_real', 'fid_raw_imag', 'spec_real', 'spec_imag', 'freq', '-v7.3');
 
 
 

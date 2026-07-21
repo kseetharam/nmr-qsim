@@ -26,6 +26,64 @@ for i=1:size(sys.isotopes,2)
 end
 inter.coordinates=inter1.coordinates(index);
 
+% =========================================================================
+% Save molecular parameters for Python Lindblad simulation
+% Output: circ_sim/scripts/linblad_dyn/data/fluticasone_params.mat
+% =========================================================================
+N_sel = numel(index);
+
+% J-coupling upper triangular matrix (Hz).
+% inter.coupling.scalar already has the 1/2 factor applied (same convention
+% as the gemcitabine parameters validated against Spinach).
+J_hz_upper = zeros(N_sel, N_sel);
+for ii = 1:N_sel
+    for jj = (ii+1):N_sel
+        val = inter.coupling.scalar{ii,jj};
+        if ~isempty(val)
+            J_hz_upper(ii,jj) = val;
+        end
+    end
+end
+
+% Nuclear coordinates (Angstrom) — N x 3
+coords_ang = zeros(N_sel, 3);
+for ii = 1:N_sel
+    coords_ang(ii,:) = inter.coordinates{ii};
+end
+
+% Full Zeeman chemical shielding tensors (ppm) — N x 3 x 3.
+% inter1.zeeman.matrix{k} is the 3x3 DFT shielding tensor for full-system
+% spin k; we select the subset via index().
+sigma_ppm_3d = zeros(N_sel, 3, 3);
+for ii = 1:N_sel
+    zm = inter1.zeeman.matrix{index(ii)};
+    if ~isempty(zm)
+        sigma_ppm_3d(ii,:,:) = zm;
+    end
+end
+
+% Isotope labels as comma-separated string (e.g. '19F,19F,1H,...,13C')
+isotope_str = strjoin(sys.isotopes, ',');
+
+% Gyromagnetic ratios (rad/s/T) in spin order — extracted from Spinach
+gammas_rad = zeros(1, N_sel);
+for ii = 1:N_sel
+    gammas_rad(ii) = spin(sys.isotopes{ii});
+end
+
+out_path = fullfile('..', '..', 'scripts', 'linblad_dyn', 'data', 'fluticasone_params.mat');
+out_dir   = fileparts(out_path);
+if ~exist(out_dir, 'dir'); mkdir(out_dir); end
+
+save(out_path, 'J_hz_upper', 'coords_ang', 'sigma_ppm_3d', 'isotope_str', 'gammas_rad', '-v7');
+fprintf('Saved molecular parameters -> %s\n', out_path);
+fprintf('  N_spins : %d\n', N_sel);
+fprintf('  Spin order: %s\n', isotope_str);
+zm0 = squeeze(sigma_ppm_3d(1,:,:));
+fprintf('  sigma_ppm_3d check (spin 0): iso=%.2f ppm, max_aniso=%.2f ppm\n', ...
+        trace(zm0)/3, max(max(abs(zm0 - trace(zm0)/3*eye(3)))));
+% =========================================================================
+
 % Basis set
 bas.formalism='sphten-liouv';
 %bas.approximation='none';
