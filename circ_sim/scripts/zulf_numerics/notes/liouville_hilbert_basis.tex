@@ -69,9 +69,7 @@ $^{1}$H & $(-0.8183,\,+2.4463,\,+0.3685)$ & $42.5774$\tabularnewline
 model. Coordinates are from DFT optimisation of 4-fluorophenylalanine
 (final Standard-orientation block of the Gaussian log file). Gyromagnetic
 ratios are CODATA 2018 values. Spectral density for isotropic tumbling:
-\[
-J(\omega)=\frac{\tau_{c}}{5(1+\omega^{2}\tau_{c}^{2})},\qquad\tau_{c}=10^{-5}\,\text{s}.
-\]
+$J(\omega)=\frac{\tau_{c}}{5(1+\omega^{2}\tau_{c}^{2})}$,\quad$\tau_{c}=10^{-5}\,\text{s}$.
 Scalar (coherent) couplings:$J(^{19}\text{F}{-}^{13}\text{C})=243.5$
 Hz,$J(^{13}\text{C}{-}^{1}\text{H})=10.71$ Hz,$J(^{19}\text{F}{-}^{1}\text{H})=0$.}
 \label{tab:params}
@@ -455,7 +453,7 @@ taken from a reference molecule) with strength $J=10^{5}$ Hz at zero
 field and considering $|\uparrow\uparrow\uparrow\rangle$ as the initial
 state. Lower panel: lowest density matrix eigenvalue tracking across
 the timescale of time evolution.}
-\label{fig:three_spin_st} 
+\label{fig:three_spin_lc}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -467,7 +465,7 @@ taken from a reference molecule) with strength $J=10^{4}$ Hz at zero
 field and considering $|\uparrow\uparrow\uparrow\rangle$ as the initial
 state. Lower panel: lowest density matrix eigenvalue tracking across
 the timescale of time evolution.}
-\label{fig:three_spin_st} 
+\label{fig:three_spin_mc}
 \end{figure}
 
 %energy_levels_spectral_density_J1e5
@@ -477,10 +475,7 @@ the timescale of time evolution.}
  \caption{Comparison between the spectrum of three strongly coupled spins and
 the spectral density of the bath, choosing parameters that break density
 matrix positivity during evolution, \textit{i.e.} $J\sim1/\tau_{c}$ }
-\label{fig:three_spin_st} 
-\end{figure}
-
-\begin{figure}
+\label{fig:energy_levels}
 \end{figure}
 
 
@@ -856,14 +851,208 @@ The Lindblad operators read
 \end{align}
 where $\phi^{m}_{\alpha}(\mu)$ correspond to the coefficients of the $\alpha$th eigenvector of $\mathcal{N}^{2,m}$, and $\tau_c$ as defined above, is the correlation time of the solvent; and $K_{0}(u)$ is a modified Bessel function of the second kind.\\
 Intuitively the dimensionless jump operator $\bar{T}^{(2,m)}_\mu(J_H)$ captures how much the $J$-couplings dress the tensor operator initially localized at bond $\mu$.\\
-    This dressing can be calculated perturbatively by computing the Krylov subspace $T_{\mu,k}^{(l,m)} = \mathcal{L}^{k}_0 T_\mu^{(l,m)}=\mathcal{O}((J_H\tau_2)^k)$ where $\mathcal{L}_0=i\lbrack \tau_2 H_0, \cdot\rbrack$.\\
+    This dressing can be calculated perturbatively by computing the Krylov subspace 
+    $T_{\mu,k}^{(l,m)} = \mathcal{L}^{k}_0 T_\mu^{(l,m)}=\mathcal{O}((J_H\tau_2)^k)$
+     where $\mathcal{L}_0=i\lbrack \tau_2 H_0, \cdot\rbrack$.\\
     Using this Krylov subspace, the dressed jump operator is 
     \begin{align}
         \overline{T}_\mu^{(2,m)}(\tau_c) &= \sum_{k=0}^{\infty} \frac{1}{k!} \left(\int_0^{\infty} du K_0(u)u^{k}\right) T_{\mu,k}^{(l,m)}(\tau_2) \\
         &= \sum_{k=0}^{\infty} \frac{1}{k!} 2^{k-1} \Gamma^2\left(\frac{k+1}{2}\right) T_{\mu,k}^{(l,m)}(\tau_2)\label{trunc_order}
     \end{align}
-%\\
-%    Skipping the details of derivation, and ignoring operator dressing due to the Heisenberg couplings, it turns out that the jump operators that enter into a Linbladian master equation description of dipolar coupled spins is 
+
+\subsection{Zeeman anisotropy dephasing}
+
+After focusing on dipolar cross-relaxation mechanisms, we now focus on the Zeeman anisotropy dephasing mechanism.
+We introduce the Zeeman Hamiltonian 
+\begin{align}
+    H_Z &= -\sum_{X}\gamma_{X}\mathbf{S}_{X}\cdot\left(1+10^{-6}\sigma(X)\right)\cdot\mathbf{B}\\
+    &= -\sum_{X}\gamma_{X}\mathbf{S}_{X}\cdot\tilde{\sigma}(X)\cdot\mathbf{B}.\label{eq:zeeman_hamiltonian}
+\end{align}
+Introducing the symmetry-adapted linear combinations for the components of the Zeeman tensor $\tilde{\sigma}(X)$:
+\begin{align}
+    \sigma_{0,0}(X) &= -\sqrt{3}\tilde{\sigma}_{\text{iso}}(X)\\
+    \sigma_{1,0}(X) &= -\frac{i}{\sqrt{2}}\left(\tilde{\sigma}_{xy}(X)-\tilde{\sigma}_{yx}(X)\right)\\
+    \sigma_{1,\pm 1}(X) &= -\frac{1}{2}\left[\tilde{\sigma}_{zx}(X)-\tilde{\sigma}_{xz}(X)\pm i\left(\tilde{\sigma}_{zy}(X)-\tilde{\sigma}_{yz}(X)\right)\right]\\
+    \sigma_{2,0} &= \sqrt{\frac{2}{3}}\left(\tilde{\sigma}_{zz}(X)-\tilde{\sigma}_{\text{iso}}(X)\right)\\
+    \sigma_{2,\pm 1} &= \mp\frac{1}{2}\left[\tilde{\sigma}_{xz}(X)+\tilde{\sigma}_{zx}(X)\pm i\left(\tilde{\sigma}_{yz}(X)+\tilde{\sigma}_{zy}(X)\right)\right]\\
+    \sigma_{2,\pm 2} &= \frac{1}{2}\left[\tilde{\sigma}_{xx}(X)-\tilde{\sigma}_{yy}(X)\pm i\left(\tilde{\sigma}_{xy}(X)+\tilde{\sigma}_{yx}(X)\right)\right].
+\end{align} %\\
+where $\tilde{\sigma}_{\text{iso}}(X)=\frac{1}{3}\left(\tilde{\sigma}_{xx}(X)+\tilde{\sigma}_{yy}(X)+\tilde{\sigma}_{zz}(X)\right)$ is the isotropic component of the Zeeman tensor,
+and $\tilde{\sigma}_{\alpha,\beta}(X)$ are the components of the Zeeman tensor.
+
+Substituting this spherical decomposition into \eqref{eq:zeeman_hamiltonian}, the Zeeman Hamiltonian reads
+\begin{align}
+    H_{Z} &= -\sum_{X}\gamma_{X}\sum_{l=0}^{2}\sum_{m=-l}^{l}(-1)^{m}\,\sigma_{l,m}(X)\,
+    \bigl[\mathbf{S}_{X}^{(1)}\otimes\mathbf{B}^{(1)}\bigr]^{(l)}_{-m} \\
+    &= -\sum_{X}\gamma_{X}\sum_{l=0}^{2}\sum_{m=-l}^{l}(-1)^{m}\,\sigma_{l,m}(X)\mathbf{T}^{(l)}_{-m}
+    \label{eq:zeeman_spherical}
+\end{align}
+where the rank-$l$ irreducible tensor product is
+\begin{equation}
+    \bigl[\mathbf{S}_{X}^{(1)}\otimes\mathbf{B}^{(1)}\bigr]^{(l)}_{m}
+    = \sum_{\substack{q_{1},q_{2}\\q_{1}+q_{2}=m}}
+      \langle 1,q_{1};\,1,q_{2}\mid l,m\rangle\,(S_{X})_{q_{1}}\,B_{q_{2}},
+    \label{eq:zeeman_tensor_product}
+\end{equation}
+with spherical components $(S_{X})_{0}=S_{X,z}$, $(S_{X})_{\pm1}=\mp(S_{X,x}\pm iS_{X,y})/\sqrt{2}$,
+and $B_{0}=B_{z}$, $B_{\pm1}=\mp(B_{x}\pm iB_{y})/\sqrt{2}$.
+The three ranks contribute distinct physical effects: $l=0$ recovers the isotropic shift
+$\tilde{\sigma}_{\mathrm{iso}}(X)\,\mathbf{S}_{X}\cdot\mathbf{B}$;
+$l=1$ couples to the antisymmetric part of $\tilde{\sigma}(X)$;
+and $l=2$ generates the anisotropic CSA dephasing terms that fluctuate with molecular tumbling.
+Putting everything together, the total Hamiltonian, under the action of molecular tumbling is given by
+\begin{equation}
+    \hat{H} = H_{0}+H_{DD}(t)+H_{Z}(t)
+\end{equation}
+where 
+\begin{equation}
+    H_{Z}(t) = \sum^{2}_{l=0}\sum^{l}_{k=-l}\sum^{l}_{m=-l}D^{(l)}_{k,m}(\Omega(t))Q^{(Z),l}_{k,m}
+\end{equation} 
+in which we defined $Q^{(Z),l}_{k,m} = \sum_{X}\gamma_{X}(-1)^{m+1}\sigma_{l,m}(X)\mathbf{T}^{(l)}_{-k}$. We can 
+identify the isotropic and non-isotropic contributions to the Hamiltonian to have 
+\begin{equation}
+    \hat{H} = H_{\text{iso}}+\text{H}^{(1)}(t)+\text{H}^{(2)}(t)
+\end{equation} 
+where 
+\begin{equation}
+    \hat{H}_{\text{iso}} =\sum_{i,j}J_{i,j}\mathbf{S}_{i}\cdot\mathbf{S}_{j} -\sum_X\gamma_X\,\tilde{\sigma}_{\mathrm{iso}}(X)\,\mathbf{S}_X\cdot\mathbf{B}\label{eq:iso_ham}
+\end{equation}
+\begin{equation}
+    H^{(1)}(t) = \sum^{1}_{k=-1}\sum^{1}_{m=-1}D^{(1)}_{k,m}(\Omega(t))Q^{(Z),1}_{k,m}
+\end{equation}
+\begin{equation}
+    H^{(2)}(t) = \sum^{2}_{k=-2}\sum^{2}_{m=-2}D^{(2)}_{k,m}(\Omega(t))\left(Q^{(Z),2}_{k,m}+\hat{Q}_{k,m}\right)
+\end{equation}
+where $\hat{Q}_{k,m}$ are the dipolar ISTs operators defined in Eq. \ref{col_IST}. From the universal Linbladian construction,
+under rotational diffusion, it follows that the collective dipolar jump operators need to be renormalized for sufficiently
+large external magnetic fields, and, if Zeeman tensors are not symmetric, additional 9 collective jump operators
+need to be constructed.
+
+\subsubsection{Explicit form of \texorpdfstring{$Q^{(Z),l}_{k,m}$}{Q} for \texorpdfstring{$\mathbf{B}=B_{z}\hat{z}$}{B along z}}
+
+When the external field points along $\hat{z}$ with strength $B_{z}$, the
+spherical field components reduce to $B_{0}=B_{z}$ and $B_{\pm1}=0$.
+The rank-$l$ tensor product therefore collapses to a single term,
+\begin{equation}
+    \mathbf{T}^{(l)}_{k}(S_{X},B)
+    =\langle 1,k;\,1,0\mid l,k\rangle\,(S_{X})_{k}\,B_{z},
+    \label{eq:Tlk_Bz}
+\end{equation}
+which is nonzero only when $k\in\{-1,0,+1\}$ (since the spherical
+spin components $(S_{X})_{q}$ exist only for $q\in\{-1,0,+1\}$).
+The relevant Clebsch--Gordan coefficients $\langle 1,k;\,1,0\mid l,k\rangle$
+are listed below for $l=1$ and $l=2$:
+
+\medskip
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+$l$ & $k$ & $\langle 1,k;\,1,0\mid l,k\rangle$\\
+\hline
+$1$ & $0$  & $0$\\
+$1$ & $\pm1$ & $\pm1/\sqrt{2}$\\
+$2$ & $0$  & $2/\sqrt{6}$\\
+$2$ & $\pm1$ & $1/\sqrt{2}$\\
+$2$ & $\pm2$ & $0$\\
+\hline
+\end{tabular}
+\end{center}
+\medskip
+
+\noindent Using the spherical spin components $(S_{X})_{0}=I_{X,z}$,
+$(S_{X})_{\pm1}=\mp I_{X,\pm}/\sqrt{2}$, the nonzero single-spin
+tensor products are:
+\begin{align}
+    \mathbf{T}^{(1)}_{+1} &= -\frac{B_{z}}{2}\,I_{X,+},
+    &\mathbf{T}^{(1)}_{-1} &= -\frac{B_{z}}{2}\,I_{X,-},
+    &\mathbf{T}^{(1)}_{0} &= 0,\label{eq:T1_Bz}\\
+    \mathbf{T}^{(2)}_{+1} &= -\frac{B_{z}}{2}\,I_{X,+},
+    &\mathbf{T}^{(2)}_{-1} &= +\frac{B_{z}}{2}\,I_{X,-},
+    &\mathbf{T}^{(2)}_{0} &= \sqrt{\frac{2}{3}}\,B_{z}\,I_{X,z},
+    &\mathbf{T}^{(2)}_{\pm2} &= 0.\label{eq:T2_Bz}
+\end{align}
+Substituting into the definition $Q^{(Z),l}_{k,m}=\sum_{X}\gamma_{X}(-1)^{m+1}\sigma_{l,m}(X)\,\mathbf{T}^{(l)}_{-k}$,
+the Zeeman CSA system operators for $\mathbf{B}=B_{z}\hat{z}$ take
+the explicit forms:
+
+\paragraph{Rank $l=1$  (antisymmetric shielding).}
+\begin{align}
+    Q^{(Z),1}_{+1,m} &= \frac{B_{z}}{2}\sum_{X}\gamma_{X}(-1)^{m}\sigma_{1,m}(X)\,I_{X,-},\label{eq:QZ1p_Bz}\\
+    Q^{(Z),1}_{-1,m} &= \frac{B_{z}}{2}\sum_{X}\gamma_{X}(-1)^{m}\sigma_{1,m}(X)\,I_{X,+},\label{eq:QZ1m_Bz}\\
+    Q^{(Z),1}_{0,m}  &= 0.\label{eq:QZ10_Bz}
+\end{align}
+
+\paragraph{Rank $l=2$  (symmetric shielding anisotropy).}
+\begin{align}
+    Q^{(Z),2}_{+1,m} &= -\frac{B_{z}}{2}\sum_{X}\gamma_{X}(-1)^{m}\sigma_{2,m}(X)\,I_{X,-},\label{eq:QZ2p1_Bz}\\
+    Q^{(Z),2}_{-1,m} &= \frac{B_{z}}{2}\sum_{X}\gamma_{X}(-1)^{m}\sigma_{2,m}(X)\,I_{X,+},\label{eq:QZ2m1_Bz}\\
+    Q^{(Z),2}_{0,m}  &= -\sqrt{\frac{2}{3}}\,B_{z}\sum_{X}\gamma_{X}(-1)^{m}\sigma_{2,m}(X)\,I_{X,z},\label{eq:QZ20_Bz}\\
+    Q^{(Z),2}_{\pm2,m} &= 0.\label{eq:QZ2pm2_Bz}
+\end{align}
+
+Two structural consequences follow immediately.
+First, for molecules whose DFT shielding tensors are symmetric
+($\tilde{\sigma}_{\alpha\beta}=\tilde{\sigma}_{\beta\alpha}$), the
+rank-1 components vanish identically, $\sigma_{1,m}(X)=0$ for all
+$m$, so $Q^{(Z),1}_{k,m}=0$ and the $l=1$ channel is absent.
+Second, with $\mathbf{B}$ along $\hat{z}$ the rank-2 operators with
+$|k|=2$ vanish for any shielding tensor, reducing the active
+relaxation modes from 25 to 15 for the CSA contribution.
+Both properties are confirmed numerically in the \texttt{zeem\_lindblad.py}
+implementation.
+
+\subsubsection{Redfield formalism}
+Inclusion of Zeeman anisotropy dephasing within a Redfield framework is straighforward. In the isotropic 
+Hamiltonian energy basis, this entails a generalization of dephasing rates in Eq. \ref{eq:Red_Gamma} according to
+\begin{align}
+    \overline{\Gamma_{ij}}(\omega) & =\sum^{2}_{l=1}\sum_{\alpha_{l}\beta_{l}}(A^{(l)}_{\alpha_{l}})_{i}^{*}\gamma_{\alpha_{l}\beta_{l}}(\omega)(A^{(l)}_{\beta_{l}})_{j}\\
+    &= \sum^{2}_{l=1}\sum_{\alpha_{l}}(A^{(l)}_{\alpha_{l}})^{*}_{i}\gamma_{\alpha_{l}\alpha_{l}}(A^{(l)}_{\alpha_{l}})_{j}
+\end{align}
+where $A^{(1)}_{\alpha_{1}}=Q^{(Z),1}_{\alpha_{1}}$, $A^{(2)}_{\alpha_{2}}=Q^{(Z),2}_{\alpha_{2}}+\hat{Q}_{\alpha_{2}}$
+and $\alpha_{i}=(k,m)$, $k,m=-i,-i+1,...,i$ is a composite index, and
+ $(A^{(l)}_{\alpha_{l}})_{i}=\text{Tr}\{A^{(l)}_{\alpha_{l}}\sigma^{\dagger}_{i}\}$, $\sigma_{i}=|n_{i}\rangle\langle m_{i}|$,
+$|n_{i}\rangle,|m_{i}\rangle$ being eigenstates of $H_{\text{iso}}$, Eq. \ref{eq:iso_ham}. 
+We also have 
+\begin{align*}
+    \gamma_{\alpha_{l},\beta_{l}}(\omega) & =2\int_{0}^{\infty}d\tau\langle D^{(l)}_{\alpha_{l}}(\tau)D^{(l)}_{\beta_{l}}(0)\rangle e^{i\omega\tau}\\
+     & =2 \delta_{\alpha_{l},\beta_{l}}J^{(l)}(\omega)
+\end{align*}
+in which 
+\begin{equation}
+    J^{(l)}(\omega) = \left(\frac{1}{2l+1}\right)\left(\frac{\tau_{c}}{1+\omega^2\tau^{2}_c}\right)
+\end{equation}
+such that 
+\begin{align}
+    \dot{\rho} & =-i[H,\rho]-\frac{1}{4}\sum_{i,j}\left(\overline{\Gamma_{ij}}(\omega_{j})-\overline{\Gamma_{ij}}(\omega_{i})\right)[\sigma_{i}^{\dagger}\sigma_{j},\rho]\label{eq:Gen_Red_Gamma}\\
+     & +\frac{1}{4}\sum_{i,j}\left(\overline{\Gamma_{ij}}(\omega_{j})+\overline{\Gamma_{ij}}(\omega_{i})\right)\left(-\{\sigma_{i}^{\dagger}\sigma_{j},\rho\}+2\sigma_{j}\rho\sigma_{i}^{\dagger}\right)\nonumber
+\end{align}
+
+\subsubsection{Linbladian framework}
+Startinf from the time domain formulation for Linbladian jump operators:
+\begin{align}
+    L_{k,m}^{(l)} &= \frac{\gamma^{(l)}_{k,m}}{\sqrt{(2l+1)\tau_c}}\, \int_0^\infty dt \, K_0(t/\tau_c)\, e^{i H_0(J^H)\, t}
+    A^{(l)}_{k,m} e^{-i H_0(J^H) \, t} \\
+    &=\sqrt{\frac{\left(\gamma_{k,m}^{(l)}\right)^2\tau_c}{2l+1}}
+    \bar{A}^{(l)}_{k,m}(J^H \tau_c)\label{TD_jumps_gen}
+\end{align}
+where $H_0 = H_{\text{iso}}$ and 
+\begin{align}
+    \overline{A}_{k,m}^{(l)}(\tau_c) &= \sum_{j=0}^{\infty} \frac{1}{j!} \left(\int_0^{\infty} du K_0(u)u^{j}\right) 
+    A_{k,m}^{(l),j}(\tau_c) \\
+    &= \sum_{j=0}^{\infty} \frac{1}{j!} 2^{j-1} \Gamma^2\left(\frac{j+1}{2}\right) A_{k,m}^{(l),j}(\tau_c)\label{trunc_order_gen}
+\end{align}
+and the Krylov subspace operators are defined as
+$A_{k,m}^{(l),j} = \mathcal{L}^{j}_0 A_{k,m}^{(l)}=\mathcal{O}((J_H\tau_c)^j)$
+ where $\mathcal{L}_0=i\lbrack \tau_c H_0, \cdot\rbrack$
+Canonical jump operators to lowest order in the Krylov expansion outlined above can be 
+straightforwardly constructed as 
+\begin{align}
+    L^{(1)}_{k,m} &= \sqrt{2J^{(1)}(0)}Q^{(Z),1}_{k,m}\\
+    L^{(2)}_{k,m} &= \sqrt{2J^{(2)}(0)}\left(Q^{(Z),2}_{k,m}+\hat{Q}_{k,m}\right)
+\end{align}
+when we fix the strength factor $\gamma_{k,m}^{(l)}=\frac{2\sqrt{2}}{\pi}$.
+
+%etails of derivation, and ignoring operator dressing due to the Heisenberg couplings, it turns out that the jump operators that enter into a Linbladian master equation description of dipolar coupled spins is 
 
 %\begin{equation}
 %L_\alpha^{(2,m)} &\equiv \sqrt{\frac{\left(\gamma_\alpha^{(l,m)}\right)^2\tau_c}{5}} \sum_\mu \phi_\alpha^{(m)}(\mu) T^{(2,m)}_\mu
@@ -880,9 +1069,15 @@ calculation. The 10 nuclei are ordered as$(F_{0},F_{1},H_{0},H_{1},H_{2},H_{3},H
 comprising two$^{19}\mathrm{F}$, seven$^{1}\mathrm{H}$, and one$^{13}\mathrm{C}$.
 
 \subsection{J-coupling matrix (Hz)}
+Something to note is that around 3.7 Tesla, zeeman frequency of hydrogen
+$\omega_{H}$, satisfies $\omega_{H}\tau_c\approx 0.1$, for $\tau_c=1e-10$ s.
+Going beyond 1 $\mu$T, the system is already in high-field limit, ramping
+up beyond 3.7 Tesla, we need to consider "dressing" of the
+jump operators due to the Zeeman Hamiltonian.
 
 Scalar couplings$J_{ij}$ in Hz, upper triangular; dots denote symmetric
-lower entries.
+lower entries. \textbf{Note:} only the upper (or lower) triangular part 
+of the matrix is used when constructed the Hamiltonian.
 \[
 J={\scriptscriptstyle \begin{pmatrix}0 & 175.91 & 0.00 & 0.11 & 0.05 & 6.66 & -0.32 & 0.05 & 11.59 & -226.85\\
 \cdot & 0 & 0.09 & -0.20 & 0.28 & 5.91 & 0.08 & -0.09 & 0.48 & -203.41\\
@@ -902,7 +1097,7 @@ J={\scriptscriptstyle \begin{pmatrix}0 & 175.91 & 0.00 & 0.11 & 0.05 & 6.66 & -0
 
 \begin{tabular}{crrr}
 \hline 
-Nucleus & $x$ (Å) & $y$ (Å) & $z$ (Å)\tabularnewline
+Nucleus & $x$ (ï¿½) & $y$ (ï¿½) & $z$ (ï¿½)\tabularnewline
 \hline 
 $F_{0}$ & 0.1666 & \textminus 1.2783 & \textminus 1.3875\tabularnewline
 $F_{1}$ & 0.9661 & \textminus 2.5748 & 0.3352\tabularnewline

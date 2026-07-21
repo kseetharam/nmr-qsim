@@ -26,7 +26,7 @@
 function [spin_system, R] = fch_triple_redfield(tau_c, B0, approx)
 
 if nargin < 1, tau_c = 1e-5;    end
-if nargin < 2, B0    = 0.0;     end
+if nargin < 2, B0    = 1e-3;     end
 if nargin < 3, approx = 'none'; end
 
 %% Locate the Gaussian log file
@@ -405,7 +405,7 @@ else
 end
 
 %% Time grid: span 10 correlation times
-t_end   = 10 * tau_c;
+t_end   = 1e11 * tau_c;
 n_steps = 500;
 t_axis  = linspace(0, t_end, n_steps);
 dt      = t_axis(2) - t_axis(1);
@@ -426,6 +426,32 @@ for k = 1:n_steps
     min_eig_rho(k) = min(real(eig(rho_H)));
     rho_t = P_step * rho_t;
 end
+
+%% Save populations for Python comparison
+%
+% Saved under zeem_dephasing/data/ with a filename that encodes B0 and tau_c.
+% Load in Python with:
+%   import scipy.io, numpy as np
+%   d = scipy.io.loadmat('spinach_pops_tc1e-05_B0.00e+00.mat')
+%   t    = d['t_axis'].ravel()           # (n_steps,) seconds
+%   pops = d['populations']              # (n_hilb, n_steps) real
+%   lbls = [str(d['state_labels'][0,n][0]) for n in range(8)]
+
+zeem_dir = fullfile(script_dir, 'zeem_dephasing', 'data');
+if ~exist(zeem_dir, 'dir'), mkdir(zeem_dir); end
+
+save_fname = fullfile(zeem_dir, ...
+    sprintf('spinach_pops_tc%.0e_B%.2e.mat', tau_c, B0));
+
+save(save_fname, ...
+    't_axis', ...       % (1 x n_steps) time axis in seconds
+    'populations', ...  % (n_hilb x n_steps) eigenbasis populations (real)
+    'min_eig_rho', ...  % (1 x n_steps) min eigenvalue of rho (positivity check)
+    'evals_hilb', ...   % (n_hilb x 1)  H_iso eigenvalues in rad/s
+    'state_labels', ... % {1 x n_hilb}  eigenstate label strings
+    'B0', 'tau_c');
+
+fprintf('Spinach populations saved -> %s\n', save_fname);
 
 %% Plot
 if t_end < 1e-6
