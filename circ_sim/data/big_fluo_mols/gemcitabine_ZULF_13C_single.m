@@ -23,13 +23,16 @@ for i=1:size(sys.isotopes,2)
         inter.coupling.scalar{i,j}=1/2*inter1.coupling.scalar{index(i),index(j)};
     end
 end
-% inter.coordinates=inter1.coordinates(index);
+for i=1:numel(index)
+    inter.coordinates{i}   = inter1.coordinates{index(i)};
+    inter.zeeman.matrix{i} = inter1.zeeman.matrix{index(i)};
+end
 
 % Basis set
 bas.formalism='sphten-liouv';
-bas.approximation='none';
-%bas.approximation = 'IK-0';
-%bas.level = 4;
+%bas.approximation='none';
+bas.approximation = 'IK-0';
+bas.level = 4;
 %bas.connectivity='scalar_couplings';
 
 % Relaxation theory parameters
@@ -70,8 +73,6 @@ for n=1:spin_system.comp.nspins
     Sz=Sz+weights(n)*operator(spin_system,{'Lz'},{n});
 end
 
-R=relaxation(spin_system);
-
 % Simulation of the single pulse experiment
 parameters.offset = 0;            % observation offset (Hz)
 parameters.sweep = 3000; % sweep width (Hz)
@@ -104,7 +105,7 @@ filename = sprintf('./gemcitabine_spin_system_IK0_4.mat');
 save(filename,'spin_system');
 
 % Save FID and spectrum for Python post-processing (scipy.io.loadmat / h5py compatible)
-zulf_data_path = '../../scripts/zulf_numerics/data/gemcitabine_ZULF_13C_fid_spectrum.mat';
+zulf_data_path = '../../scripts/zulf_numerics/data/gemcitabine_ZULF_13C_fid_spectrum_bastrunc.mat';
 spec_real = real(spectrum(k,:));
 spec_imag = imag(spectrum(k,:));
 fid_raw_real = real(fid_raw);
@@ -113,8 +114,58 @@ save(zulf_data_path, 'fid_raw_real', 'fid_raw_imag', 'spec_real', 'spec_imag', '
 
 
 
+%% === Save exact system parameters for Python Redfield verification ===
+% Extracts J-couplings, CSA tensors, and coordinates from inter1 (Gaussian output)
+% for the 10-spin subsystem [F0,F1,H0,...,H6,C0] in Python-readable .mat format.
+% Python loading: scipy.io.loadmat; 5-spin subset via IDX=[0,1,4,5,9].
+
+n_spins = numel(index);  % 10
+
+% --- J-coupling matrix (Hz, raw inter1 values — matches Python convention) ---
+% Note: inter.coupling.scalar = 0.5 * inter1, but Python's build_H_iso uses
+% H = 2pi*J*I.I where J must equal inter1 (not 0.5*inter1) to match Spinach.
+J_matrix = zeros(n_spins, n_spins);
+for ii = 1:n_spins
+    for jj = 1:n_spins
+        val = inter1.coupling.scalar{index(ii), index(jj)};
+        if ~isempty(val)
+            J_matrix(ii, jj) = val;  % raw inter1 value, no 1/2 factor
+        end
+    end
+end
+
+% --- CSA tensors (ppm, row-major flattened, shape n_spins x 9) ---
+% Python reconstruction: csa_flat[i].reshape(3,3)
+csa_flat = zeros(n_spins, 9);
+for ii = 1:n_spins
+    T = inter1.zeeman.matrix{index(ii)};
+    if ~isempty(T)
+        csa_flat(ii, :) = reshape(T', 1, 9);  % transpose first → row-major flatten
+    end
+end
+
+% --- Coordinates (Angstrom, shape n_spins x 3) ---
+coords_ang_mat = zeros(n_spins, 3);
+for ii = 1:n_spins
+    c = inter1.coordinates{index(ii)};
+    if ~isempty(c)
+        coords_ang_mat(ii, :) = c(:)';
+    end
+end
+
+% --- Gyromagnetic ratios (rad/s/T) ---
+gammas_vec = spin_system.inter.gammas(:);
+
+% --- Full Gaussian-level indices of the 10 spins (for reference) ---
+index_vec = index(:)';
+
+% Save (regular .mat for scipy.io.loadmat compatibility)
+params_path = '../../scripts/zulf_numerics/data/gemcitabine_10spin_params_exact.mat';
+save(params_path, 'J_matrix', 'csa_flat', 'coords_ang_mat', 'gammas_vec', 'index_vec');
+fprintf('Saved exact 10-spin parameters -> %s\n', params_path);
+
 % Plotting
-figure(1); hold on; 
+figure(1); hold on;
 x0 = spin('1H')*sys.magnet/(2*pi);
 xline(x0,'--','LineWidth',1.5);
 plot_1d(spin_system,real(spectrum(k,:))',parameters,'LineWidth',2); hold on;
