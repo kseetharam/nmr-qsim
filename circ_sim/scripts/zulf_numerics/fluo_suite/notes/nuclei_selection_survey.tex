@@ -1,0 +1,230 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\title{Fluo-suite nuclei-selection survey: connected-nuclei counts vs.\ dipolar cutoff}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Method}
+
+For each molecule in the fluo\_suite dataset
+(\url{circ_sim/data/fluo_suite/ORCA_NMR_summary_merged.xlsx}),
+a chemistry-constrained candidate pool is built from the full set of $^{1}$H/$^{13}$C/$^{19}$F
+nuclei as follows (see \url{circ_sim/scripts/zulf_numerics/fluo_suite/moment_convergence.py}):
+
+\begin{enumerate}
+\item \textbf{Seed}: all $^{19}$F atoms, plus a single representative carbon,
+  reflecting natural $^{13}$C abundance ($\sim$1.1\,\%): at most one carbon
+  is isotopically active in a given molecule at a time.
+\item \textbf{Candidate pool}: all non-exchangeable protons, identified as
+  H atoms with at least one 1-bond C--H coupling in the dataset (a
+  data-driven proxy for ``bonded to carbon, not to O/N''). Exchangeable
+  protons (–OH, –NH$_2$, \ldots) are excluded.
+\end{enumerate}
+
+\paragraph{Multiple fluorinated anchors.} A ``fluorinated anchor'' is a
+carbon directly (1-bond) coupled to at least one F atom. Several molecules
+in the suite contain more than one \emph{chemically separate} anchor (e.g.\
+two independent CF$_2$ or CF$_3$ groups on different rings). Since natural
+abundance only ever makes one carbon isotopically active at a time, each
+anchor is an equally valid, mutually exclusive scenario for ``which carbon
+is the $^{13}$C this time'' -- there is no principled reason to keep only
+the most strongly $J$-coupled one. When a molecule has $N\geq 1$ such
+anchors, $N$ separate versions of it are therefore carried through the rest
+of the analysis, one per anchor, labelled with a letter suffix (a, b, c,
+\ldots) ordered by decreasing cumulative $J(\mathrm{C,F})$ -- version ``a''
+reproduces the single-anchor choice used in the original (pre-versioning)
+survey. In every version the seed still contains \emph{all} $^{19}$F atoms
+in the molecule, not just the ones bonded to that version's anchor: an
+F-detected experiment observes every $^{19}$F resonance simultaneously
+regardless of which carbon happens to be $^{13}$C, so only the local
+splitting/connectivity pattern near the labelled anchor differs between
+versions, not the detection channel itself.
+
+The \emph{maximal number of chemically/NMR-relevant nuclei} for a molecule
+is the size of this constrained set (seed + candidate pool), independent of
+any distance cutoff -- the ceiling on how many nuclei could ever be
+retained under these two chemistry constraints alone.
+
+Within that constrained set, reachability from the seed is then determined
+by a combined coherent+dipolar coupling graph:
+\begin{itemize}
+\item \emph{Coherent edges}: 1-bond/2-bond $J$-couplings from the ORCA/PySCF
+  dataset, weight $2\pi|J_{ij}|$ (rad/s).
+\item \emph{Dipolar edges}: through-space coupling computed from atomic
+  coordinates for \emph{every} pair within the stated cutoff, weight
+  $b_{ij}^{2}\cdot(2\tau_c/5)$ (rad/s), with
+  $b_{ij}=-(\mu_0/4\pi)\gamma_i\gamma_j\hbar/r_{ij}^{3}$ and
+  $\tau_c=10^{-10}\,\mathrm{s}$ -- the same spectral-density prefactor used
+  in the rank-2 Lindblad jump operators elsewhere in this codebase, so the
+  two channels are combined in matched units rather than an arbitrary
+  rescaling.
+\end{itemize}
+A candidate atom is counted as \emph{connected} if there exists a path of
+nonzero-weight edges (either channel) back to the seed. This reachability
+criterion is a graph-only upper bound: it does not verify that a reachable
+atom measurably perturbs the $^{19}$F-detected signal (see the
+moment-convergence discussion in \texttt{moment\_convergence.py} for a
+tighter, dynamics-based criterion).
+
+\section{Results}
+
+Table~\ref{tab:connectivity} reports, for every molecule in the suite
+(mol4, Pibrentasvir, was not computed at the ORCA/PySCF stage and is
+omitted) and every fluorinated-anchor version thereof, the anchor carbon
+(and the F atom(s) it is 1-bond coupled to), the total number of NMR-active
+nuclei, the maximal chemistry-relevant set size, and the number of nuclei
+connected to the seed under the combined graph at cutoffs of 5.0, 3.0, 2.5,
+and 2.0\,\AA. 12 of the 21 molecules have more than one fluorinated anchor
+(up to 4, for Atogepant), giving 36 rows in total.
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}l l l r r r r r r@{}}
+\toprule
+ID & Drug name & Anchor & Total nuclei & Max relevant & \multicolumn{4}{c}{Connected nuclei} \\
+   &           &        & (H+C+F)      & (ceiling)    & 5.0\,\AA & 3.0\,\AA & 2.5\,\AA & 2.0\,\AA \\
+\midrule
+\endhead
+mol1     & Lorlatinib               & C6 (F8)                &  41 &  19 &  19 &  15 &  13 &   4 \\
+mol2a    & Voxilaprevir             & C40 (F54,F55)          &  96 &  54 &  54 &  48 &  21 &   8 \\
+mol2b    &                          & C13 (F14,F15)          &  96 &  54 &  54 &  48 &  21 &   7 \\
+mol3a    & Glecaprevir              & C18 (F19,F20)          &  88 &  48 &  48 &  44 &  26 &   7 \\
+mol3b    &                          & C37 (F38,F39)          &  88 &  48 &  48 &  44 &  30 &   7 \\
+mol5a    & Belzutifan               & C16 (F22)              &  32 &  15 &  15 &   9 &   9 &   8 \\
+mol5b    &                          & C8 (F23)               &  32 &  15 &  15 &   9 &   7 &   6 \\
+mol5c    &                          & C7 (F24)               &  32 &  15 &  15 &   9 &   7 &   7 \\
+mol6     & Pexidartinib             & C25 (F26,F27,F28)      &  38 &  17 &  17 &   9 &   5 &   4 \\
+mol7     & Tecovirimat              & C23 (F24,F25,F26)      &  37 &  18 &   8 &   8 &   5 &   4 \\
+mol8a    & Ivosidenib               & C29 (F31,F32)          &  53 &  25 &  25 &  23 &   8 &   8 \\
+mol8b    &                          & C11 (F15)              &  53 &  25 &  25 &  23 &   6 &   6 \\
+mol9a    & Tezacaftor               & C33 (F35,F36)          &  56 &  27 &  27 &  19 &   4 &   4 \\
+mol9b    &                          & C10 (F19)              &  56 &  27 &  27 &  19 &  19 &   5 \\
+mol10    & Emtricitabine            & C9 (F15)               &  19 &   9 &   9 &   9 &   9 &   3 \\
+mol11    & Gemcitabine              & C9 (F16,F17)           &  22 &  10 &  10 &  10 &   7 &   5 \\
+mol12    & Sofosbuvir               & C15 (F27)              &  52 &  28 &  28 &  21 &   9 &   7 \\
+mol13    & Tedizolid phosphate      & C13 (F30)              &  34 &  16 &  13 &   9 &   9 &   3 \\
+mol14a   & Cabotegravir             & C23 (F26)              &  38 &  18 &  18 &   8 &   5 &   5 \\
+mol14b   &                          & C21 (F27)              &  38 &  18 &  18 &   8 &   4 &   4 \\
+mol15    & Linezolid                & C13 (F23)              &  37 &  21 &  21 &  18 &  18 &   3 \\
+mol16    & Eravacycline             & C9 (F39)               &  59 &  26 &  26 &  16 &   9 &   3 \\
+mol17a   & Atogepant                & C9 (F10,F11,F12)       &  58 &  28 &  28 &  19 &  17 &   9 \\
+mol17b   &                          & C38 (F41)              &  58 &  28 &  28 &  19 &  18 &   8 \\
+mol17c   &                          & C39 (F40)              &  58 &  28 &  28 &  19 &  17 &   7 \\
+mol17d   &                          & C35 (F42)              &  58 &  28 &  28 &  19 &  18 &   8 \\
+mol18a   & Letermovir               & C8 (F9,F10,F11)        &  61 &  32 &  32 &  32 &  10 &   5 \\
+mol18b   &                          & C16 (F20)              &  61 &  32 &  32 &  32 &  11 &   6 \\
+mol19    & Siponimod                & C24 (F25,F26,F27)      &  67 &  38 &  38 &  20 &  20 &   4 \\
+mol20a   & Fluticasone furoate      & C22 (F23)              &  59 &  32 &  32 &  32 &  28 &   7 \\
+mol20b   &                          & C14 (F34)              &  59 &  32 &  32 &  32 &  28 &   9 \\
+mol20c   &                          & C6 (F36)               &  59 &  32 &  32 &  32 &  28 &   9 \\
+mol21a   & Fluocinolone acetonide   & C4 (F30)               &  56 &  31 &  31 &  31 &  31 &   6 \\
+mol21b   &                          & C20 (F29)              &  56 &  31 &  31 &  31 &  31 &   6 \\
+mol22a   & Dutasteride              & C19 (F20,F21,F22)      &  63 &  35 &  35 &  35 &  35 &   7 \\
+mol22b   &                          & C23 (F24,F25,F26)      &  63 &  35 &  35 &  35 &  35 &   7 \\
+\bottomrule
+\caption{Connected-nuclei counts under the combined coherent+dipolar graph,
+by cutoff, for every fluorinated-anchor version of every molecule in the
+suite. ``Anchor'' gives the version's 13C atom and the F atom(s) it is
+1-bond coupled to. ``Max relevant'' is the chemistry-constrained ceiling
+(seed + non-exchangeable-H candidate pool) and, like ``Total nuclei'', is
+identical across versions of the same molecule (it depends only on the
+number of F atoms and non-exchangeable H's, not on which carbon is chosen).
+At 5.0\,\AA\ the graph reaches the ceiling for most molecule/anchor
+versions; mol7 (Tecovirimat) and mol13 (Tedizolid phosphate) are exceptions
+where part of the candidate pool sits 10+\,\AA\ from the seed even at this
+cutoff (an elongated molecule with the anchor at one end and remaining
+protons on a distant ring), not a data or algorithm artifact. By 2.5\,\AA\
+the different anchors of the same molecule already start to diverge
+noticeably (e.g.\ mol9a: 4 vs.\ mol9b: 19; mol3a: 26 vs.\ mol3b: 30), well
+before either reaches its 2.0\,\AA\ value -- so 2.5\,\AA\ is where
+anchor-dependence first becomes significant, not just a smaller version of
+the 5.0\,\AA\ picture. At 2.0\,\AA\ almost all versions collapse to a small
+(3--9-nuclei) immediate neighborhood of the anchor, where different anchors
+of the same molecule continue to disagree (e.g.\ mol5: 8/6/7, mol17:
+9/8/7/8, mol20: 7/9/9) -- consistent with tight cutoffs only reaching each
+anchor's own local environment.\label{tab:connectivity}}
+\end{longtable}
+
+\section{Filtered cutoff selection}
+
+Table~\ref{tab:filtered} applies a simple rule to pick, per molecule/anchor
+version, a small pair of cutoffs to actually use rather than the full
+5.0/3.0/2.5/2.0\,\AA\ sweep: always keep 5.0\,\AA, then take the \emph{next}
+cutoff (scanning 3.0\,\AA, then 2.5\,\AA, then 2.0\,\AA) at which the
+connected-nuclei count first changes from its 5.0\,\AA\ value. If that
+changed value is $\geq 9$ it is kept as the second cutoff; if it is $<9$,
+no second cutoff is kept for that row (only 5.0\,\AA\ is reported) --
+scanning does not continue past the first change point even if a later,
+untested-in-this-rule cutoff might happen to be $\geq 9$, since the count is
+monotonically non-increasing as the cutoff tightens, so nothing later in
+the scan could exceed a value already below the floor. Rows whose
+5.0\,\AA\ count itself is $<9$ are dropped entirely, since no cutoff in the
+sweep could satisfy the floor -- this removes mol7 (Tecovirimat: 8 at
+5.0\,\AA\ already), leaving 35 of the 36 rows.
+
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}l l l r r r r@{}}
+\toprule
+ID & Drug name & Anchor & Total nuclei & Connected & Second & Connected \\
+   &           &        & (H+C+F)      & @5.0\,\AA & cutoff (\AA) & @second cutoff \\
+\midrule
+\endhead
+mol1     & Lorlatinib               & C6 (F8)                &  41 &  19 & 3.0  &  15 \\
+mol2a    & Voxilaprevir             & C40 (F54,F55)          &  96 &  54 & 3.0  &  48 \\
+mol2b    &                          & C13 (F14,F15)          &  96 &  54 & 3.0  &  48 \\
+mol3a    & Glecaprevir              & C18 (F19,F20)          &  88 &  48 & 3.0  &  44 \\
+mol3b    &                          & C37 (F38,F39)          &  88 &  48 & 3.0  &  44 \\
+mol5a    & Belzutifan               & C16 (F22)              &  32 &  15 & 3.0  &   9 \\
+mol5b    &                          & C8 (F23)               &  32 &  15 & 3.0  &   9 \\
+mol5c    &                          & C7 (F24)               &  32 &  15 & 3.0  &   9 \\
+mol6     & Pexidartinib             & C25 (F26,F27,F28)      &  38 &  17 & 3.0  &   9 \\
+mol8a    & Ivosidenib               & C29 (F31,F32)          &  53 &  25 & 3.0  &  23 \\
+mol8b    &                          & C11 (F15)              &  53 &  25 & 3.0  &  23 \\
+mol9a    & Tezacaftor               & C33 (F35,F36)          &  56 &  27 & 3.0  &  19 \\
+mol9b    &                          & C10 (F19)              &  56 &  27 & 3.0  &  19 \\
+mol10    & Emtricitabine            & C9 (F15)               &  19 &   9 & --   &  -- \\
+mol11    & Gemcitabine              & C9 (F16,F17)           &  22 &  10 & --   &  -- \\
+mol12    & Sofosbuvir               & C15 (F27)              &  52 &  28 & 3.0  &  21 \\
+mol13    & Tedizolid phosphate      & C13 (F30)              &  34 &  13 & 3.0  &   9 \\
+mol14a   & Cabotegravir             & C23 (F26)              &  38 &  18 & --   &  -- \\
+mol14b   &                          & C21 (F27)              &  38 &  18 & --   &  -- \\
+mol15    & Linezolid                & C13 (F23)              &  37 &  21 & 3.0  &  18 \\
+mol16    & Eravacycline             & C9 (F39)               &  59 &  26 & 3.0  &  16 \\
+mol17a   & Atogepant                & C9 (F10,F11,F12)       &  58 &  28 & 3.0  &  19 \\
+mol17b   &                          & C38 (F41)              &  58 &  28 & 3.0  &  19 \\
+mol17c   &                          & C39 (F40)              &  58 &  28 & 3.0  &  19 \\
+mol17d   &                          & C35 (F42)              &  58 &  28 & 3.0  &  19 \\
+mol18a   & Letermovir               & C8 (F9,F10,F11)        &  61 &  32 & 2.5  &  10 \\
+mol18b   &                          & C16 (F20)              &  61 &  32 & 2.5  &  11 \\
+mol19    & Siponimod                & C24 (F25,F26,F27)      &  67 &  38 & 3.0  &  20 \\
+mol20a   & Fluticasone furoate      & C22 (F23)              &  59 &  32 & 2.5  &  28 \\
+mol20b   &                          & C14 (F34)              &  59 &  32 & 2.5  &  28 \\
+mol20c   &                          & C6 (F36)               &  59 &  32 & 2.5  &  28 \\
+mol21a   & Fluocinolone acetonide   & C4 (F30)               &  56 &  31 & --   &  -- \\
+mol21b   &                          & C20 (F29)              &  56 &  31 & --   &  -- \\
+mol22a   & Dutasteride              & C19 (F20,F21,F22)      &  63 &  35 & --   &  -- \\
+mol22b   &                          & C23 (F24,F25,F26)      &  63 &  35 & --   &  -- \\
+\bottomrule
+\caption{Filtered cutoff selection: 5.0\,\AA\ plus the next cutoff at which
+the connected-nuclei count changes, subject to a floor of 9 nuclei (see
+text). ``--'' means no second cutoff qualifies: either the count never
+changes down to 2.0\,\AA\ (mol10, mol11, mol14a/b), or the first change
+already drops to or below the floor (mol21a/b at 2.0\,\AA\ goes to 6;
+mol22a/b to 7). For most rows the qualifying second cutoff is 3.0\,\AA;
+mol18a/b and mol20a/b/c are the only rows where the count survives
+unchanged through 3.0\,\AA\ and only breaks at
+2.5\,\AA.\label{tab:filtered}}
+\end{longtable}
+
+\end{document}
