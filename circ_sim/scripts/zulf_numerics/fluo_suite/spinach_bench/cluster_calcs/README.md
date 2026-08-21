@@ -67,14 +67,22 @@ export_spinach_inputs.py  -->  inputs/<label>_spinach_input.mat  -->  run_spinac
   SPINACH_PATH=/path/to/spinach MATLAB_MODULE=matlab/R2022b sbatch submit_spinach_bench_array.sh
   ```
 
+  Run `sbatch` from *inside* this directory (`cluster_calcs/`) -- the
+  `#SBATCH --output`/`--error` paths are relative to wherever `sbatch` is
+  invoked, since SLURM resolves them before the script body's own `cd`
+  runs.
+
 - **`run_spinach_zulf.m` has not been run yet** -- it closely follows the
   two Spinach ZULF scripts already validated in this repo, but there was
   no MATLAB/Spinach available to test it while writing it. Worth a single
   interactive/foreground run of one task before submitting the full array,
-  e.g.:
+  e.g. (run from inside `cluster_calcs/`, and note the explicit `addpath`
+  for this directory itself -- MATLAB's "current folder is implicitly on
+  the path" behavior isn't reliable under every cluster's `matlab`
+  wrapper/module, so don't drop it):
 
   ```bash
-  matlab -batch "addpath(genpath('/path/to/spinach')); run_spinach_zulf('mol13_3.0A', 5)"
+  matlab -batch "addpath(pwd); addpath(genpath('/path/to/spinach')); run_spinach_zulf('mol13_3.0A', 5)"
   ```
 
 - The `--time`/`--mem`/`--cpus-per-task` in `submit_spinach_bench_array.sh`

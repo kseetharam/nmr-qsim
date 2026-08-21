@@ -15,7 +15,11 @@
 #      toolbox root (the directory containing interfaces/, kernel/, etc.)
 #      and MATLAB_MODULE to the module name for `module load`.
 #
-# Usage:
+# Usage (run sbatch FROM this directory -- the #SBATCH --output/--error
+# paths below are relative to wherever `sbatch` is invoked, not to this
+# script's own location, since SLURM resolves them before the script body
+# runs):
+#   cd circ_sim/scripts/zulf_numerics/fluo_suite/spinach_bench/cluster_calcs
 #   SPINACH_PATH=/path/to/spinach MATLAB_MODULE=matlab/R2022b sbatch submit_spinach_bench_array.sh
 #
 # Each array task builds one (molecule, basis-level) system (9-11 spins;
@@ -34,8 +38,15 @@
 #SBATCH --error=logs/spinach_bench_%A_%a.err
 
 set -euo pipefail
-mkdir -p logs
-cd "$(dirname "${BASH_SOURCE[0]}")"
+
+# Resolve to an ABSOLUTE path: don't rely on MATLAB's "current folder is
+# implicitly on the path" behavior, since some cluster `matlab` wrappers
+# (module-provided launch scripts) start in a different working directory
+# regardless of this shell's cwd -- that mismatch is what caused
+# "Undefined function 'run_spinach_zulf'" the first time this was run.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+mkdir -p "$SCRIPT_DIR/logs"
 
 # --- cluster-specific config: fill these in for your environment ---
 SPINACH_PATH="${SPINACH_PATH:-/path/to/spinach}"
@@ -54,4 +65,4 @@ BAS_LEVEL="${BAS_LEVELS[$lvl_idx]}"
 
 echo "Task $SLURM_ARRAY_TASK_ID -> mol_label=$MOL_LABEL, bas_level=$BAS_LEVEL"
 
-matlab -batch "addpath(genpath('$SPINACH_PATH')); run_spinach_zulf('$MOL_LABEL', $BAS_LEVEL)"
+matlab -batch "addpath('$SCRIPT_DIR'); addpath(genpath('$SPINACH_PATH')); run_spinach_zulf('$MOL_LABEL', $BAS_LEVEL)"
