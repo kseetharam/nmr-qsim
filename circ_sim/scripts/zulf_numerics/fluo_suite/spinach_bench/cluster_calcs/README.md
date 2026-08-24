@@ -19,6 +19,20 @@ methods stay tractable) x 3 IK-0 basis-truncation levels each = 21 runs.
 | `mol18a_2.5A` | Letermovir | 2.5 Å | 10 |
 | `mol18b_2.5A` | Letermovir | 2.5 Å | 11 |
 
+## Run status / second pass
+
+First run (`submit_spinach_bench_array.sh`, levels 5-7, `--mem=16G`):
+only the five 9-spin systems at level 5 completed. Levels 6-7 on those
+same systems, and every level on the two 10-/11-spin Letermovir systems,
+hit memory limits.
+
+`submit_spinach_bench_array_lvl456.sh` re-targets levels **4, 5, 6**
+instead, at a bumped (still unbenchmarked) `--mem=64G`/`--time=04:00:00`,
+and explicitly omits the 5 combinations that already succeeded (level 5
+on `mol5a/b/c_3.0A`, `mol6_3.0A`, `mol13_3.0A`) -- 16 tasks, not the full
+7 x 3 = 21. See that script's header comment for the exact task list and
+usage.
+
 These are each molecule's Table-2 ("Filtered cutoff selection") *second*
 cutoff, not the default 5.0 Å -- the smaller, tighter-cutoff atom subset.
 `bas.level` (Spinach's IK-0 restricted-Liouville-space truncation order)
